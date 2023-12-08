@@ -22,6 +22,8 @@ $(CLIENT_NAME):
 
 
 all: $(CLIENT_NAME) $(SERVER_NAME)
+	mv src/Server/$(SERVER_NAME) .
+	mv src/Client/$(CLIENT_NAME) .
 
 clean:
 	@make clean -C src/Server
