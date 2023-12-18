@@ -59,17 +59,34 @@ void position_system(Registry &reg) {
 void draw_system(Registry &reg, sf::RenderWindow &window) {
     auto &position = reg.get_components<Position>();
     auto &drawable = reg.get_components<Drawanle>();
-
+    
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
         if (position[i] && drawable[i]) {
-            drawable[i]->shape.setPosition(position[i]->x, position[i]->y);
-            window.draw(drawable[i]->shape);
+            if (drawable[i]->isSprite)
+                window.draw(drawable[i]->sprites);
+            else {
+                drawable[i]->shape.setPosition(position[i]->x, position[i]->y);
+                window.draw(drawable[i]->shape);
+            }
         }
     }
 }
 
 void Window::startProject()
 {
+    if (!background.loadFromFile("includes/assets/Space.png"))
+        std::cout << "Error" << std::endl;
+    sprite[0].setTexture(background);
+    sprite[0].setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+    sprite[0].setPosition(sf::Vector2f(0, 0));
+    sprite[1].setTexture(background);
+    sprite[1].setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+    sprite[1].setPosition(sf::Vector2f(1920, 0));
+    sprite[2].setTexture(background);
+    sprite[2].setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+    sprite[2].setPosition(sf::Vector2f(-1920, 0));
+
+
     ally.register_component<Position>();
     ally.register_component<Velocity>();
     ally.register_component<Controllable>();
@@ -91,6 +108,11 @@ void Window::startProject()
         draw_system(r, _window);
     });
 
+    auto entityAllys = ally.spawn_entity();
+    ally.add_component(entityAllys, Drawanle(sprite[0]));
+    ally.add_component(entityAllys, Drawanle(sprite[1]));
+    ally.add_component(entityAllys, Drawanle(sprite[2]));
+
     auto entityAlly = ally.spawn_entity();
 
     ally.add_component(entityAlly, Position{500, 500});
@@ -103,7 +125,20 @@ void Window::startProject()
             if (_event.type == sf::Event::Closed)
                 _window.close();
         }
+        sprite[0].move(-0.1, 0);
+        sprite[1].move(-0.1, 0);
+        sprite[2].move(-0.1, 0);
+        if (sprite[0].getPosition().x <= -1920)
+            sprite[0].setPosition(sf::Vector2f(0, 0));
+        if (sprite[1].getPosition().x <= -1920)
+            sprite[1].setPosition(sf::Vector2f(1920, 0));
+        if (sprite[2].getPosition().x <= -1920)
+            sprite[2].setPosition(sf::Vector2f(3840, 0));
+
         _window.clear();
+        _window.draw(sprite[0]);
+        _window.draw(sprite[1]);
+        _window.draw(sprite[2]);
         draw_system(ally, _window);
         ally.run_systems();
         _window.display();

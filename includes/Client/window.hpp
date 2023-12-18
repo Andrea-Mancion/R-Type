@@ -28,6 +28,8 @@ class Window {
         Registry ally;
         Registry enemy;
         sf::Event _event;
+        sf::Texture background;
+        sf::Sprite sprite[3];
 };
 
 
