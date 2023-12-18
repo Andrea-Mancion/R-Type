@@ -16,7 +16,7 @@ NAME	=	r-type_client
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	g++ -o $(NAME) -I include $(SRC) $(CFLAGS)
+	g++ -o $(NAME) -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -I include $(SRC) $(CFLAGS)
 	rm -f $(OBJ)
 
 clean:
