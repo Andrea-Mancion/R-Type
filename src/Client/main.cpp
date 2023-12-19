@@ -12,7 +12,7 @@ void logging_system(Registry &reg, sparse_array<Position> const &position, spars
         if (position[i] && velocity[i]) {
             auto &pos = position[i].value();
             auto &vel = velocity[i].value();
-            //std::cout << "Entity " << i << " is at " << pos.x << ", " << pos.y << " with velocity " << vel.dx << ", " << vel.dy << std::endl;
+            std::cout << "Entity " << i << " is at " << pos.x << ", " << pos.y << " with velocity " << vel.dx << ", " << vel.dy << std::endl;
         }
     }
 }
@@ -50,8 +50,7 @@ void position_system(Registry &reg) {
 
     for (size_t i = 0; i < position.size() && i < velocity.size(); ++i) {
         if (position[i] && velocity[i]) {
-            std::cout << "Entity " << i << " is at " << position[i]->x << ", " << position[i]->y << std::endl;
-            if (position[i]->x >= 2081)
+            if (position[i]->x <= -150 || position[i]->x >= 2081)
                 reg.kill_entity(reg.entity_from_index(i));
             position[i]->x += velocity[i]->dx;
             position[i]->y += velocity[i]->dy;
@@ -80,7 +79,7 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
     }
 }
 
-void Window::startProject()
+void Window::loadSprites() 
 {
     if (!background.loadFromFile("includes/assets/Space.png"))
         std::cout << "Error" << std::endl;
@@ -100,12 +99,26 @@ void Window::startProject()
     spriteShip.setTextureRect(sf::IntRect(33, 0, 33, 17));
     spriteShip.setScale(sf::Vector2f(3, 3));
 
+    if (!textEnemy.loadFromFile("includes/assets/sprites/r-typesheet14.gif"))
+        std::cout << "Error" << std::endl;
+    spriteEnemy.setTexture(textEnemy);
+    spriteEnemy.setTextureRect(sf::IntRect(0, 0, 50, 50));
+    spriteEnemy.setScale(sf::Vector2f(3, 3));
+}
 
+void Window::startProject()
+{
+    loadSprites();
     ally.register_component<Position>();
     ally.register_component<Velocity>();
     ally.register_component<Controllable>();
     ally.register_component<BulletTag>();
     ally.register_component<Drawanle>();
+
+    enemy.register_component<Position>();
+    enemy.register_component<Velocity>();
+    enemy.register_component<BulletTag>();
+    enemy.register_component<Drawanle>();
 
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
         logging_system(r, position, velocity);
@@ -123,6 +136,18 @@ void Window::startProject()
         draw_system(r, _window);
     });
 
+    enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        logging_system(r, position, velocity);
+    });
+
+    enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        position_system(r);
+    });
+
+    enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        draw_system(r, _window);
+    });
+
     auto entityAlly = ally.spawn_entity();
 
     ally.add_component(entityAlly, Position{500, 500});
@@ -130,6 +155,16 @@ void Window::startProject()
     ally.add_component(entityAlly, Controllable{});
     ally.add_component(entityAlly, BulletTag{false});
     ally.add_component(entityAlly, Drawanle{spriteShip});
+
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<> dist(-16, 959);
+
+    auto entityEnemy = enemy.spawn_entity();
+
+    enemy.add_component(entityEnemy, Position{1900, static_cast<float>(dist(mt))});
+    enemy.add_component(entityEnemy, Velocity{-0.6, 0});
+    enemy.add_component(entityEnemy, BulletTag{false});
+    enemy.add_component(entityEnemy, Drawanle{spriteEnemy});
 
     while (_window.isOpen()) {
         eventHandler();
@@ -147,8 +182,8 @@ void Window::startProject()
         _window.draw(sprite[0]);
         _window.draw(sprite[1]);
         _window.draw(sprite[2]);
-        draw_system(ally, _window);
         ally.run_systems();
+        enemy.run_systems();
         _window.display();
     }
 }

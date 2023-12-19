@@ -12,6 +12,7 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
+#include <random>
 #include "step.hpp"
 
 #ifndef WINDOW_HPP_
@@ -24,6 +25,7 @@ class Window {
         void startProject();
         void eventHandler();
         void shootBullet();
+        void loadSprites();
 
     private:
         sf::RenderWindow _window;
@@ -36,6 +38,11 @@ class Window {
         sf::Sprite spriteShip;
         sf::Texture textBullet;
         sf::Sprite spriteBullet;
+        sf::Texture textEnemy;
+        sf::Sprite spriteEnemy;
+        sf::Texture textEnemyBullet;
+        sf::Sprite spriteEnemyBullet;
+        std::random_device rd;
 };
 
 
