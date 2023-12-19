@@ -39,6 +39,12 @@ struct BulletTag {
     BulletTag(bool isBullet) : isBullet(isBullet) {}
 };
 
+struct EnemyTag {
+    bool isEnemy;
+
+    EnemyTag(bool isEnemy) : isEnemy(isEnemy) {}
+};
+
 struct Timer {
     float elapsedTime = 0.0f;
     float shootInterval;

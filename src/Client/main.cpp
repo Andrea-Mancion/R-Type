@@ -60,11 +60,17 @@ void control_system(Registry &reg) {
 void position_system(Registry &reg) {
     auto &position = reg.get_components<Position>();
     auto &velocity = reg.get_components<Velocity>();
+    auto &bullet = reg.get_components<BulletTag>();
+    auto &enemy = reg.get_components<EnemyTag>();
 
     for (size_t i = 0; i < position.size() && i < velocity.size(); ++i) {
         if (position[i] && velocity[i]) {
-            if (position[i]->x <= -150 || position[i]->x >= 2081)
+            if ((position[i]->x <= -150 || position[i]->x >= 2081) && bullet[i]->isBullet)
                 reg.kill_entity(reg.entity_from_index(i));
+            else if ((position[i]->x <= -150 || position[i]->x >= 2081) && enemy[i]->isEnemy)
+                position[i]->x = 1900;
+            else if (position[i]->x <= -150 || position[i]->x >= 2081)
+                position[i]->x = 500;
             position[i]->x += velocity[i]->dx;
             position[i]->y += velocity[i]->dy;
         }
@@ -127,12 +133,14 @@ void Window::startProject()
     ally.register_component<Controllable>();
     ally.register_component<BulletTag>();
     ally.register_component<Timer>();
+    ally.register_component<EnemyTag>();
     ally.register_component<Drawanle>();
 
     enemy.register_component<Position>();
     enemy.register_component<Velocity>();
     enemy.register_component<BulletTag>();
     enemy.register_component<Timer>();
+    enemy.register_component<EnemyTag>();
     enemy.register_component<Drawanle>();
 
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
@@ -170,6 +178,7 @@ void Window::startProject()
     ally.add_component(entityAlly, Controllable{});
     ally.add_component(entityAlly, BulletTag{false});
     ally.add_component(entityAlly, Timer{0.0f});
+    ally.add_component(entityAlly, EnemyTag{false});
     ally.add_component(entityAlly, Drawanle{spriteShip});
 
     std::mt19937 mt(rd());
@@ -181,6 +190,7 @@ void Window::startProject()
     enemy.add_component(entityEnemy, Velocity{-0.4, 0});
     enemy.add_component(entityEnemy, BulletTag{false});
     enemy.add_component(entityEnemy, Timer{0.0f});
+    enemy.add_component(entityEnemy, EnemyTag{true});
     enemy.add_component(entityEnemy, Drawanle{spriteEnemy});
 
     while (_window.isOpen()) {

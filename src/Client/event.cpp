@@ -45,7 +45,7 @@ void Window::eventHandler()
 
 void Window::spawn_entity() 
 {
-    if (activeEnnemy < maxEnnemy) {
+    for (int i = 0; i < currentRound * 5; ++i) {
         std::random_device random;
         std::mt19937 gen(random());
         std::uniform_int_distribution<> dis(-16, 959);
@@ -56,8 +56,8 @@ void Window::spawn_entity()
         enemy.add_component(entityEnnemy, Velocity{-0.4, 0});
         enemy.add_component(entityEnnemy, BulletTag{false});
         enemy.add_component(entityEnnemy, Timer{shootDis(gen)});
+        enemy.add_component(entityEnnemy, EnemyTag{true});
         enemy.add_component(entityEnnemy, Drawanle{spriteEnemy});
-
-        activeEnnemy++;
     }
+    activeEnnemy = currentRound * 5;
 }

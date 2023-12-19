@@ -32,6 +32,7 @@ class Window {
         bool isAnyAllyShipLeft() const;
         void update_enemy_shooting(float dt);
         void shootEnemyBullet(int i, float x, float y);
+        void startNextRound();
 
     private:
         sf::RenderWindow _window;
@@ -50,8 +51,9 @@ class Window {
         sf::Sprite spriteEnemyBullet;
         std::random_device rd;
         int activeAlly = 0;
+        int currentRound = 1;
         int activeEnnemy = 0;
-        const int maxEnnemy = 5;
+        int maxEnnemyKilled = 0;
         sf::Clock clock;
 };
 
