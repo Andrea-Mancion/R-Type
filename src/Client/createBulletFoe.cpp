@@ -44,9 +44,6 @@ void Window::update_enemy_shooting(float dt)
                 std::uniform_real_distribution<float> shootDis(0.0f, 5.0f);
                 timer->shootInterval = shootDis(rd);
             }
-        } else if (!position[i])
-            std::cout << "Entity " << i << " missing position component" << std::endl;
-        else if (!timers[i])
-            std::cout << "Entity " << i << " missing timer component" << std::endl;
+        }
     } 
 }
