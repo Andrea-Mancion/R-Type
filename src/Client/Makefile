@@ -7,7 +7,8 @@
 
 DIRS	=	*
 
-SRC =	main.cpp
+SRC =	event.cpp	\
+		main.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
 

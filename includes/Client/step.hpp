@@ -30,12 +30,7 @@ struct Controllable {
 };
 
 struct Drawanle {
-    sf::RectangleShape shape;
     sf::Sprite sprites;
-    bool isSprite;
-
-    Drawanle(sf::RectangleShape shape) : shape(shape), isSprite(false) {}
-    Drawanle(sf::Sprite sprite) : sprites(sprite), isSprite(true) {}
 };
 
 class entity {

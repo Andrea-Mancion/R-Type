@@ -62,12 +62,8 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
     
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
         if (position[i] && drawable[i]) {
-            if (drawable[i]->isSprite)
-                window.draw(drawable[i]->sprites);
-            else {
-                drawable[i]->shape.setPosition(position[i]->x, position[i]->y);
-                window.draw(drawable[i]->shape);
-            }
+            drawable[i]->sprites.setPosition(position[i]->x, position[i]->y);
+            window.draw(drawable[i]->sprites);
         }
     }
 }
@@ -86,6 +82,11 @@ void Window::startProject()
     sprite[2].setTextureRect(sf::IntRect(0, 0, 1920, 1080));
     sprite[2].setPosition(sf::Vector2f(-1920, 0));
 
+    if (!textSprite.loadFromFile("includes/assets/sprites/r-typesheet27.gif"))
+        std::cout << "Error" << std::endl;
+    spriteShip.setTexture(textSprite);
+    spriteShip.setTextureRect(sf::IntRect(33, 0, 33, 17));
+    spriteShip.setScale(sf::Vector2f(3, 3));
 
     ally.register_component<Position>();
     ally.register_component<Velocity>();
@@ -108,23 +109,15 @@ void Window::startProject()
         draw_system(r, _window);
     });
 
-    auto entityAllys = ally.spawn_entity();
-    ally.add_component(entityAllys, Drawanle(sprite[0]));
-    ally.add_component(entityAllys, Drawanle(sprite[1]));
-    ally.add_component(entityAllys, Drawanle(sprite[2]));
-
     auto entityAlly = ally.spawn_entity();
 
     ally.add_component(entityAlly, Position{500, 500});
     ally.add_component(entityAlly, Velocity{0, 0});
     ally.add_component(entityAlly, Controllable{});
-    ally.add_component(entityAlly, Drawanle{sf::RectangleShape(sf::Vector2f(100, 100))});
+    ally.add_component(entityAlly, Drawanle{spriteShip});
 
     while (_window.isOpen()) {
-        while (_window.pollEvent(_event)) {
-            if (_event.type == sf::Event::Closed)
-                _window.close();
-        }
+        eventHandler();
         sprite[0].move(-0.1, 0);
         sprite[1].move(-0.1, 0);
         sprite[2].move(-0.1, 0);

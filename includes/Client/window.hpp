@@ -22,6 +22,7 @@ class Window {
         Window();
         ~Window() = default;
         void startProject();
+        void eventHandler();
 
     private:
         sf::RenderWindow _window;
@@ -30,6 +31,8 @@ class Window {
         sf::Event _event;
         sf::Texture background;
         sf::Sprite sprite[3];
+        sf::Texture textSprite;
+        sf::Sprite spriteShip;
 };
 
 
