@@ -8,6 +8,7 @@
 DIRS	=	*
 
 SRC =	event.cpp	\
+		collision.cpp	\
 		main.cpp
 
 OBJ	=	$(SRC:.cpp=.o)

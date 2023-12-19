@@ -45,5 +45,7 @@ class Window {
         std::random_device rd;
 };
 
+void checkCollision(Registry &ally, Registry &enemy);
+
 
 #endif /* !WINDOW_HPP_ */

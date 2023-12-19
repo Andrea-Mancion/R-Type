@@ -12,7 +12,7 @@ void logging_system(Registry &reg, sparse_array<Position> const &position, spars
         if (position[i] && velocity[i]) {
             auto &pos = position[i].value();
             auto &vel = velocity[i].value();
-            std::cout << "Entity " << i << " is at " << pos.x << ", " << pos.y << " with velocity " << vel.dx << ", " << vel.dy << std::endl;
+            //std::cout << "Entity " << i << " is at " << pos.x << ", " << pos.y << " with velocity " << vel.dx << ", " << vel.dy << std::endl;
         }
     }
 }
@@ -184,6 +184,7 @@ void Window::startProject()
         _window.draw(sprite[2]);
         ally.run_systems();
         enemy.run_systems();
+        checkCollision(ally, enemy);
         _window.display();
     }
 }
