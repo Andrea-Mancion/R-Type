@@ -6,6 +6,19 @@ Window::Window()
     _window.create(sf::VideoMode(1920, 1080), "R-Type");
 }
 
+bool Window::isAnyAllyShipLeft() const
+{
+    auto &position = ally.get_components<Position>();
+    int count = 0;
+
+    for (std::size_t i = 0; i < position.size(); i++) {
+        if (position[i])
+            count++;
+    }
+
+    return count > 0;
+}
+
 void logging_system(Registry &reg, sparse_array<Position> const &position, sparse_array<Velocity> const &velocity)
 {
     for (size_t i = 0; i < position.size() && i < velocity.size(); ++i) {
@@ -162,12 +175,16 @@ void Window::startProject()
     auto entityEnemy = enemy.spawn_entity();
 
     enemy.add_component(entityEnemy, Position{1900, static_cast<float>(dist(mt))});
-    enemy.add_component(entityEnemy, Velocity{-0.6, 0});
+    enemy.add_component(entityEnemy, Velocity{-0.4, 0});
     enemy.add_component(entityEnemy, BulletTag{false});
     enemy.add_component(entityEnemy, Drawanle{spriteEnemy});
 
     while (_window.isOpen()) {
         eventHandler();
+        if (!isAnyAllyShipLeft()) {
+            std::cout << "Oh no you're dead Game Over" << std::endl;
+            _window.close();
+        }
         sprite[0].move(-0.1, 0);
         sprite[1].move(-0.1, 0);
         sprite[2].move(-0.1, 0);
@@ -184,7 +201,7 @@ void Window::startProject()
         _window.draw(sprite[2]);
         ally.run_systems();
         enemy.run_systems();
-        checkCollision(ally, enemy);
+        checkCollision();
         _window.display();
     }
 }

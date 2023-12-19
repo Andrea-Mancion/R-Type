@@ -26,6 +26,9 @@ class Window {
         void eventHandler();
         void shootBullet();
         void loadSprites();
+        void spawn_entity();
+        void checkCollision();
+        bool isAnyAllyShipLeft() const;
 
     private:
         sf::RenderWindow _window;
@@ -43,9 +46,9 @@ class Window {
         sf::Texture textEnemyBullet;
         sf::Sprite spriteEnemyBullet;
         std::random_device rd;
+        int activeAlly = 0;
+        int activeEnnemy = 0;
+        const int maxEnnemy = 5;
 };
-
-void checkCollision(Registry &ally, Registry &enemy);
-
 
 #endif /* !WINDOW_HPP_ */

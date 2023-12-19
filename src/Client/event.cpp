@@ -42,3 +42,20 @@ void Window::eventHandler()
         }
     }
 }
+
+void Window::spawn_entity() 
+{
+    if (activeEnnemy < maxEnnemy) {
+        std::random_device random;
+        std::mt19937 gen(random());
+        std::uniform_int_distribution<> dis(-16, 959);
+
+        auto entityEnnemy = enemy.spawn_entity();
+        enemy.add_component(entityEnnemy, Position{1900, static_cast<float>(dis(gen))});
+        enemy.add_component(entityEnnemy, Velocity{-0.4, 0});
+        enemy.add_component(entityEnnemy, BulletTag{false});
+        enemy.add_component(entityEnnemy, Drawanle{spriteEnemy});
+
+        activeEnnemy++;
+    }
+}
