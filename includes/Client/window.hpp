@@ -23,6 +23,7 @@ class Window {
         ~Window() = default;
         void startProject();
         void eventHandler();
+        void shootBullet();
 
     private:
         sf::RenderWindow _window;
@@ -33,6 +34,8 @@ class Window {
         sf::Sprite sprite[3];
         sf::Texture textSprite;
         sf::Sprite spriteShip;
+        sf::Texture textBullet;
+        sf::Sprite spriteBullet;
 };
 
 

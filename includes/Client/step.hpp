@@ -253,7 +253,9 @@ class Registry {
         };
         entity spawn_entity() {
             static size_t next_id = 0;
-            return entity(next_id++);
+            entity e(next_id++);
+            std::cout << "Spawn entity " << e << std::endl;
+            return e;
         };
         entity entity_from_index ( std :: size_t idx ) {
             return entity(idx);
@@ -266,7 +268,9 @@ class Registry {
         template <typename Component >
         typename sparse_array < Component >:: reference_type add_component ( entity const & to,Component && c ) {
             auto & array = get_components < Component >() ;
-            return array.insert_at( static_cast < std :: size_t >( to ) , std :: move ( c ) ) ;
+            auto &count = array.insert_at( static_cast < std :: size_t >( to ) , std :: move ( c ) ) ;
+            std::cout << "Added component to entity " << to << std::endl;
+            return count;
         };
         template <typename Component , typename ... Params >
         typename sparse_array < Component >:: reference_type emplace_component ( entity const & to, Params &&... p ) {
