@@ -126,11 +126,13 @@ void Window::startProject()
     ally.register_component<Velocity>();
     ally.register_component<Controllable>();
     ally.register_component<BulletTag>();
+    ally.register_component<Timer>();
     ally.register_component<Drawanle>();
 
     enemy.register_component<Position>();
     enemy.register_component<Velocity>();
     enemy.register_component<BulletTag>();
+    enemy.register_component<Timer>();
     enemy.register_component<Drawanle>();
 
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
@@ -167,6 +169,7 @@ void Window::startProject()
     ally.add_component(entityAlly, Velocity{0, 0});
     ally.add_component(entityAlly, Controllable{});
     ally.add_component(entityAlly, BulletTag{false});
+    ally.add_component(entityAlly, Timer{0.0f});
     ally.add_component(entityAlly, Drawanle{spriteShip});
 
     std::mt19937 mt(rd());
@@ -177,9 +180,11 @@ void Window::startProject()
     enemy.add_component(entityEnemy, Position{1900, static_cast<float>(dist(mt))});
     enemy.add_component(entityEnemy, Velocity{-0.4, 0});
     enemy.add_component(entityEnemy, BulletTag{false});
+    enemy.add_component(entityEnemy, Timer{0.0f});
     enemy.add_component(entityEnemy, Drawanle{spriteEnemy});
 
     while (_window.isOpen()) {
+        float time = clock.restart().asSeconds();
         eventHandler();
         if (!isAnyAllyShipLeft()) {
             std::cout << "Oh no you're dead Game Over" << std::endl;
@@ -201,6 +206,7 @@ void Window::startProject()
         _window.draw(sprite[2]);
         ally.run_systems();
         enemy.run_systems();
+        update_enemy_shooting(time);
         checkCollision();
         _window.display();
     }

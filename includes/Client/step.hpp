@@ -39,6 +39,13 @@ struct BulletTag {
     BulletTag(bool isBullet) : isBullet(isBullet) {}
 };
 
+struct Timer {
+    float elapsedTime = 0.0f;
+    float shootInterval;
+
+    Timer(float interval) : shootInterval(interval) {}
+};
+
 class entity {
     friend class Registry;
 

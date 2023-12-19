@@ -11,6 +11,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Keyboard.hpp>
+#include <SFML/System/Clock.hpp>
 #include <iostream>
 #include <random>
 #include "step.hpp"
@@ -29,6 +30,8 @@ class Window {
         void spawn_entity();
         void checkCollision();
         bool isAnyAllyShipLeft() const;
+        void update_enemy_shooting(float dt);
+        void shootEnemyBullet(int i, float x, float y);
 
     private:
         sf::RenderWindow _window;
@@ -49,6 +52,7 @@ class Window {
         int activeAlly = 0;
         int activeEnnemy = 0;
         const int maxEnnemy = 5;
+        sf::Clock clock;
 };
 
 #endif /* !WINDOW_HPP_ */

@@ -49,11 +49,13 @@ void Window::spawn_entity()
         std::random_device random;
         std::mt19937 gen(random());
         std::uniform_int_distribution<> dis(-16, 959);
+        std::uniform_real_distribution<float> shootDis(0.0f, 5.0f);
 
         auto entityEnnemy = enemy.spawn_entity();
         enemy.add_component(entityEnnemy, Position{1900, static_cast<float>(dis(gen))});
         enemy.add_component(entityEnnemy, Velocity{-0.4, 0});
         enemy.add_component(entityEnnemy, BulletTag{false});
+        enemy.add_component(entityEnnemy, Timer{shootDis(gen)});
         enemy.add_component(entityEnnemy, Drawanle{spriteEnemy});
 
         activeEnnemy++;
