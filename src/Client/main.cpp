@@ -62,9 +62,18 @@ void position_system(Registry &reg) {
 void draw_system(Registry &reg, sf::RenderWindow &window) {
     auto &position = reg.get_components<Position>();
     auto &drawable = reg.get_components<Drawanle>();
+    auto &bullet = reg.get_components<BulletTag>();
     
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
         if (position[i] && drawable[i]) {
+            if (bullet[i]->isBullet) {
+                auto rect = drawable[i]->sprites.getTextureRect();
+                if (rect.left >= 204)
+                    rect.left = 0;
+                else
+                    rect.left += 17;
+                drawable[i]->sprites.setTextureRect(rect);
+            }
             drawable[i]->sprites.setPosition(position[i]->x, position[i]->y);
             window.draw(drawable[i]->sprites);
         }
@@ -91,9 +100,11 @@ void Window::startProject()
     spriteShip.setTextureRect(sf::IntRect(33, 0, 33, 17));
     spriteShip.setScale(sf::Vector2f(3, 3));
 
+
     ally.register_component<Position>();
     ally.register_component<Velocity>();
     ally.register_component<Controllable>();
+    ally.register_component<BulletTag>();
     ally.register_component<Drawanle>();
 
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
@@ -117,6 +128,7 @@ void Window::startProject()
     ally.add_component(entityAlly, Position{500, 500});
     ally.add_component(entityAlly, Velocity{0, 0});
     ally.add_component(entityAlly, Controllable{});
+    ally.add_component(entityAlly, BulletTag{false});
     ally.add_component(entityAlly, Drawanle{spriteShip});
 
     while (_window.isOpen()) {

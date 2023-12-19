@@ -33,6 +33,12 @@ struct Drawanle {
     sf::Sprite sprites;
 };
 
+struct BulletTag {
+    bool isBullet;
+
+    BulletTag(bool isBullet) : isBullet(isBullet) {}
+};
+
 class entity {
     friend class Registry;
 
