@@ -50,6 +50,9 @@ void position_system(Registry &reg) {
 
     for (size_t i = 0; i < position.size() && i < velocity.size(); ++i) {
         if (position[i] && velocity[i]) {
+            std::cout << "Entity " << i << " is at " << position[i]->x << ", " << position[i]->y << std::endl;
+            if (position[i]->x >= 2081)
+                reg.kill_entity(reg.entity_from_index(i));
             position[i]->x += velocity[i]->dx;
             position[i]->y += velocity[i]->dy;
         }

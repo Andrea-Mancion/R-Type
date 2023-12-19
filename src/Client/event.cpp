@@ -11,6 +11,7 @@ void Window::shootBullet()
 {
     auto &position = ally.get_components<Position>();
     auto &drawable = ally.get_components<Drawanle>();
+    float bulletSpeed = 1.0f;
 
     if (!textBullet.loadFromFile("includes/assets/sprites/r-typesheet3.gif"))
         std::cout << "Error" << std::endl;
@@ -23,6 +24,7 @@ void Window::shootBullet()
 
     auto bulletEntity = ally.spawn_entity();
     ally.add_component(bulletEntity, Position{position[0]->x, position[0]->y});
+    ally.add_component(bulletEntity, Velocity{bulletSpeed, 0});
     ally.add_component(bulletEntity, Drawanle{spriteBullet});
 
     std::cout << "Yeah it's created with the ID " << bulletEntity << std::endl;
