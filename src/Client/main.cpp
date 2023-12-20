@@ -25,7 +25,7 @@ void logging_system(Registry &reg, sparse_array<Position> const &position, spars
         if (position[i] && velocity[i]) {
             auto &pos = position[i].value();
             auto &vel = velocity[i].value();
-            //std::cout << "Entity " << i << " is at " << pos.x << ", " << pos.y << " with velocity " << vel.dx << ", " << vel.dy << std::endl;
+            std::cout << "Entity " << i << " is at " << pos.x << ", " << pos.y << " with velocity " << vel.dx << ", " << vel.dy << std::endl;
         }
     }
 }
@@ -77,6 +77,20 @@ void position_system(Registry &reg) {
     }
 }
 
+// void song_system(Registry &reg) {
+//     auto &song = reg.get_components<Song>();
+
+//     for (size_t i = 0; i < song.size(); ++i) {
+//         if (song[i]) {
+//             if (!song[i]->isEnemy) {
+//                 song[i]->music->setVolume(50);
+//                 song[i]->music->setLoop(true);
+//                 song[i]->music->play();
+//             }
+//         }
+//     }
+// }
+
 void draw_system(Registry &reg, sf::RenderWindow &window) {
     auto &position = reg.get_components<Position>();
     auto &drawable = reg.get_components<Drawanle>();
@@ -127,6 +141,10 @@ void Window::loadSprites()
 
 void Window::startProject()
 {
+    // MusicManager musicManager;
+    // allyMusicID = musicManager.loadMusic("includes/assets/SpaceMusic.ogg");
+    // enemyMusicID = musicManager.loadMusic("includes/assets/SpaceMusic.ogg");
+
     loadSprites();
     ally.register_component<Position>();
     ally.register_component<Velocity>();
@@ -134,6 +152,7 @@ void Window::startProject()
     ally.register_component<BulletTag>();
     ally.register_component<Timer>();
     ally.register_component<EnemyTag>();
+    //ally.register_component<Song>();
     ally.register_component<Drawanle>();
 
     enemy.register_component<Position>();
@@ -141,6 +160,7 @@ void Window::startProject()
     enemy.register_component<BulletTag>();
     enemy.register_component<Timer>();
     enemy.register_component<EnemyTag>();
+    //enemy.register_component<Song>();
     enemy.register_component<Drawanle>();
 
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
@@ -155,6 +175,10 @@ void Window::startProject()
         control_system(r);
     });
 
+    // ally.add_system<Position, Velocity>([this, &musicManager](Registry &r, auto const &position, auto const &velocity) {
+    //     song_system(r);
+    // });
+
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
         draw_system(r, _window);
     });
@@ -166,6 +190,10 @@ void Window::startProject()
     enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
         position_system(r);
     });
+
+    // enemy.add_system<Position, Velocity>([this, &musicManager](Registry &r, auto const &position, auto const &velocity) {
+    //     song_system(r);
+    // });
 
     enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
         draw_system(r, _window);
@@ -179,6 +207,7 @@ void Window::startProject()
     ally.add_component(entityAlly, BulletTag{false});
     ally.add_component(entityAlly, Timer{0.0f});
     ally.add_component(entityAlly, EnemyTag{false});
+    //ally.add_component(entityAlly, Song{allyMusicID, false});
     ally.add_component(entityAlly, Drawanle{spriteShip});
 
     std::mt19937 mt(rd());
@@ -191,6 +220,7 @@ void Window::startProject()
     enemy.add_component(entityEnemy, BulletTag{false});
     enemy.add_component(entityEnemy, Timer{0.0f});
     enemy.add_component(entityEnemy, EnemyTag{true});
+    //enemy.add_component(entityEnemy, Song{enemyMusicID, true});
     enemy.add_component(entityEnemy, Drawanle{spriteEnemy});
 
     while (_window.isOpen()) {

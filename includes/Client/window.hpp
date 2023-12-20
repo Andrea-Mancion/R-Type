@@ -54,6 +54,8 @@ class Window {
         int currentRound = 1;
         int activeEnnemy = 0;
         int maxEnnemyKilled = 0;
+        int allyMusicID;
+        int enemyMusicID;
         sf::Clock clock;
 };
 

@@ -28,13 +28,58 @@ void Window::checkCollision()
 {
     auto &allyPosition = ally.get_components<Position>();
     auto &allyDrawable = ally.get_components<Drawanle>();
+    auto &allyBullet = ally.get_components<BulletTag>();
     auto &ennemyPosition = enemy.get_components<Position>();
     auto &ennemyDrawable = enemy.get_components<Drawanle>();
+    auto &enemyBullet = enemy.get_components<BulletTag>();
 
     for (std::size_t i = 0; i < allyPosition.size(); i++) {
-        if (allyPosition[i] && allyDrawable[i]) {
+        if (allyPosition[i] && allyDrawable[i] && (!allyBullet[i] || !allyBullet[i]->isBullet)) { // Exclude ally bullets
             for (std::size_t j = 0; j < ennemyPosition.size(); j++) {
-                if (ennemyPosition[j] && ennemyDrawable[j]) {
+                if (ennemyPosition[j] && ennemyDrawable[j] && enemyBullet[j] && enemyBullet[j]->isBullet) { // Include only enemy bullets
+                    if (collisions(allyDrawable[i]->sprites, ennemyDrawable[j]->sprites)) {
+                        ally.kill_entity(ally.entity_from_index(i));
+                        enemy.kill_entity(enemy.entity_from_index(j));
+                    }
+                }
+            }
+        }
+    }
+
+    for (std::size_t i = 0; i < allyPosition.size(); i++) {
+        if (allyPosition[i] && allyDrawable[i] && allyBullet[i] && allyBullet[i]->isBullet) {
+            for (std::size_t j = 0; j < ennemyPosition.size(); j++) {
+                if (ennemyPosition[j] && ennemyDrawable[j] && enemyBullet[j] && enemyBullet[j]->isBullet) {
+                    if (collisions(allyDrawable[i]->sprites, ennemyDrawable[j]->sprites)) {
+                        ally.kill_entity(ally.entity_from_index(i));
+                        enemy.kill_entity(enemy.entity_from_index(j));
+                    }
+                }
+            }
+        }
+    }
+
+    for (std::size_t i = 0; i < allyPosition.size(); i++) {
+        if (allyPosition[i] && allyDrawable[i] && allyBullet[i] && allyBullet[i]->isBullet) {
+            for (std::size_t j = 0; j < ennemyPosition.size(); j++) {
+                if (ennemyPosition[j] && ennemyDrawable[j] && (!enemyBullet[j] || !enemyBullet[j]->isBullet)) {
+                    if (collisions(allyDrawable[i]->sprites, ennemyDrawable[j]->sprites)) {
+                        ally.kill_entity(ally.entity_from_index(i));
+                        enemy.kill_entity(enemy.entity_from_index(j));
+                        maxEnnemyKilled++;
+                        if (maxEnnemyKilled >= activeEnnemy)
+                            startNextRound();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    for (std::size_t i = 0; i < allyPosition.size(); i++) {
+        if (allyPosition[i] && allyDrawable[i] && (!allyBullet[i] || !allyBullet[i]->isBullet)) {
+            for (std::size_t j = 0; j < ennemyPosition.size(); j++) {
+                if (ennemyPosition[j] && ennemyDrawable[j] && (!enemyBullet[j] || !enemyBullet[j]->isBullet)) {
                     if (collisions(allyDrawable[i]->sprites, ennemyDrawable[j]->sprites)) {
                         ally.kill_entity(ally.entity_from_index(i));
                         enemy.kill_entity(enemy.entity_from_index(j));

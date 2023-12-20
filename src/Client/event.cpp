@@ -57,6 +57,7 @@ void Window::spawn_entity()
         enemy.add_component(entityEnnemy, BulletTag{false});
         enemy.add_component(entityEnnemy, Timer{shootDis(gen)});
         enemy.add_component(entityEnnemy, EnemyTag{true});
+        //enemy.add_component(entityEnnemy, Song{enemyMusicID, true});
         enemy.add_component(entityEnnemy, Drawanle{spriteEnemy});
     }
     activeEnnemy = currentRound * 5;
