@@ -59,6 +59,7 @@ class Window {
         int maxEnnemyKilled = 0;
         int allyMusicID;
         int enemyMusicID;
+        int bossHP[2] = {1, 1};
         sf::Clock clock;
 };
 
