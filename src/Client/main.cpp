@@ -9,10 +9,11 @@ Window::Window()
 bool Window::isAnyAllyShipLeft() const
 {
     auto &position = ally.get_components<Position>();
+    auto &bullet = ally.get_components<BulletTag>();
     int count = 0;
 
     for (std::size_t i = 0; i < position.size(); i++) {
-        if (position[i])
+        if (position[i] && !bullet[i]->isBullet)
             count++;
     }
 
