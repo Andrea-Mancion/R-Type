@@ -58,6 +58,7 @@ void Window::spawn_entity()
         enemy.add_component(entityEnnemy, Timer{shootDis(gen)});
         enemy.add_component(entityEnnemy, EnemyTag{true});
         enemy.add_component(entityEnnemy, BossTag{false});
+        enemy.add_component(entityEnnemy, ExplosionTag{false});
         //enemy.add_component(entityEnnemy, Song{enemyMusicID, true});
         enemy.add_component(entityEnnemy, Drawanle{spriteEnemy});
     }
@@ -82,7 +83,30 @@ void Window::spawn_entity_boss()
     enemy.add_component(ennemyBoss, Timer{0.0f});
     enemy.add_component(ennemyBoss, EnemyTag{true});
     enemy.add_component(ennemyBoss, BossTag{true});
+    enemy.add_component(ennemyBoss, ExplosionTag{false});
     //enemy.add_component(ennemyBoss, Song{enemyMusicID, true});
     enemy.add_component(ennemyBoss, Drawanle{spriteBoss});
     activeEnnemy = 1;
+}
+
+void Window::destructionShip(float x, float y)
+{
+    auto &position = enemy.get_components<Position>();
+
+    if (!textEplosion.loadFromFile("includes/assets/sprites/r-typesheet44.gif"))
+        std::cout << "Error" << std::endl;
+    spriteExplosion.setTexture(textEplosion);
+    spriteExplosion.setTextureRect(sf::IntRect(120, 0, 35, 40));
+    spriteExplosion.setScale(sf::Vector2f(2, 2));
+    spriteExplosion.setPosition(x, y);
+
+    auto explosion = enemy.spawn_entity();
+    enemy.add_component(explosion, Position{x, y});
+    enemy.add_component(explosion, Velocity{0, 0});
+    enemy.add_component(explosion, BulletTag{false});
+    enemy.add_component(explosion, Timer{0.0f});
+    enemy.add_component(explosion, EnemyTag{false});
+    enemy.add_component(explosion, BossTag{false});
+    enemy.add_component(explosion, ExplosionTag{true});
+    enemy.add_component(explosion, Drawanle{spriteExplosion});
 }

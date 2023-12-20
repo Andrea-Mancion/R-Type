@@ -36,6 +36,7 @@ class Window {
         void shootEnemyBullet(int i, float x, float y);
         void startNextRound();
         void spawn_entity_boss();
+        void destructionShip(float x, float y);
 
     private:
         sf::RenderWindow _window;
@@ -55,6 +56,8 @@ class Window {
         std::random_device rd;
         sf::Texture textBoss;
         sf::Sprite spriteBoss;
+        sf::Texture textEplosion;
+        sf::Sprite spriteExplosion;
         int activeAlly = 0;
         int currentRound = 1;
         int activeEnnemy = 0;

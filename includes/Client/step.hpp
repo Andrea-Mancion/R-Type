@@ -58,6 +58,12 @@ struct Timer {
     Timer(float interval) : shootInterval(interval) {}
 };
 
+struct ExplosionTag {
+    bool isExplosion;
+
+    ExplosionTag(bool isExplosion) : isExplosion(isExplosion) {}
+};
+
 // struct Song {
 //     int musicID;
 //     bool isEnemy;

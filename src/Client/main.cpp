@@ -74,9 +74,13 @@ void position_system(Registry &reg) {
         if (position[i] && velocity[i]) {
             if ((position[i]->x <= -150 || position[i]->x >= 2081) && bullet[i]->isBullet)
                 reg.kill_entity(reg.entity_from_index(i));
-            else if ((position[i]->x <= -150 || position[i]->x >= 2081) && enemy[i]->isEnemy)
+            else if ((position[i]->x <= -150 || position[i]->x >= 2081) && enemy[i]->isEnemy) {
                 position[i]->x = 1900;
-            else if (position[i]->x <= -150 || position[i]->x >= 2081)
+                std::random_device rd;
+                std::mt19937 gen(rd());
+                std::uniform_int_distribution<> dis(-16, 959);
+                position[i]->y = static_cast<float>(dis(gen));
+            } else if (position[i]->x <= -150 || position[i]->x >= 2081)
                 position[i]->x = 500;
             position[i]->x += velocity[i]->dx;
             position[i]->y += velocity[i]->dy;
@@ -104,6 +108,8 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
     auto &bullet = reg.get_components<BulletTag>();
     auto &enemy = reg.get_components<EnemyTag>();
     auto &boss = reg.get_components<BossTag>();
+    auto &explosion = reg.get_components<ExplosionTag>();
+    std::vector<entity> toDelete;
     
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
         if (position[i] && drawable[i]) {
@@ -114,6 +120,14 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
                 else
                     rect.left += 17;
                 drawable[i]->sprites.setTextureRect(rect);
+            } else if (explosion[i] && explosion[i]->isExplosion) {
+                auto rectExplosion = drawable[i]->sprites.getTextureRect();
+                if (rectExplosion.left >= 440) {
+                    toDelete.push_back(reg.entity_from_index(i));
+                } else {
+                    rectExplosion.left += 40;
+                    drawable[i]->sprites.setTextureRect(rectExplosion);
+                }
             } else if (enemy[i]->isEnemy && boss[i]->isBoss) {
                 auto rectBoss = drawable[i]->sprites.getTextureRect();
                 if (rectBoss.left >= 105)
@@ -133,6 +147,9 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
             window.draw(drawable[i]->sprites);
         }
     }
+
+    for (auto &i : toDelete)
+        reg.kill_entity(i);
 }
 
 void Window::loadSprites() 
@@ -176,6 +193,7 @@ void Window::startProject()
     ally.register_component<Timer>();
     ally.register_component<EnemyTag>();
     ally.register_component<BossTag>();
+    ally.register_component<ExplosionTag>();
     //ally.register_component<Song>();
     ally.register_component<Drawanle>();
 
@@ -185,6 +203,7 @@ void Window::startProject()
     enemy.register_component<Timer>();
     enemy.register_component<EnemyTag>();
     enemy.register_component<BossTag>();
+    enemy.register_component<ExplosionTag>();
     //enemy.register_component<Song>();
     enemy.register_component<Drawanle>();
 
@@ -233,6 +252,7 @@ void Window::startProject()
     ally.add_component(entityAlly, Timer{0.0f});
     ally.add_component(entityAlly, EnemyTag{false});
     ally.add_component(entityAlly, BossTag{false});
+    ally.add_component(entityAlly, ExplosionTag{false});
     //ally.add_component(entityAlly, Song{allyMusicID, false});
     ally.add_component(entityAlly, Drawanle{spriteShip});
 
@@ -247,6 +267,7 @@ void Window::startProject()
     enemy.add_component(entityEnemy, Timer{0.0f});
     enemy.add_component(entityEnemy, EnemyTag{true});
     enemy.add_component(entityEnemy, BossTag{false});
+    enemy.add_component(entityEnemy, ExplosionTag{false});
     //enemy.add_component(entityEnemy, Song{enemyMusicID, true});
     enemy.add_component(entityEnemy, Drawanle{spriteEnemy});
 

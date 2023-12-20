@@ -21,7 +21,7 @@ void Window::startNextRound()
 {
     currentRound++;
     maxEnnemyKilled = 0;
-    if (currentRound % 5 != 0)
+    if (currentRound % 2 != 0)
         spawn_entity();
     else {
         bossHP[0] *= 2;
@@ -76,6 +76,7 @@ void Window::checkCollision()
                             bossHP[1]--;
                         }
                         if (boss[j]->isBoss && bossHP[1] <= 0) {
+                            destructionShip(ennemyPosition[j]->x, ennemyPosition[j]->y);
                             enemy.kill_entity(enemy.entity_from_index(j));
                             maxEnnemyKilled++;
                         } else if (!boss[j]->isBoss) {
