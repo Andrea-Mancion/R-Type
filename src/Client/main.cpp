@@ -97,6 +97,7 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
     auto &drawable = reg.get_components<Drawanle>();
     auto &bullet = reg.get_components<BulletTag>();
     auto &enemy = reg.get_components<EnemyTag>();
+    auto &boss = reg.get_components<BossTag>();
     
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
         if (position[i] && drawable[i]) {
@@ -107,7 +108,14 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
                 else
                     rect.left += 17;
                 drawable[i]->sprites.setTextureRect(rect);
-            } else if (enemy[i]->isEnemy) {
+            } else if (enemy[i]->isEnemy && boss[i]->isBoss) {
+                auto rectBoss = drawable[i]->sprites.getTextureRect();
+                if (rectBoss.left >= 105)
+                    rectBoss.left = 15;
+                else
+                    rectBoss.left += 35;
+                drawable[i]->sprites.setTextureRect(rectBoss);
+            } else if (enemy[i]->isEnemy && !boss[i]->isBoss) {
                 auto rectEnemy = drawable[i]->sprites.getTextureRect();
                 if (rectEnemy.left >= 200)
                     rectEnemy.left = 0;
@@ -161,6 +169,7 @@ void Window::startProject()
     ally.register_component<BulletTag>();
     ally.register_component<Timer>();
     ally.register_component<EnemyTag>();
+    ally.register_component<BossTag>();
     //ally.register_component<Song>();
     ally.register_component<Drawanle>();
 
@@ -169,6 +178,7 @@ void Window::startProject()
     enemy.register_component<BulletTag>();
     enemy.register_component<Timer>();
     enemy.register_component<EnemyTag>();
+    enemy.register_component<BossTag>();
     //enemy.register_component<Song>();
     enemy.register_component<Drawanle>();
 
@@ -216,6 +226,7 @@ void Window::startProject()
     ally.add_component(entityAlly, BulletTag{false});
     ally.add_component(entityAlly, Timer{0.0f});
     ally.add_component(entityAlly, EnemyTag{false});
+    ally.add_component(entityAlly, BossTag{false});
     //ally.add_component(entityAlly, Song{allyMusicID, false});
     ally.add_component(entityAlly, Drawanle{spriteShip});
 
@@ -229,6 +240,7 @@ void Window::startProject()
     enemy.add_component(entityEnemy, BulletTag{false});
     enemy.add_component(entityEnemy, Timer{0.0f});
     enemy.add_component(entityEnemy, EnemyTag{true});
+    enemy.add_component(entityEnemy, BossTag{false});
     //enemy.add_component(entityEnemy, Song{enemyMusicID, true});
     enemy.add_component(entityEnemy, Drawanle{spriteEnemy});
 

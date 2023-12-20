@@ -33,6 +33,7 @@ class Window {
         void update_enemy_shooting(float dt);
         void shootEnemyBullet(int i, float x, float y);
         void startNextRound();
+        void spawn_entity_boss();
 
     private:
         sf::RenderWindow _window;
@@ -50,6 +51,8 @@ class Window {
         sf::Texture textEnemyBullet;
         sf::Sprite spriteEnemyBullet;
         std::random_device rd;
+        sf::Texture textBoss;
+        sf::Sprite spriteBoss;
         int activeAlly = 0;
         int currentRound = 1;
         int activeEnnemy = 0;

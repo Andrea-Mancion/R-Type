@@ -21,7 +21,10 @@ void Window::startNextRound()
 {
     currentRound++;
     maxEnnemyKilled = 0;
-    spawn_entity();
+    if (currentRound % 5 != 0)
+        spawn_entity();
+    else
+        spawn_entity_boss();
 }
 
 void Window::checkCollision() 

@@ -45,6 +45,12 @@ struct EnemyTag {
     EnemyTag(bool isEnemy) : isEnemy(isEnemy) {}
 };
 
+struct BossTag {
+    bool isBoss;
+
+    BossTag(bool isBoss) : isBoss(isBoss) {}
+};
+
 struct Timer {
     float elapsedTime = 0.0f;
     float shootInterval;

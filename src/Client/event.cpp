@@ -57,8 +57,32 @@ void Window::spawn_entity()
         enemy.add_component(entityEnnemy, BulletTag{false});
         enemy.add_component(entityEnnemy, Timer{shootDis(gen)});
         enemy.add_component(entityEnnemy, EnemyTag{true});
+        enemy.add_component(entityEnnemy, BossTag{false});
         //enemy.add_component(entityEnnemy, Song{enemyMusicID, true});
         enemy.add_component(entityEnnemy, Drawanle{spriteEnemy});
     }
     activeEnnemy = currentRound * 5;
+}
+
+void Window::spawn_entity_boss()
+{
+    if (!textBoss.loadFromFile("includes/assets/sprites/r-typesheet20.gif"))
+        std::cout << "Error" << std::endl;
+    spriteBoss.setTexture(textBoss);
+    spriteBoss.setTextureRect(sf::IntRect(15, 67, 35, 30));
+    spriteBoss.setScale(sf::Vector2f(3, 3));
+
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<> dist(-16, 959);
+
+    auto ennemyBoss = enemy.spawn_entity();
+    enemy.add_component(ennemyBoss, Position{1900, static_cast<float>(dist(mt))});
+    enemy.add_component(ennemyBoss, Velocity{-0.4, 0});
+    enemy.add_component(ennemyBoss, BulletTag{false});
+    enemy.add_component(ennemyBoss, Timer{0.0f});
+    enemy.add_component(ennemyBoss, EnemyTag{true});
+    enemy.add_component(ennemyBoss, BossTag{true});
+    //enemy.add_component(ennemyBoss, Song{enemyMusicID, true});
+    enemy.add_component(ennemyBoss, Drawanle{spriteBoss});
+    activeEnnemy = 1;
 }
