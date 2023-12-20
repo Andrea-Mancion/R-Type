@@ -95,6 +95,7 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
     auto &position = reg.get_components<Position>();
     auto &drawable = reg.get_components<Drawanle>();
     auto &bullet = reg.get_components<BulletTag>();
+    auto &enemy = reg.get_components<EnemyTag>();
     
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
         if (position[i] && drawable[i]) {
@@ -105,6 +106,13 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
                 else
                     rect.left += 17;
                 drawable[i]->sprites.setTextureRect(rect);
+            } else if (enemy[i]->isEnemy) {
+                auto rectEnemy = drawable[i]->sprites.getTextureRect();
+                if (rectEnemy.left >= 200)
+                    rectEnemy.left = 0;
+                else
+                    rectEnemy.left += 50;
+                drawable[i]->sprites.setTextureRect(rectEnemy);
             }
             drawable[i]->sprites.setPosition(position[i]->x, position[i]->y);
             window.draw(drawable[i]->sprites);
