@@ -10,6 +10,7 @@ DIRS	=	*
 SRC =	event.cpp	\
 		collision.cpp	\
 		createBulletFoe.cpp	\
+		redirectFile.cpp	\
 		main.cpp
 
 OBJ	=	$(SRC:.cpp=.o)

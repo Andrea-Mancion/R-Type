@@ -4,6 +4,12 @@
 Window::Window()
 {
     _window.create(sf::VideoMode(1920, 1080), "R-Type");
+    redirectCoutToFile("log.txt");
+}
+
+Window::~Window()
+{
+    resetCout(redirectCoutToFile("log.txt"));
 }
 
 bool Window::isAnyAllyShipLeft() const
@@ -26,7 +32,7 @@ void logging_system(Registry &reg, sparse_array<Position> const &position, spars
         if (position[i] && velocity[i]) {
             auto &pos = position[i].value();
             auto &vel = velocity[i].value();
-            //std::cout << "Entity " << i << " is at " << pos.x << ", " << pos.y << " with velocity " << vel.dx << ", " << vel.dy << std::endl;
+            std::cout << "Entity " << i << " is at " << pos.x << ", " << pos.y << " with velocity " << vel.dx << ", " << vel.dy << std::endl;
         }
     }
 }

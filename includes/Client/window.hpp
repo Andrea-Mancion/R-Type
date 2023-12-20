@@ -13,6 +13,8 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/Clock.hpp>
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <random>
 #include "step.hpp"
 
@@ -22,7 +24,7 @@
 class Window {
     public:
         Window();
-        ~Window() = default;
+        ~Window();
         void startProject();
         void eventHandler();
         void shootBullet();
@@ -62,5 +64,8 @@ class Window {
         int bossHP[2] = {1, 1};
         sf::Clock clock;
 };
+
+std::streambuf *redirectCoutToFile(const std::string &filename);
+void resetCout(std::streambuf *backup);
 
 #endif /* !WINDOW_HPP_ */
