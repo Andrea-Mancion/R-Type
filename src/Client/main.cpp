@@ -88,19 +88,20 @@ void position_system(Registry &reg) {
     }
 }
 
-// void song_system(Registry &reg) {
-//     auto &song = reg.get_components<Song>();
+void song_system(Registry &reg, MusicManager &musicManager) {
+    auto &song = reg.get_components<Song>();
 
-//     for (size_t i = 0; i < song.size(); ++i) {
-//         if (song[i]) {
-//             if (!song[i]->isEnemy) {
-//                 song[i]->music->setVolume(50);
-//                 song[i]->music->setLoop(true);
-//                 song[i]->music->play();
-//             }
-//         }
-//     }
-// }
+    for (size_t i = 0; i < song.size(); ++i) {
+        if (song[i] && !song[i]->isEnemy) {
+            sf::Music* music = musicManager.getMusic(song[i]->musicID);
+            if (music) {
+                music->setVolume(50);
+                music->setLoop(true);
+                music->play();
+            }
+        }
+    }
+}
 
 void draw_system(Registry &reg, sf::RenderWindow &window) {
     auto &position = reg.get_components<Position>();
@@ -181,9 +182,8 @@ void Window::loadSprites()
 
 void Window::startProject()
 {
-    // MusicManager musicManager;
-    // allyMusicID = musicManager.loadMusic("includes/assets/SpaceMusic.ogg");
-    // enemyMusicID = musicManager.loadMusic("includes/assets/SpaceMusic.ogg");
+    allyMusicID = musicManager.loadMusic("includes/assets/SpaceMusic.ogg");
+    enemyMusicID = musicManager.loadMusic("includes/assets/SpaceMusic.ogg");
 
     loadSprites();
     ally.register_component<Position>();
@@ -194,7 +194,7 @@ void Window::startProject()
     ally.register_component<EnemyTag>();
     ally.register_component<BossTag>();
     ally.register_component<ExplosionTag>();
-    //ally.register_component<Song>();
+    ally.register_component<Song>();
     ally.register_component<Drawanle>();
 
     enemy.register_component<Position>();
@@ -204,7 +204,7 @@ void Window::startProject()
     enemy.register_component<EnemyTag>();
     enemy.register_component<BossTag>();
     enemy.register_component<ExplosionTag>();
-    //enemy.register_component<Song>();
+    enemy.register_component<Song>();
     enemy.register_component<Drawanle>();
 
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
@@ -219,9 +219,12 @@ void Window::startProject()
         control_system(r);
     });
 
-    // ally.add_system<Position, Velocity>([this, &musicManager](Registry &r, auto const &position, auto const &velocity) {
-    //     song_system(r);
-    // });
+    ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        if (!this->hasSongStarted) {
+            song_system(r, musicManager);
+            this->hasSongStarted = true;
+        }
+    });
 
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
         draw_system(r, _window);
@@ -235,9 +238,12 @@ void Window::startProject()
         position_system(r);
     });
 
-    // enemy.add_system<Position, Velocity>([this, &musicManager](Registry &r, auto const &position, auto const &velocity) {
-    //     song_system(r);
-    // });
+    enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        if (!this->hasSongStarted) {
+            song_system(r, musicManager);
+            this->hasSongStarted = true;
+        }
+    });
 
     enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
         draw_system(r, _window);
@@ -253,7 +259,7 @@ void Window::startProject()
     ally.add_component(entityAlly, EnemyTag{false});
     ally.add_component(entityAlly, BossTag{false});
     ally.add_component(entityAlly, ExplosionTag{false});
-    //ally.add_component(entityAlly, Song{allyMusicID, false});
+    ally.add_component(entityAlly, Song{allyMusicID, false});
     ally.add_component(entityAlly, Drawanle{spriteShip});
 
     std::mt19937 mt(rd());
@@ -268,7 +274,7 @@ void Window::startProject()
     enemy.add_component(entityEnemy, EnemyTag{true});
     enemy.add_component(entityEnemy, BossTag{false});
     enemy.add_component(entityEnemy, ExplosionTag{false});
-    //enemy.add_component(entityEnemy, Song{enemyMusicID, true});
+    enemy.add_component(entityEnemy, Song{enemyMusicID, true});
     enemy.add_component(entityEnemy, Drawanle{spriteEnemy});
 
     while (_window.isOpen()) {

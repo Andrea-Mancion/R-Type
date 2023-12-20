@@ -64,37 +64,36 @@ struct ExplosionTag {
     ExplosionTag(bool isExplosion) : isExplosion(isExplosion) {}
 };
 
-// struct Song {
-//     int musicID;
-//     bool isEnemy;
+struct Song {
+    int musicID;
+    bool isEnemy;
 
-//     Song(int id, bool EnemySong) : isEnemy(EnemySong), musicID(id) {}
-// };
+    Song(int id, bool EnemySong) : isEnemy(EnemySong), musicID(id) {}
+};
 
-// class MusicManager {
-//     private:
-//         int nextID = 0;
-//         std::unordered_map<int, sf::Music> _songs;
-//     public:
-//         int loadMusic(const std::string &filename) {
-//             sf::Music music;
-//             if (music.openFromFile(filename)) {
-//                 int id = nextID++;
-//                 auto result = _songs.emplace(std::piecewise_construct, std::forward_as_tuple(id), std::forward_as_tuple(std::move(music)));
-//                 if (result.second)
-//                     return id;
-//             }
-//             return -1;
-//         }
+class MusicManager {
+    private:
+        int nextID = 0;
+        std::unordered_map<int, std::unique_ptr<sf::Music>> _songs;
+    public:
+        int loadMusic(const std::string &filename) {
+            auto music = std::make_unique<sf::Music>();
+            if (music->openFromFile(filename)) {
+                int id = nextID++;
+                _songs[id] = std::move(music);
+                return id;
+            }
+            return -1;
+        }
 
-//         sf::Music* getMusic(int id) {
-//             auto it = _songs.find(id);
-//             if (it != _songs.end()) {
-//                 return &(it->second);
-//             }
-//             return nullptr;
-//         }
-// };
+        sf::Music* getMusic(int id) {
+            auto it = _songs.find(id);
+            if (it != _songs.end()) {
+                return it->second.get();
+            }
+            return nullptr;
+        }
+};
 
 class entity {
     friend class Registry;

@@ -42,6 +42,7 @@ class Window {
         sf::RenderWindow _window;
         Registry ally;
         Registry enemy;
+        MusicManager musicManager;
         sf::Event _event;
         sf::Texture background;
         sf::Sprite sprite[3];
@@ -66,6 +67,7 @@ class Window {
         int enemyMusicID;
         int bossHP[2] = {1, 1};
         sf::Clock clock;
+        bool hasSongStarted = false;
 };
 
 std::streambuf *redirectCoutToFile(const std::string &filename);
