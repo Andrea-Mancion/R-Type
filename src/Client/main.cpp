@@ -90,14 +90,23 @@ void position_system(Registry &reg) {
 
 void song_system(Registry &reg, MusicManager &musicManager) {
     auto &song = reg.get_components<Song>();
+    auto &boss = reg.get_components<BossTag>();
 
     for (size_t i = 0; i < song.size(); ++i) {
-        if (song[i] && !song[i]->isEnemy) {
-            sf::Music* music = musicManager.getMusic(song[i]->musicID);
-            if (music) {
-                music->setVolume(50);
-                music->setLoop(true);
-                music->play();
+        if (song[i]) {
+            std::cout << "SHOUL PLAY " << song[i]->shouldPlay << " IS PLAYING " << song[i]->isPlaying << std::endl;
+            sf::Music *music = musicManager.getMusic(song[i]->musicID);
+            if (song[i]->shouldPlay && !song[i]->isPlaying) {
+                if (music) {
+                    music->setVolume(50);
+                    music->setLoop(true);
+                    music->play();
+                }
+                song[i]->isPlaying = true;
+            } else if (!song[i]->shouldPlay && song[i]->isPlaying) {
+                if (music)
+                    music->stop();
+                song[i]->isPlaying = false;
             }
         }
     }
@@ -183,7 +192,7 @@ void Window::loadSprites()
 void Window::startProject()
 {
     allyMusicID = musicManager.loadMusic("includes/assets/SpaceMusic.ogg");
-    enemyMusicID = musicManager.loadMusic("includes/assets/SpaceMusic.ogg");
+    bossMusicID = musicManager.loadMusic("includes/assets/BossTheme.ogg");
 
     loadSprites();
     ally.register_component<Position>();
@@ -220,7 +229,7 @@ void Window::startProject()
     });
 
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-        if (!this->hasSongStarted) {
+        if (!this->hasSongStarted && !this->bossStarted) {
             song_system(r, musicManager);
             this->hasSongStarted = true;
         }
@@ -239,7 +248,7 @@ void Window::startProject()
     });
 
     enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-        if (!this->hasSongStarted) {
+        if (!this->hasSongStarted && this->bossStarted) {
             song_system(r, musicManager);
             this->hasSongStarted = true;
         }
@@ -259,7 +268,7 @@ void Window::startProject()
     ally.add_component(entityAlly, EnemyTag{false});
     ally.add_component(entityAlly, BossTag{false});
     ally.add_component(entityAlly, ExplosionTag{false});
-    ally.add_component(entityAlly, Song{allyMusicID, false});
+    ally.add_component(entityAlly, Song{allyMusicID, false, true, false});
     ally.add_component(entityAlly, Drawanle{spriteShip});
 
     std::mt19937 mt(rd());
@@ -274,7 +283,6 @@ void Window::startProject()
     enemy.add_component(entityEnemy, EnemyTag{true});
     enemy.add_component(entityEnemy, BossTag{false});
     enemy.add_component(entityEnemy, ExplosionTag{false});
-    enemy.add_component(entityEnemy, Song{enemyMusicID, true});
     enemy.add_component(entityEnemy, Drawanle{spriteEnemy});
 
     while (_window.isOpen()) {
@@ -298,6 +306,7 @@ void Window::startProject()
         _window.draw(sprite[0]);
         _window.draw(sprite[1]);
         _window.draw(sprite[2]);
+        updateMusic();
         ally.run_systems();
         enemy.run_systems();
         update_enemy_shooting(time);

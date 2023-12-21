@@ -45,7 +45,7 @@ void Window::eventHandler()
 
 void Window::spawn_entity() 
 {
-    for (int i = 0; i < currentRound * 5; ++i) {
+    for (int i = 0; i < currentRound * 3; ++i) {
         std::random_device random;
         std::mt19937 gen(random());
         std::uniform_int_distribution<> dis(-16, 959);
@@ -59,14 +59,15 @@ void Window::spawn_entity()
         enemy.add_component(entityEnnemy, EnemyTag{true});
         enemy.add_component(entityEnnemy, BossTag{false});
         enemy.add_component(entityEnnemy, ExplosionTag{false});
-        enemy.add_component(entityEnnemy, Song{enemyMusicID, true});
         enemy.add_component(entityEnnemy, Drawanle{spriteEnemy});
     }
-    activeEnnemy = currentRound * 5;
+    activeEnnemy = currentRound * 3;
 }
 
 void Window::spawn_entity_boss()
 {
+    hasSongStarted = false;
+    std::cout << "JE SUIS AU BOSSSSSSSSSS" << std::endl;
     if (!textBoss.loadFromFile("includes/assets/sprites/r-typesheet20.gif"))
         std::cout << "Error" << std::endl;
     spriteBoss.setTexture(textBoss);
@@ -75,17 +76,19 @@ void Window::spawn_entity_boss()
 
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);
+    std::uniform_real_distribution<float> shootDis(0.0f, 3.0f);
 
     auto ennemyBoss = enemy.spawn_entity();
     enemy.add_component(ennemyBoss, Position{1900, static_cast<float>(dist(mt))});
     enemy.add_component(ennemyBoss, Velocity{-0.4, 0});
     enemy.add_component(ennemyBoss, BulletTag{false});
-    enemy.add_component(ennemyBoss, Timer{0.0f});
+    enemy.add_component(ennemyBoss, Timer{shootDis(mt)});
     enemy.add_component(ennemyBoss, EnemyTag{true});
     enemy.add_component(ennemyBoss, BossTag{true});
     enemy.add_component(ennemyBoss, ExplosionTag{false});
-    enemy.add_component(ennemyBoss, Song{enemyMusicID, true});
+    enemy.add_component(ennemyBoss, Song{bossMusicID, true, false, false});
     enemy.add_component(ennemyBoss, Drawanle{spriteBoss});
+    updateMusic();
     activeEnnemy = 1;
 }
 
@@ -109,4 +112,28 @@ void Window::destructionShip(float x, float y)
     enemy.add_component(explosion, BossTag{false});
     enemy.add_component(explosion, ExplosionTag{true});
     enemy.add_component(explosion, Drawanle{spriteExplosion});
+}
+
+void Window::updateMusic()
+{
+    auto &allySong = ally.get_components<Song>();
+    auto &enemySong = enemy.get_components<Song>();
+    auto &boss = enemy.get_components<BossTag>();
+
+    bool bossIsAlive = std::any_of(boss.begin(), boss.end(), [](const auto &boss) {
+        return boss && boss->isBoss;
+    });
+
+    for (auto &song : allySong) {
+        if (song && !bossIsAlive)
+            song->shouldPlay = true;
+        else
+            song->shouldPlay = false;
+    }
+    for (auto &song : enemySong) {
+        if (song && bossIsAlive)
+                song->shouldPlay = true;
+        else if (song && song->isEnemy && !bossIsAlive)
+            song->shouldPlay = false;
+    }
 }

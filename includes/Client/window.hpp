@@ -37,6 +37,7 @@ class Window {
         void startNextRound();
         void spawn_entity_boss();
         void destructionShip(float x, float y);
+        void updateMusic();
 
     private:
         sf::RenderWindow _window;
@@ -64,10 +65,11 @@ class Window {
         int activeEnnemy = 0;
         int maxEnnemyKilled = 0;
         int allyMusicID;
-        int enemyMusicID;
+        int bossMusicID;
         int bossHP[2] = {1, 1};
         sf::Clock clock;
         bool hasSongStarted = false;
+        bool bossStarted = false;
 };
 
 std::streambuf *redirectCoutToFile(const std::string &filename);

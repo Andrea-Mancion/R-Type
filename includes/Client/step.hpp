@@ -67,8 +67,10 @@ struct ExplosionTag {
 struct Song {
     int musicID;
     bool isEnemy;
+    bool shouldPlay;
+    bool isPlaying;
 
-    Song(int id, bool EnemySong) : isEnemy(EnemySong), musicID(id) {}
+    Song(int id, bool EnemySong, bool ShouldPlay, bool IsPlaying) : isEnemy(EnemySong), musicID(id), shouldPlay(ShouldPlay), isPlaying(IsPlaying) {}
 };
 
 class MusicManager {

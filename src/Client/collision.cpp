@@ -21,11 +21,12 @@ void Window::startNextRound()
 {
     currentRound++;
     maxEnnemyKilled = 0;
-    if (currentRound % 5 != 0)
+    if (currentRound % 2 != 0)
         spawn_entity();
     else {
         bossHP[0] *= 2;
         bossHP[1] = bossHP[0];
+        bossStarted = true;
         spawn_entity_boss();
     }
 }
@@ -78,6 +79,10 @@ void Window::checkCollision()
                         if (boss[j]->isBoss && bossHP[1] <= 0) {
                             destructionShip(ennemyPosition[j]->x, ennemyPosition[j]->y);
                             enemy.kill_entity(enemy.entity_from_index(j));
+                            hasSongStarted = false;
+                            bossStarted = false;
+                            std::cout << "NOOOOOOO IMPOSSIBLE" << std::endl;
+                            updateMusic();
                             maxEnnemyKilled++;
                         } else if (!boss[j]->isBoss) {
                             enemy.kill_entity(enemy.entity_from_index(j));
