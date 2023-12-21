@@ -11,6 +11,9 @@ SRC =	event.cpp	\
 		collision.cpp	\
 		createBulletFoe.cpp	\
 		redirectFile.cpp	\
+		showSprite.cpp	\
+		shipExplode.cpp	\
+		createSong.cpp	\
 		main.cpp
 
 OBJ	=	$(SRC:.cpp=.o)

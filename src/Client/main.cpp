@@ -162,33 +162,6 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
         reg.kill_entity(i);
 }
 
-void Window::loadSprites() 
-{
-    if (!background.loadFromFile("includes/assets/Space.png"))
-        std::cout << "Error" << std::endl;
-    sprite[0].setTexture(background);
-    sprite[0].setTextureRect(sf::IntRect(0, 0, 1920, 1080));
-    sprite[0].setPosition(sf::Vector2f(0, 0));
-    sprite[1].setTexture(background);
-    sprite[1].setTextureRect(sf::IntRect(0, 0, 1920, 1080));
-    sprite[1].setPosition(sf::Vector2f(1920, 0));
-    sprite[2].setTexture(background);
-    sprite[2].setTextureRect(sf::IntRect(0, 0, 1920, 1080));
-    sprite[2].setPosition(sf::Vector2f(-1920, 0));
-
-    if (!textSprite.loadFromFile("includes/assets/sprites/r-typesheet27.gif"))
-        std::cout << "Error" << std::endl;
-    spriteShip.setTexture(textSprite);
-    spriteShip.setTextureRect(sf::IntRect(33, 0, 33, 17));
-    spriteShip.setScale(sf::Vector2f(3, 3));
-
-    if (!textEnemy.loadFromFile("includes/assets/sprites/r-typesheet14.gif"))
-        std::cout << "Error" << std::endl;
-    spriteEnemy.setTexture(textEnemy);
-    spriteEnemy.setTextureRect(sf::IntRect(0, 0, 50, 50));
-    spriteEnemy.setScale(sf::Vector2f(3, 3));
-}
-
 void Window::startProject()
 {
     allyMusicID = musicManager.loadMusic("includes/assets/SpaceMusic.ogg");
