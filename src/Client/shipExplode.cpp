@@ -7,7 +7,7 @@
 
 #include "../../includes/Client/window.hpp"
 
-void Window::destructionShip(float x, float y)
+void Window::destructionShipBoss(float x, float y)
 {
     auto &position = enemy.get_components<Position>();
 

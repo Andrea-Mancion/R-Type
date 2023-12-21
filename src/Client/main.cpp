@@ -282,7 +282,7 @@ void Window::startProject()
         updateMusic();
         ally.run_systems();
         enemy.run_systems();
-        update_enemy_shooting(time);
+        enemy_shooting(time);
         checkCollision();
         _window.display();
     }

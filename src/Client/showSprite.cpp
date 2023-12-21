@@ -34,7 +34,7 @@ void Window::loadSprites()
     spriteEnemy.setScale(sf::Vector2f(3, 3));
 }
 
-void Window::spawn_entity() 
+void Window::spawn_entity_foe() 
 {
     for (int i = 0; i < currentRound * 3; ++i) {
         std::random_device random;

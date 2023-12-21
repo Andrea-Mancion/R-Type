@@ -29,14 +29,14 @@ class Window {
         void eventHandler();
         void shootBullet();
         void loadSprites();
-        void spawn_entity();
+        void spawn_entity_foe();
         void checkCollision();
         bool isAnyAllyShipLeft() const;
-        void update_enemy_shooting(float dt);
+        void enemy_shooting(float dt);
         void shootEnemyBullet(int i, float x, float y);
         void startNextRound();
         void spawn_entity_boss();
-        void destructionShip(float x, float y);
+        void destructionShipBoss(float x, float y);
         void updateMusic();
 
     private:

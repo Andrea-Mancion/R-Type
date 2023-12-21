@@ -28,7 +28,7 @@ void Window::shootEnemyBullet(int i, float x, float y)
 
 }
 
-void Window::update_enemy_shooting(float dt)
+void Window::enemy_shooting(float dt)
 {
     auto &position = enemy.get_components<Position>();
     auto &timers = enemy.get_components<Timer>();

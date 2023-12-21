@@ -21,8 +21,8 @@ void Window::startNextRound()
 {
     currentRound++;
     maxEnnemyKilled = 0;
-    if (currentRound % 5 != 0)
-        spawn_entity();
+    if (currentRound % 2 != 0)
+        spawn_entity_foe();
     else {
         bossHP[0] *= 2;
         bossHP[1] = bossHP[0];
@@ -77,7 +77,7 @@ void Window::checkCollision()
                             bossHP[1]--;
                         }
                         if (boss[j]->isBoss && bossHP[1] <= 0) {
-                            destructionShip(ennemyPosition[j]->x, ennemyPosition[j]->y);
+                            destructionShipBoss(ennemyPosition[j]->x, ennemyPosition[j]->y);
                             enemy.kill_entity(enemy.entity_from_index(j));
                             hasSongStarted = false;
                             bossStarted = false;
