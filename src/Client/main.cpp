@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../includes/Client/window.hpp"
+#include "../../includes/Client/functions.hpp"
 
 Window::Window()
 {
@@ -12,10 +12,9 @@ Window::~Window()
     resetCout(redirectCoutToFile("log.txt"));
 }
 
-bool Window::isAnyAllyShipLeft() const
+bool Window::isAnyAllyShipLeft()
 {
-    auto &position = ally.get_components<Position>();
-    auto &bullet = ally.get_components<BulletTag>();
+    auto [position, bullet] = getComponent<Position, BulletTag>(ally);
     int count = 0;
 
     for (std::size_t i = 0; i < position.size(); i++) {

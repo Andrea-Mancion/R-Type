@@ -5,7 +5,7 @@
 ** addSystem
 */
 
-#include "../../../includes/Client/window.hpp"
+#include "../../../includes/Client/functions.hpp"
 #include <random>
 
 void logging_system(Registry &reg, sparse_array<Position> const &position, sparse_array<Velocity> const &velocity)
@@ -20,8 +20,7 @@ void logging_system(Registry &reg, sparse_array<Position> const &position, spars
 }
 
 void control_system(Registry &reg) {
-    auto &velocity = reg.get_components<Velocity>();
-    auto &controllable = reg.get_components<Controllable>();
+    auto [velocity, controllable] = getComponent<Velocity, Controllable>(reg);
 
     for (size_t i = 0; i < controllable.size() && i < velocity.size(); ++i) {
         if (controllable[i] && velocity[i]) {
@@ -47,10 +46,7 @@ void control_system(Registry &reg) {
 }
 
 void position_system(Registry &reg) {
-    auto &position = reg.get_components<Position>();
-    auto &velocity = reg.get_components<Velocity>();
-    auto &bullet = reg.get_components<BulletTag>();
-    auto &enemy = reg.get_components<EnemyTag>();
+    auto [position, velocity, bullet, enemy] = getComponent<Position, Velocity, BulletTag, EnemyTag>(reg);
 
     for (size_t i = 0; i < position.size() && i < velocity.size(); ++i) {
         if (position[i] && velocity[i]) {
@@ -71,8 +67,7 @@ void position_system(Registry &reg) {
 }
 
 void song_system(Registry &reg, MusicManager &musicManager) {
-    auto &song = reg.get_components<Song>();
-    auto &boss = reg.get_components<BossTag>();
+    auto [song, boss] = getComponent<Song, BossTag>(reg);
 
     for (size_t i = 0; i < song.size(); ++i) {
         if (song[i]) {
@@ -95,12 +90,7 @@ void song_system(Registry &reg, MusicManager &musicManager) {
 }
 
 void draw_system(Registry &reg, sf::RenderWindow &window) {
-    auto &position = reg.get_components<Position>();
-    auto &drawable = reg.get_components<Drawable>();
-    auto &bullet = reg.get_components<BulletTag>();
-    auto &enemy = reg.get_components<EnemyTag>();
-    auto &boss = reg.get_components<BossTag>();
-    auto &explosion = reg.get_components<ExplosionTag>();
+    auto [position, drawable, bullet, enemy, boss, explosion] = getComponent<Position, Drawable, BulletTag, EnemyTag, BossTag, ExplosionTag>(reg);
     std::vector<entity> toDelete;
     
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {

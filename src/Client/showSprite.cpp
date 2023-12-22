@@ -5,7 +5,7 @@
 ** showSprite
 */
 
-#include "../../includes/Client/window.hpp"
+#include "../../includes/Client/functions.hpp"
 
 void Window::loadSprites() 
 {

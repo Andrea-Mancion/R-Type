@@ -5,7 +5,7 @@
 ** collision
 */
 
-#include "../../includes/Client/window.hpp"
+#include "../../includes/Client/functions.hpp"
 
 static sf::FloatRect getBoundingBox(const sf::Sprite &sprite)
 {
@@ -19,13 +19,8 @@ static bool collisions(const sf::Sprite &sprite1, const sf::Sprite &sprite2)
 
 void Window::checkCollision() 
 {
-    auto &allyPosition = ally.get_components<Position>();
-    auto &allyDrawable = ally.get_components<Drawable>();
-    auto &allyBullet = ally.get_components<BulletTag>();
-    auto &ennemyPosition = enemy.get_components<Position>();
-    auto &ennemyDrawable = enemy.get_components<Drawable>();
-    auto &enemyBullet = enemy.get_components<BulletTag>();
-    auto &boss = enemy.get_components<BossTag>();
+    auto [allyPosition, allyDrawable, allyBullet] = getComponent<Position, Drawable, BulletTag>(ally);
+    auto [ennemyPosition, ennemyDrawable, enemyBullet, boss] = getComponent<Position, Drawable, BulletTag, BossTag>(enemy);
 
     for (std::size_t i = 0; i < allyPosition.size(); i++) {
         if (allyPosition[i] && allyDrawable[i] && (!allyBullet[i] || !allyBullet[i]->isBullet)) { // Exclude ally bullets

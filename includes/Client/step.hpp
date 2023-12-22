@@ -7,6 +7,7 @@
 #include <any>
 #include <exception>
 #include <optional>
+#include <tuple>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>

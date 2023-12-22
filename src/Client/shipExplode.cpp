@@ -5,11 +5,11 @@
 ** shipExplode
 */
 
-#include "../../includes/Client/window.hpp"
+#include "../../includes/Client/functions.hpp"
 
 void Window::destructionShipBoss(float x, float y)
 {
-    auto &position = enemy.get_components<Position>();
+    auto [position] = getComponent<Position>(enemy);
 
     if (!textEplosion.loadFromFile("includes/assets/sprites/r-typesheet44.gif"))
         std::cout << "Error" << std::endl;

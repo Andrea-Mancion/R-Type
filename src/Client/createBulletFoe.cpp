@@ -5,7 +5,7 @@
 ** createBulletFoe
 */
 
-#include "../../includes/Client/window.hpp"
+#include "../../includes/Client/functions.hpp"
 
 void Window::shootEnemyBullet(int i, float x, float y) 
 {
@@ -23,8 +23,7 @@ void Window::shootEnemyBullet(int i, float x, float y)
 
 void Window::enemy_shooting(float dt)
 {
-    auto &position = enemy.get_components<Position>();
-    auto &timers = enemy.get_components<Timer>();
+    auto [position, timers] = getComponent<Position, Timer>(enemy);
 
     for (size_t i = 0; i < position.size() && i < timers.size(); i++) {
         if (position[i] && timers[i]) {

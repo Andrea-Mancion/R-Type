@@ -5,11 +5,11 @@
 ** event
 */
 
-#include "../../includes/Client/window.hpp"
+#include "../../includes/Client/functions.hpp"
 
 void Window::shootBullet()
 {
-    auto &position = ally.get_components<Position>();
+    auto [position] = getComponent<Position>(ally);
     float bulletSpeed = 1.0f;
 
     if (!textBullet.loadFromFile("includes/assets/sprites/r-typesheet3.gif"))
