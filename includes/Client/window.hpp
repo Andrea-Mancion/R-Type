@@ -74,8 +74,8 @@ class Window {
 
 std::streambuf *redirectCoutToFile(const std::string &filename);
 void resetCout(std::streambuf *backup);
-Registry registerComponentAlly(Registry &ally);
-Registry registerComponentEnemy(Registry &enemy);
-// std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, sf::RenderWindow &window, MusicManager &musicManager);
-// std::pair<Registry&, bool> addSystemEnemy(Registry &ally, bool &hasSongStarted, bool &bossStarted, sf::RenderWindow &window, MusicManager &musicManager);
+void registerComponentAlly(Registry &ally);
+void registerComponentEnemy(Registry &enemy);
+std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, sf::RenderWindow &window, MusicManager &musicManager);
+std::pair<Registry&, bool> addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, sf::RenderWindow &window, MusicManager &musicManager);
 #endif /* !WINDOW_HPP_ */

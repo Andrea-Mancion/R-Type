@@ -77,7 +77,7 @@ void Window::spawn_entity_boss()
     enemy.add_component(ennemyBoss, EnemyTag{true});
     enemy.add_component(ennemyBoss, BossTag{true});
     enemy.add_component(ennemyBoss, ExplosionTag{false});
-    enemy.add_component(ennemyBoss, Song{bossMusicID, true, false, false});
+    enemy.add_component(ennemyBoss, Song{bossMusicID, true, true, false});
     enemy.add_component(ennemyBoss, Drawable{spriteBoss});
     updateMusic();
     activeEnnemy = 1;

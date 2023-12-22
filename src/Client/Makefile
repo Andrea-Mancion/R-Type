@@ -15,6 +15,7 @@ SRC =	event.cpp	\
 		shipExplode.cpp	\
 		createSong.cpp	\
 		ECS/registerComponent.cpp	\
+		ECS/addSystem.cpp	\
 		main.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
