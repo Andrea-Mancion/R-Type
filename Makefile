@@ -35,4 +35,8 @@ fclean: clean
 
 re: fclean all
 
+debug:
+	@make debug -C src/Server
+	@make debug -C src/Client
+
 .PHONY: all clean fclean re
