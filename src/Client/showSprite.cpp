@@ -50,7 +50,7 @@ void Window::spawn_entity_foe()
         enemy.add_component(entityEnnemy, EnemyTag{true});
         enemy.add_component(entityEnnemy, BossTag{false});
         enemy.add_component(entityEnnemy, ExplosionTag{false});
-        enemy.add_component(entityEnnemy, Drawanle{spriteEnemy});
+        enemy.add_component(entityEnnemy, Drawable{spriteEnemy});
     }
     activeEnnemy = currentRound * 3;
 }
@@ -78,7 +78,7 @@ void Window::spawn_entity_boss()
     enemy.add_component(ennemyBoss, BossTag{true});
     enemy.add_component(ennemyBoss, ExplosionTag{false});
     enemy.add_component(ennemyBoss, Song{bossMusicID, true, false, false});
-    enemy.add_component(ennemyBoss, Drawanle{spriteBoss});
+    enemy.add_component(ennemyBoss, Drawable{spriteBoss});
     updateMusic();
     activeEnnemy = 1;
 }

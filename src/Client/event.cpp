@@ -10,7 +10,6 @@
 void Window::shootBullet()
 {
     auto &position = ally.get_components<Position>();
-    auto &drawable = ally.get_components<Drawanle>();
     float bulletSpeed = 1.0f;
 
     if (!textBullet.loadFromFile("includes/assets/sprites/r-typesheet3.gif"))
@@ -18,15 +17,12 @@ void Window::shootBullet()
     spriteBullet.setTexture(textBullet);
     spriteBullet.setTextureRect(sf::IntRect(0, 0, 18, 17));
     spriteBullet.setScale(sf::Vector2f(2, 2));
-    spriteBullet.setPosition(position[0]->x, position[0]->y);
-
-    std::cout << "shoot bullet from " << spriteBullet.getPosition().x << ", " << spriteBullet.getPosition().y << std::endl;
 
     auto bulletEntity = ally.spawn_entity();
     ally.add_component(bulletEntity, Position{position[0]->x, position[0]->y});
     ally.add_component(bulletEntity, Velocity{bulletSpeed, 0});
     ally.add_component(bulletEntity, BulletTag{true});
-    ally.add_component(bulletEntity, Drawanle{spriteBullet});
+    ally.add_component(bulletEntity, Drawable{spriteBullet});
 
     std::cout << "Yeah it's created with the ID " << bulletEntity << std::endl;
 }

@@ -114,7 +114,7 @@ void song_system(Registry &reg, MusicManager &musicManager) {
 
 void draw_system(Registry &reg, sf::RenderWindow &window) {
     auto &position = reg.get_components<Position>();
-    auto &drawable = reg.get_components<Drawanle>();
+    auto &drawable = reg.get_components<Drawable>();
     auto &bullet = reg.get_components<BulletTag>();
     auto &enemy = reg.get_components<EnemyTag>();
     auto &boss = reg.get_components<BossTag>();
@@ -168,26 +168,8 @@ void Window::startProject()
     bossMusicID = musicManager.loadMusic("includes/assets/BossTheme.ogg");
 
     loadSprites();
-    ally.register_component<Position>();
-    ally.register_component<Velocity>();
-    ally.register_component<Controllable>();
-    ally.register_component<BulletTag>();
-    ally.register_component<Timer>();
-    ally.register_component<EnemyTag>();
-    ally.register_component<BossTag>();
-    ally.register_component<ExplosionTag>();
-    ally.register_component<Song>();
-    ally.register_component<Drawanle>();
-
-    enemy.register_component<Position>();
-    enemy.register_component<Velocity>();
-    enemy.register_component<BulletTag>();
-    enemy.register_component<Timer>();
-    enemy.register_component<EnemyTag>();
-    enemy.register_component<BossTag>();
-    enemy.register_component<ExplosionTag>();
-    enemy.register_component<Song>();
-    enemy.register_component<Drawanle>();
+    ally = registerComponentAlly(ally);
+    enemy = registerComponentEnemy(enemy);
 
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
         logging_system(r, position, velocity);
@@ -242,7 +224,7 @@ void Window::startProject()
     ally.add_component(entityAlly, BossTag{false});
     ally.add_component(entityAlly, ExplosionTag{false});
     ally.add_component(entityAlly, Song{allyMusicID, false, true, false});
-    ally.add_component(entityAlly, Drawanle{spriteShip});
+    ally.add_component(entityAlly, Drawable{spriteShip});
 
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);
@@ -256,7 +238,7 @@ void Window::startProject()
     enemy.add_component(entityEnemy, EnemyTag{true});
     enemy.add_component(entityEnemy, BossTag{false});
     enemy.add_component(entityEnemy, ExplosionTag{false});
-    enemy.add_component(entityEnemy, Drawanle{spriteEnemy});
+    enemy.add_component(entityEnemy, Drawable{spriteEnemy});
 
     while (_window.isOpen()) {
         float time = clock.restart().asSeconds();

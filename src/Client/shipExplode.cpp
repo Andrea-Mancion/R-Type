@@ -26,5 +26,5 @@ void Window::destructionShipBoss(float x, float y)
     enemy.add_component(explosion, EnemyTag{false});
     enemy.add_component(explosion, BossTag{false});
     enemy.add_component(explosion, ExplosionTag{true});
-    enemy.add_component(explosion, Drawanle{spriteExplosion});
+    enemy.add_component(explosion, Drawable{spriteExplosion});
 }

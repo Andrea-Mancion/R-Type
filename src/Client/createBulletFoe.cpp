@@ -22,7 +22,7 @@ void Window::shootEnemyBullet(int i, float x, float y)
     enemy.add_component(bulletEnemy, Position{x, y});
     enemy.add_component(bulletEnemy, Velocity{-bulletSpeed, 0});
     enemy.add_component(bulletEnemy, BulletTag{true});
-    enemy.add_component(bulletEnemy, Drawanle{spriteEnemyBullet});
+    enemy.add_component(bulletEnemy, Drawable{spriteEnemyBullet});
 
     std::cout << "Yeah the Enemy bullet it's created with the ID " << bulletEnemy << std::endl;
 

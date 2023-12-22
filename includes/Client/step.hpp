@@ -29,7 +29,7 @@ struct Controllable {
     bool right = false;
 };
 
-struct Drawanle {
+struct Drawable {
     sf::Sprite sprites;
 };
 

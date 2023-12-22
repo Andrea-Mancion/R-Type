@@ -34,10 +34,10 @@ void Window::startNextRound()
 void Window::checkCollision() 
 {
     auto &allyPosition = ally.get_components<Position>();
-    auto &allyDrawable = ally.get_components<Drawanle>();
+    auto &allyDrawable = ally.get_components<Drawable>();
     auto &allyBullet = ally.get_components<BulletTag>();
     auto &ennemyPosition = enemy.get_components<Position>();
-    auto &ennemyDrawable = enemy.get_components<Drawanle>();
+    auto &ennemyDrawable = enemy.get_components<Drawable>();
     auto &enemyBullet = enemy.get_components<BulletTag>();
     auto &boss = enemy.get_components<BossTag>();
 
