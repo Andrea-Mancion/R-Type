@@ -18,6 +18,7 @@ SRC =	event.cpp	\
 		ECS/registerComponent.cpp	\
 		ECS/addSystem.cpp	\
 		ECS/addComponent.cpp	\
+		ECS/killEntity.cpp	\
 		main.cpp
 
 OBJ	=	$(SRC:.cpp=.o)

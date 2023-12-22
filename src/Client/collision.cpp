@@ -32,8 +32,8 @@ void Window::checkCollision()
             for (std::size_t j = 0; j < ennemyPosition.size(); j++) {
                 if (ennemyPosition[j] && ennemyDrawable[j] && enemyBullet[j] && enemyBullet[j]->isBullet) { // Include only enemy bullets
                     if (collisions(allyDrawable[i]->sprites, ennemyDrawable[j]->sprites)) {
-                        ally.kill_entity(ally.entity_from_index(i));
-                        enemy.kill_entity(enemy.entity_from_index(j));
+                        killEntity(ally, i);
+                        killEntity(enemy, j);
                     }
                 }
             }
@@ -45,8 +45,8 @@ void Window::checkCollision()
             for (std::size_t j = 0; j < ennemyPosition.size(); j++) {
                 if (ennemyPosition[j] && ennemyDrawable[j] && enemyBullet[j] && enemyBullet[j]->isBullet) {
                     if (collisions(allyDrawable[i]->sprites, ennemyDrawable[j]->sprites)) {
-                        ally.kill_entity(ally.entity_from_index(i));
-                        enemy.kill_entity(enemy.entity_from_index(j));
+                        killEntity(ally, i);
+                        killEntity(enemy, j);
                     }
                 }
             }
@@ -58,20 +58,19 @@ void Window::checkCollision()
             for (std::size_t j = 0; j < ennemyPosition.size(); j++) {
                 if (ennemyPosition[j] && ennemyDrawable[j] && (!enemyBullet[j] || !enemyBullet[j]->isBullet)) {
                     if (collisions(allyDrawable[i]->sprites, ennemyDrawable[j]->sprites)) {
-                        ally.kill_entity(ally.entity_from_index(i));
+                        killEntity(ally, i);
                         if (boss[j]->isBoss) {
                             bossHP[1]--;
                         }
                         if (boss[j]->isBoss && bossHP[1] <= 0) {
                             destructionShipBoss(ennemyPosition[j]->x, ennemyPosition[j]->y);
-                            enemy.kill_entity(enemy.entity_from_index(j));
+                            killEntity(enemy, j);
                             hasSongStarted = false;
                             bossStarted = false;
-                            std::cout << "NOOOOOOO IMPOSSIBLE" << std::endl;
                             updateMusic();
                             maxEnnemyKilled++;
                         } else if (!boss[j]->isBoss) {
-                            enemy.kill_entity(enemy.entity_from_index(j));
+                            killEntity(enemy, j);
                             maxEnnemyKilled++;
                         }
                         if (maxEnnemyKilled >= activeEnnemy)
@@ -88,8 +87,8 @@ void Window::checkCollision()
             for (std::size_t j = 0; j < ennemyPosition.size(); j++) {
                 if (ennemyPosition[j] && ennemyDrawable[j] && (!enemyBullet[j] || !enemyBullet[j]->isBullet)) {
                     if (collisions(allyDrawable[i]->sprites, ennemyDrawable[j]->sprites)) {
-                        ally.kill_entity(ally.entity_from_index(i));
-                        enemy.kill_entity(enemy.entity_from_index(j));
+                        killEntity(ally, i);
+                        killEntity(enemy, j);
                         maxEnnemyKilled++;
                         if (maxEnnemyKilled >= activeEnnemy)
                             startNextRound();

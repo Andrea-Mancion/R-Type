@@ -83,4 +83,5 @@ void addEnemy(Registry &enemy, sf::Sprite spriteEnemy, std::mt19937 mt, std::uni
 void addBoss(Registry &enemy, sf::Sprite spriteBoss, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID);
 void addBullet(Registry &reg, sf::Sprite spriteBullet, float x, float y, float bulletSpeed);
 void addExplosion(Registry &reg, sf::Sprite spriteExplosion, float x, float y);
+void killEntity(Registry &reg, std::size_t index);
 #endif /* !WINDOW_HPP_ */

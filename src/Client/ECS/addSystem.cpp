@@ -5,7 +5,7 @@
 ** addSystem
 */
 
-#include "../../../includes/Client/step.hpp"
+#include "../../../includes/Client/window.hpp"
 #include <random>
 
 void logging_system(Registry &reg, sparse_array<Position> const &position, sparse_array<Velocity> const &velocity)
@@ -55,7 +55,7 @@ void position_system(Registry &reg) {
     for (size_t i = 0; i < position.size() && i < velocity.size(); ++i) {
         if (position[i] && velocity[i]) {
             if ((position[i]->x <= -150 || position[i]->x >= 2081) && bullet[i]->isBullet)
-                reg.kill_entity(reg.entity_from_index(i));
+                killEntity(reg, i);
             else if ((position[i]->x <= -150 || position[i]->x >= 2081) && enemy[i]->isEnemy) {
                 position[i]->x = 1900;
                 std::random_device rd;
@@ -141,7 +141,7 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
     }
 
     for (auto &i : toDelete)
-        reg.kill_entity(i);
+        killEntity(reg, i);
 }
 
 std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, sf::RenderWindow &window, MusicManager &musicManager)
