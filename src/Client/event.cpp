@@ -18,13 +18,7 @@ void Window::shootBullet()
     spriteBullet.setTextureRect(sf::IntRect(0, 0, 18, 17));
     spriteBullet.setScale(sf::Vector2f(2, 2));
 
-    auto bulletEntity = ally.spawn_entity();
-    ally.add_component(bulletEntity, Position{position[0]->x, position[0]->y});
-    ally.add_component(bulletEntity, Velocity{bulletSpeed, 0});
-    ally.add_component(bulletEntity, BulletTag{true});
-    ally.add_component(bulletEntity, Drawable{spriteBullet});
-
-    std::cout << "Yeah it's created with the ID " << bulletEntity << std::endl;
+    addBullet(ally, spriteBullet, position[0]->x, position[0]->y, bulletSpeed);
 }
 
 void Window::eventHandler()

@@ -9,7 +9,7 @@
 
 void Window::shootEnemyBullet(int i, float x, float y) 
 {
-    float bulletSpeed = 1.0f;
+    float bulletSpeed = -1.0f;
 
     if (!textEnemyBullet.loadFromFile("includes/assets/sprites/r-typesheet14.gif"))
         std::cout << "Error" << std::endl;
@@ -18,14 +18,7 @@ void Window::shootEnemyBullet(int i, float x, float y)
     spriteEnemyBullet.setScale(sf::Vector2f(2, 2));
     spriteEnemyBullet.setPosition(x, y);
 
-    auto bulletEnemy = enemy.spawn_entity();
-    enemy.add_component(bulletEnemy, Position{x, y});
-    enemy.add_component(bulletEnemy, Velocity{-bulletSpeed, 0});
-    enemy.add_component(bulletEnemy, BulletTag{true});
-    enemy.add_component(bulletEnemy, Drawable{spriteEnemyBullet});
-
-    std::cout << "Yeah the Enemy bullet it's created with the ID " << bulletEnemy << std::endl;
-
+    addBullet(enemy, spriteEnemyBullet, x, y, bulletSpeed);
 }
 
 void Window::enemy_shooting(float dt)

@@ -38,75 +38,13 @@ void Window::startProject()
     addSystemAlly(ally, hasSongStarted, bossStarted, _window, musicManager);
     addSystemEnemy(enemy, hasSongStarted, bossStarted, _window, musicManager);
 
-    // ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-    //     logging_system(r, position, velocity);
-    // });
-
-    // ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-    //     position_system(r);
-    // });
-
-    // ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-    //     control_system(r);
-    // });
-
-    // ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-    //     if (!this->hasSongStarted && !this->bossStarted) {
-    //         song_system(r, musicManager);
-    //         this->hasSongStarted = true;
-    //     }
-    // });
-
-    // ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-    //     draw_system(r, _window);
-    // });
-
-    // enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-    //     logging_system(r, position, velocity);
-    // });
-
-    // enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-    //     position_system(r);
-    // });
-
-    // enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-    //     if (!this->hasSongStarted && this->bossStarted) {
-    //         song_system(r, musicManager);
-    //         this->hasSongStarted = true;
-    //     }
-    // });
-
-    // enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
-    //     draw_system(r, _window);
-    // });
-
-    auto entityAlly = ally.spawn_entity();
-
-    ally.add_component(entityAlly, Position{500, 500});
-    ally.add_component(entityAlly, Velocity{0, 0});
-    ally.add_component(entityAlly, Controllable{});
-    ally.add_component(entityAlly, BulletTag{false});
-    ally.add_component(entityAlly, Timer{0.0f});
-    ally.add_component(entityAlly, EnemyTag{false});
-    ally.add_component(entityAlly, BossTag{false});
-    ally.add_component(entityAlly, ExplosionTag{false});
-    ally.add_component(entityAlly, Song{allyMusicID, false, true, false});
-    ally.add_component(entityAlly, Drawable{spriteShip});
+    addAllyShip(ally, allyMusicID, spriteShip);
 
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);
     
-    auto entityEnemy = enemy.spawn_entity();
-
-    enemy.add_component(entityEnemy, Position{1900, static_cast<float>(dist(mt))});
-    enemy.add_component(entityEnemy, Velocity{-0.4, 0});
-    enemy.add_component(entityEnemy, BulletTag{false});
-    enemy.add_component(entityEnemy, Timer{0.0f});
-    enemy.add_component(entityEnemy, EnemyTag{true});
-    enemy.add_component(entityEnemy, BossTag{false});
-    enemy.add_component(entityEnemy, ExplosionTag{false});
-    enemy.add_component(entityEnemy, Drawable{spriteEnemy});
-
+    addEnemy(enemy, spriteEnemy, mt, dist);
+    
     while (_window.isOpen()) {
         float time = clock.restart().asSeconds();
         eventHandler();

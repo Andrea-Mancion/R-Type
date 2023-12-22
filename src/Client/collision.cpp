@@ -17,20 +17,6 @@ static bool collisions(const sf::Sprite &sprite1, const sf::Sprite &sprite2)
     return getBoundingBox(sprite1).intersects(getBoundingBox(sprite2));
 }
 
-void Window::startNextRound()
-{
-    currentRound++;
-    maxEnnemyKilled = 0;
-    if (currentRound % 2 != 0)
-        spawn_entity_foe();
-    else {
-        bossHP[0] *= 2;
-        bossHP[1] = bossHP[0];
-        bossStarted = true;
-        spawn_entity_boss();
-    }
-}
-
 void Window::checkCollision() 
 {
     auto &allyPosition = ally.get_components<Position>();
