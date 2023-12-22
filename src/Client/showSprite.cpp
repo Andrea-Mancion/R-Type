@@ -5,7 +5,7 @@
 ** showSprite
 */
 
-#include "../../includes/Client/window.hpp"
+#include "../../includes/Client/functions.hpp"
 
 void Window::loadSprites() 
 {
@@ -40,17 +40,8 @@ void Window::spawn_entity_foe()
         std::random_device random;
         std::mt19937 gen(random());
         std::uniform_int_distribution<> dis(-16, 959);
-        std::uniform_real_distribution<float> shootDis(0.0f, 5.0f);
 
-        auto entityEnnemy = enemy.spawn_entity();
-        enemy.add_component(entityEnnemy, Position{1900, static_cast<float>(dis(gen))});
-        enemy.add_component(entityEnnemy, Velocity{-0.4, 0});
-        enemy.add_component(entityEnnemy, BulletTag{false});
-        enemy.add_component(entityEnnemy, Timer{shootDis(gen)});
-        enemy.add_component(entityEnnemy, EnemyTag{true});
-        enemy.add_component(entityEnnemy, BossTag{false});
-        enemy.add_component(entityEnnemy, ExplosionTag{false});
-        enemy.add_component(entityEnnemy, Drawable{spriteEnemy});
+        addEnemy(enemy, spriteEnemy, gen, dis);
     }
     activeEnnemy = currentRound * 3;
 }
@@ -67,18 +58,8 @@ void Window::spawn_entity_boss()
 
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);
-    std::uniform_real_distribution<float> shootDis(0.0f, 3.0f);
 
-    auto ennemyBoss = enemy.spawn_entity();
-    enemy.add_component(ennemyBoss, Position{1900, static_cast<float>(dist(mt))});
-    enemy.add_component(ennemyBoss, Velocity{-0.4, 0});
-    enemy.add_component(ennemyBoss, BulletTag{false});
-    enemy.add_component(ennemyBoss, Timer{shootDis(mt)});
-    enemy.add_component(ennemyBoss, EnemyTag{true});
-    enemy.add_component(ennemyBoss, BossTag{true});
-    enemy.add_component(ennemyBoss, ExplosionTag{false});
-    enemy.add_component(ennemyBoss, Song{bossMusicID, true, false, false});
-    enemy.add_component(ennemyBoss, Drawable{spriteBoss});
+    addBoss(enemy, spriteBoss, mt, dist, bossMusicID);
     updateMusic();
     activeEnnemy = 1;
 }

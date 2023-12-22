@@ -5,13 +5,12 @@
 ** song
 */
 
-#include "../../includes/Client/window.hpp"
+#include "../../includes/Client/functions.hpp"
 
 void Window::updateMusic()
 {
-    auto &allySong = ally.get_components<Song>();
-    auto &enemySong = enemy.get_components<Song>();
-    auto &boss = enemy.get_components<BossTag>();
+    auto [allySong] = getComponent<Song>(ally);
+    auto [enemySong, boss] = getComponent<Song, BossTag>(enemy);
 
     bool bossIsAlive = std::any_of(boss.begin(), boss.end(), [](const auto &boss) {
         return boss && boss->isBoss;

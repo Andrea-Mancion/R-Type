@@ -12,9 +12,13 @@ SRC =	event.cpp	\
 		createBulletFoe.cpp	\
 		redirectFile.cpp	\
 		showSprite.cpp	\
+		nextRound.cpp	\
 		shipExplode.cpp	\
 		createSong.cpp	\
 		ECS/registerComponent.cpp	\
+		ECS/addSystem.cpp	\
+		ECS/addComponent.cpp	\
+		ECS/killEntity.cpp	\
 		main.cpp
 
 OBJ	=	$(SRC:.cpp=.o)

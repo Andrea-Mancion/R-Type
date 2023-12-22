@@ -31,7 +31,7 @@ class Window {
         void loadSprites();
         void spawn_entity_foe();
         void checkCollision();
-        bool isAnyAllyShipLeft() const;
+        bool isAnyAllyShipLeft();
         void enemy_shooting(float dt);
         void shootEnemyBullet(int i, float x, float y);
         void startNextRound();
@@ -71,11 +71,4 @@ class Window {
         bool hasSongStarted = false;
         bool bossStarted = false;
 };
-
-std::streambuf *redirectCoutToFile(const std::string &filename);
-void resetCout(std::streambuf *backup);
-Registry registerComponentAlly(Registry &ally);
-Registry registerComponentEnemy(Registry &enemy);
-// std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, sf::RenderWindow &window, MusicManager &musicManager);
-// std::pair<Registry&, bool> addSystemEnemy(Registry &ally, bool &hasSongStarted, bool &bossStarted, sf::RenderWindow &window, MusicManager &musicManager);
 #endif /* !WINDOW_HPP_ */

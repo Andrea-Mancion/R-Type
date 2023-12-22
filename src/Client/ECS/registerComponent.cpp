@@ -7,7 +7,7 @@
 
 #include "../../../includes/Client/step.hpp"
 
-Registry registerComponentAlly(Registry &ally)
+void registerComponentAlly(Registry &ally)
 {
     ally.register_component<Position>();
     ally.register_component<Velocity>();
@@ -19,11 +19,9 @@ Registry registerComponentAlly(Registry &ally)
     ally.register_component<ExplosionTag>();
     ally.register_component<Song>();
     ally.register_component<Drawable>();
-
-    return ally;
 }
 
-Registry registerComponentEnemy(Registry &enemy)
+void registerComponentEnemy(Registry &enemy)
 {
     enemy.register_component<Position>();
     enemy.register_component<Velocity>();
@@ -34,6 +32,4 @@ Registry registerComponentEnemy(Registry &enemy)
     enemy.register_component<ExplosionTag>();
     enemy.register_component<Song>();
     enemy.register_component<Drawable>();
-
-    return enemy;
 }
