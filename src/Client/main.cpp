@@ -3,7 +3,7 @@
 
 Window::Window()
 {
-    _window.create(sf::VideoMode(1920, 1080), "R-Type");
+    _sfml._window.create(sf::VideoMode(1920, 1080), "R-Type");
     redirectCoutToFile("log.txt");
 }
 
@@ -34,43 +34,43 @@ void Window::startProject()
     registerComponentAlly(ally);
     registerComponentEnemy(enemy);
 
-    addSystemAlly(ally, hasSongStarted, bossStarted, _window, musicManager);
-    addSystemEnemy(enemy, hasSongStarted, bossStarted, _window, musicManager);
+    addSystemAlly(ally, hasSongStarted, bossStarted, _sfml._window, musicManager);
+    addSystemEnemy(enemy, hasSongStarted, bossStarted, _sfml._window, musicManager);
 
-    addAllyShip(ally, allyMusicID, spriteShip);
+    addAllyShip(ally, allyMusicID, _sfml.spriteShip);
 
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);
     
-    addEnemy(enemy, spriteEnemy, mt, dist);
+    addEnemy(enemy, _sfml.spriteEnemy, mt, dist);
     
-    while (_window.isOpen()) {
-        float time = clock.restart().asSeconds();
+    while (_sfml._window.isOpen()) {
+        float time = _sfml.clock.restart().asSeconds();
         eventHandler();
         if (!isAnyAllyShipLeft()) {
             std::cout << "Oh no you're dead Game Over" << std::endl;
-            _window.close();
+            _sfml._window.close();
         }
-        sprite[0].move(-0.1, 0);
-        sprite[1].move(-0.1, 0);
-        sprite[2].move(-0.1, 0);
-        if (sprite[0].getPosition().x <= -1920)
-            sprite[0].setPosition(sf::Vector2f(0, 0));
-        if (sprite[1].getPosition().x <= -1920)
-            sprite[1].setPosition(sf::Vector2f(1920, 0));
-        if (sprite[2].getPosition().x <= -1920)
-            sprite[2].setPosition(sf::Vector2f(3840, 0));
+        _sfml.sprite[0].move(-0.1, 0);
+        _sfml.sprite[1].move(-0.1, 0);
+        _sfml.sprite[2].move(-0.1, 0);
+        if (_sfml.sprite[0].getPosition().x <= -1920)
+            _sfml.sprite[0].setPosition(sf::Vector2f(0, 0));
+        if (_sfml.sprite[1].getPosition().x <= -1920)
+            _sfml.sprite[1].setPosition(sf::Vector2f(1920, 0));
+        if (_sfml.sprite[2].getPosition().x <= -1920)
+            _sfml.sprite[2].setPosition(sf::Vector2f(3840, 0));
 
-        _window.clear();
-        _window.draw(sprite[0]);
-        _window.draw(sprite[1]);
-        _window.draw(sprite[2]);
+        _sfml._window.clear();
+        _sfml._window.draw(_sfml.sprite[0]);
+        _sfml._window.draw(_sfml.sprite[1]);
+        _sfml._window.draw(_sfml.sprite[2]);
         updateMusic();
         ally.run_systems();
         enemy.run_systems();
         enemy_shooting(time);
         checkCollision();
-        _window.display();
+        _sfml._window.display();
     }
 }
 
