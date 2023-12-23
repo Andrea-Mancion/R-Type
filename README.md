@@ -33,7 +33,15 @@ or
 If you want some help about the games
 
 ## Game
-In this game, you play as ship in the space.
+In this game, you play as a ship lost in the space and you meet some... Things.
 Your goal is to survive as long as you can against some waves of monsters and bosses
 
 ![Alt text](image.png)
+
+## Architecture
+For the architecture part, i use principally the ECS method to create my game.
+
+# Entity Component System
+Entity Component System (ECS) is a software architectural pattern mostly used in video game development for the representation of game world objects. An ECS comprises entities composed from components of data, with systems which operate on entities' components.
+
+ECS follows the principle of composition over inheritance, meaning that every entity is defined not by a type hierarchy, but by the components that are associated with it. Systems act globally over all entities which have the required components.

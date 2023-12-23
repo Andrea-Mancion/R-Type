@@ -76,10 +76,14 @@ void Window::startProject()
 
 int main(int ac, char** av)
 {
-    Window window;
-
     try {
-        window.startProject();
+        if (ac == 2 && strcmp(av[1], "-h") == 0)
+            printHelp();
+        else {
+            Window window;
+
+            window.startProject();
+        }
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
         return 84;

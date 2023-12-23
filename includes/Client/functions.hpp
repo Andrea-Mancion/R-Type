@@ -6,10 +6,12 @@
 */
 
 #include "window.hpp"
+#include <cstring>
 
 #ifndef FUNCTIONS_HPP_
 #define FUNCTIONS_HPP_
 
+void printHelp();
 std::streambuf *redirectCoutToFile(const std::string &filename);
 void resetCout(std::streambuf *backup);
 void registerComponentAlly(Registry &ally);
