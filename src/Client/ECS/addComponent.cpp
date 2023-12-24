@@ -5,10 +5,10 @@
 ** addComponent
 */
 
-#include "../../../includes/Client/step.hpp"
+#include "../../../includes/Client/functions.hpp"
 #include <random>
 
-void addAllyShip(Registry &ally, int allyMusicID, sf::Sprite spriteShip)
+void SFML::addAllyShip(Registry &ally, int allyMusicID)
 {
     auto entityAlly = ally.spawn_entity();
 
@@ -24,7 +24,7 @@ void addAllyShip(Registry &ally, int allyMusicID, sf::Sprite spriteShip)
     ally.add_component(entityAlly, Drawable{spriteShip});
 }
 
-void addEnemy(Registry &enemy, sf::Sprite spriteEnemy, std::mt19937 mt, std::uniform_int_distribution<int> dist)
+void SFML::addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist)
 {
     auto entityEnemy = enemy.spawn_entity();
     std::uniform_real_distribution<float> shootDis(0.0f, 5.0f);
@@ -39,7 +39,7 @@ void addEnemy(Registry &enemy, sf::Sprite spriteEnemy, std::mt19937 mt, std::uni
     enemy.add_component(entityEnemy, Drawable{spriteEnemy});
 }
 
-void addBoss(Registry &enemy, sf::Sprite spriteBoss, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID)
+void SFML::addBoss(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID)
 {
     std::uniform_real_distribution<float> shootDis(0.0f, 5.0f);
 
@@ -55,16 +55,21 @@ void addBoss(Registry &enemy, sf::Sprite spriteBoss, std::mt19937 mt, std::unifo
     enemy.add_component(ennemyBoss, Drawable{spriteBoss});
 }
 
-void addBullet(Registry &reg, sf::Sprite spriteBullet, float x, float y, float bulletSpeed)
+void SFML::addBullet(Registry &reg, float x, float y, float bulletSpeed)
 {
+    auto [enemy] = getComponent<EnemyTag>(reg);
     auto bulletEntity = reg.spawn_entity();
+
     reg.add_component(bulletEntity, Position{x, y});
     reg.add_component(bulletEntity, Velocity{bulletSpeed, 0});
     reg.add_component(bulletEntity, BulletTag{true});
-    reg.add_component(bulletEntity, Drawable{spriteBullet});
+    if (enemy[0]->isEnemy)
+        reg.add_component(bulletEntity, Drawable{spriteEnemyBullet});
+    else
+        reg.add_component(bulletEntity, Drawable{spriteBullet});
 }
 
-void addExplosion(Registry &reg, sf::Sprite spriteExplosion, float x, float y)
+void SFML::addExplosion(Registry &reg,  float x, float y)
 {
     auto explosion = reg.spawn_entity();
     reg.add_component(explosion, Position{x, y});

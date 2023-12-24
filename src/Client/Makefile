@@ -8,6 +8,7 @@
 DIRS	=	*
 
 SRC =	event.cpp	\
+		printHelp.cpp	\
 		collision.cpp	\
 		createBulletFoe.cpp	\
 		redirectFile.cpp	\

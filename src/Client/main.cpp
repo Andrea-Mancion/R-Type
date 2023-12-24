@@ -3,7 +3,7 @@
 
 Window::Window()
 {
-    _window.create(sf::VideoMode(1920, 1080), "R-Type");
+    _sfml.getWindow().create(sf::VideoMode(1920, 1080), "R-Type");
     redirectCoutToFile("log.txt");
 }
 
@@ -34,52 +34,56 @@ void Window::startProject()
     registerComponentAlly(ally);
     registerComponentEnemy(enemy);
 
-    addSystemAlly(ally, hasSongStarted, bossStarted, _window, musicManager);
-    addSystemEnemy(enemy, hasSongStarted, bossStarted, _window, musicManager);
+    _sfml.addSystemAlly(ally, hasSongStarted, bossStarted, musicManager);
+    _sfml.addSystemEnemy(enemy, hasSongStarted, bossStarted, musicManager);
 
-    addAllyShip(ally, allyMusicID, spriteShip);
+    _sfml.addAllyShip(ally, allyMusicID);
 
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);
     
-    addEnemy(enemy, spriteEnemy, mt, dist);
+    _sfml.addEnemy(enemy, mt, dist);
     
-    while (_window.isOpen()) {
-        float time = clock.restart().asSeconds();
+    while (_sfml.getWindow().isOpen()) {
+        float time = _sfml.getClock().restart().asSeconds();
         eventHandler();
         if (!isAnyAllyShipLeft()) {
             std::cout << "Oh no you're dead Game Over" << std::endl;
-            _window.close();
+            _sfml.getWindow().close();
         }
-        sprite[0].move(-0.1, 0);
-        sprite[1].move(-0.1, 0);
-        sprite[2].move(-0.1, 0);
-        if (sprite[0].getPosition().x <= -1920)
-            sprite[0].setPosition(sf::Vector2f(0, 0));
-        if (sprite[1].getPosition().x <= -1920)
-            sprite[1].setPosition(sf::Vector2f(1920, 0));
-        if (sprite[2].getPosition().x <= -1920)
-            sprite[2].setPosition(sf::Vector2f(3840, 0));
+        _sfml.getSprite(0).move(-0.1, 0);
+        _sfml.getSprite(1).move(-0.1, 0);
+        _sfml.getSprite(2).move(-0.1, 0);
+        if (_sfml.getSprite(0).getPosition().x <= -1920)
+            _sfml.getSprite(0).setPosition(sf::Vector2f(0, 0));
+        if (_sfml.getSprite(1).getPosition().x <= -1920)
+            _sfml.getSprite(1).setPosition(sf::Vector2f(1920, 0));
+        if (_sfml.getSprite(2).getPosition().x <= -1920)
+            _sfml.getSprite(2).setPosition(sf::Vector2f(3840, 0));
 
-        _window.clear();
-        _window.draw(sprite[0]);
-        _window.draw(sprite[1]);
-        _window.draw(sprite[2]);
+        _sfml.getWindow().clear();
+        _sfml.getWindow().draw(_sfml.getSprite(0));
+        _sfml.getWindow().draw(_sfml.getSprite(1));
+        _sfml.getWindow().draw(_sfml.getSprite(2));
         updateMusic();
         ally.run_systems();
         enemy.run_systems();
         enemy_shooting(time);
         checkCollision();
-        _window.display();
+        _sfml.getWindow().display();
     }
 }
 
 int main(int ac, char** av)
 {
-    Window window;
-
     try {
-        window.startProject();
+        if (ac == 2 && strcmp(av[1], "-h") == 0)
+            printHelp();
+        else {
+            Window window;
+
+            window.startProject();
+        }
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
         return 84;

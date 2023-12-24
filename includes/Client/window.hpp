@@ -5,18 +5,10 @@
 ** window
 */
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Window/Mouse.hpp>
-#include <SFML/Window/Keyboard.hpp>
-#include <SFML/System/Clock.hpp>
+#include "SFML.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <random>
-#include "step.hpp"
 
 #ifndef WINDOW_HPP_
 #define WINDOW_HPP_
@@ -40,26 +32,11 @@ class Window {
         void updateMusic();
 
     private:
-        sf::RenderWindow _window;
+        SFML _sfml;
         Registry ally;
         Registry enemy;
         MusicManager musicManager;
-        sf::Event _event;
-        sf::Texture background;
-        sf::Sprite sprite[3];
-        sf::Texture textSprite;
-        sf::Sprite spriteShip;
-        sf::Texture textBullet;
-        sf::Sprite spriteBullet;
-        sf::Texture textEnemy;
-        sf::Sprite spriteEnemy;
-        sf::Texture textEnemyBullet;
-        sf::Sprite spriteEnemyBullet;
         std::random_device rd;
-        sf::Texture textBoss;
-        sf::Sprite spriteBoss;
-        sf::Texture textEplosion;
-        sf::Sprite spriteExplosion;
         int activeAlly = 0;
         int currentRound = 1;
         int activeEnnemy = 0;
@@ -67,7 +44,6 @@ class Window {
         int allyMusicID;
         int bossMusicID;
         int bossHP[2] = {1, 1};
-        sf::Clock clock;
         bool hasSongStarted = false;
         bool bossStarted = false;
 };
