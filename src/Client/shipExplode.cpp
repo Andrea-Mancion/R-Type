@@ -11,12 +11,12 @@ void Window::destructionShipBoss(float x, float y)
 {
     auto [position] = getComponent<Position>(enemy);
 
-    if (!_sfml.textEplosion.loadFromFile("includes/assets/sprites/r-typesheet44.gif"))
+    if (!_sfml.getTextExplosion().loadFromFile("includes/assets/sprites/r-typesheet44.gif"))
         std::cout << "Error" << std::endl;
-    _sfml.spriteExplosion.setTexture(_sfml.textEplosion);
-    _sfml.spriteExplosion.setTextureRect(sf::IntRect(120, 0, 35, 40));
-    _sfml.spriteExplosion.setScale(sf::Vector2f(2, 2));
-    _sfml.spriteExplosion.setPosition(x, y);
+    _sfml.getSpriteExplosion().setTexture(_sfml.getTextExplosion());
+    _sfml.getSpriteExplosion().setTextureRect(sf::IntRect(120, 0, 35, 40));
+    _sfml.getSpriteExplosion().setScale(sf::Vector2f(2, 2));
+    _sfml.getSpriteExplosion().setPosition(x, y);
 
-    addExplosion(enemy, _sfml.spriteExplosion, x, y);
+    addExplosion(enemy, _sfml.getSpriteExplosion(), x, y);
 }

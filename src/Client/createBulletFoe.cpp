@@ -11,14 +11,14 @@ void Window::shootEnemyBullet(int i, float x, float y)
 {
     float bulletSpeed = -1.0f;
 
-    if (!_sfml.textEnemyBullet.loadFromFile("includes/assets/sprites/r-typesheet14.gif"))
+    if (!_sfml.getTextEnemyBullet().loadFromFile("includes/assets/sprites/r-typesheet14.gif"))
         std::cout << "Error" << std::endl;
-    _sfml.spriteEnemyBullet.setTexture(_sfml.textEnemyBullet);
-    _sfml.spriteEnemyBullet.setTextureRect(sf::IntRect(0, 135, 10, 17));
-    _sfml.spriteEnemyBullet.setScale(sf::Vector2f(2, 2));
-    _sfml.spriteEnemyBullet.setPosition(x, y);
+    _sfml.getSpriteEnemyBullet().setTexture(_sfml.getTextEnemyBullet());
+    _sfml.getSpriteEnemyBullet().setTextureRect(sf::IntRect(0, 135, 10, 17));
+    _sfml.getSpriteEnemyBullet().setScale(sf::Vector2f(2, 2));
+    _sfml.getSpriteEnemyBullet().setPosition(x, y);
 
-    addBullet(enemy, _sfml.spriteEnemyBullet, x, y, bulletSpeed);
+    addBullet(enemy, _sfml.getSpriteEnemyBullet(), x, y, bulletSpeed);
 }
 
 void Window::enemy_shooting(float dt)

@@ -34,7 +34,7 @@ class Window {
         void updateMusic();
 
     private:
-        SFML_t _sfml;
+        SFML _sfml;
         Registry ally;
         Registry enemy;
         MusicManager musicManager;
