@@ -34,15 +34,15 @@ void Window::startProject()
     registerComponentAlly(ally);
     registerComponentEnemy(enemy);
 
-    addSystemAlly(ally, hasSongStarted, bossStarted, _sfml.getWindow(), musicManager);
-    addSystemEnemy(enemy, hasSongStarted, bossStarted, _sfml.getWindow(), musicManager);
+    _sfml.addSystemAlly(ally, hasSongStarted, bossStarted, musicManager);
+    _sfml.addSystemEnemy(enemy, hasSongStarted, bossStarted, musicManager);
 
-    addAllyShip(ally, allyMusicID, _sfml.getSpriteShip());
+    _sfml.addAllyShip(ally, allyMusicID);
 
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);
     
-    addEnemy(enemy, _sfml.getSpriteEnemy(), mt, dist);
+    _sfml.addEnemy(enemy, mt, dist);
     
     while (_sfml.getWindow().isOpen()) {
         float time = _sfml.getClock().restart().asSeconds();

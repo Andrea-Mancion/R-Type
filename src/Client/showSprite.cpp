@@ -41,7 +41,7 @@ void Window::spawn_entity_foe()
         std::mt19937 gen(random());
         std::uniform_int_distribution<> dis(-16, 959);
 
-        addEnemy(enemy, _sfml.getSpriteEnemy(), gen, dis);
+        _sfml.addEnemy(enemy, gen, dis);
     }
     activeEnnemy = currentRound * 3;
 }
@@ -59,7 +59,7 @@ void Window::spawn_entity_boss()
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);
 
-    addBoss(enemy, _sfml.getSpriteBoss(), mt, dist, bossMusicID);
+    _sfml.addBoss(enemy, mt, dist, bossMusicID);
     updateMusic();
     activeEnnemy = 1;
 }

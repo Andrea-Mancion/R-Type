@@ -18,7 +18,7 @@ void Window::shootBullet()
     _sfml.getSpriteBullet().setTextureRect(sf::IntRect(0, 0, 18, 17));
     _sfml.getSpriteBullet().setScale(sf::Vector2f(2, 2));
 
-    addBullet(ally, _sfml.getSpriteBullet(), position[0]->x, position[0]->y, bulletSpeed);
+    _sfml.addBullet(ally, position[0]->x, position[0]->y, bulletSpeed);
 }
 
 void Window::eventHandler()

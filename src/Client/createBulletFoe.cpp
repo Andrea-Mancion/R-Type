@@ -18,7 +18,7 @@ void Window::shootEnemyBullet(int i, float x, float y)
     _sfml.getSpriteEnemyBullet().setScale(sf::Vector2f(2, 2));
     _sfml.getSpriteEnemyBullet().setPosition(x, y);
 
-    addBullet(enemy, _sfml.getSpriteEnemyBullet(), x, y, bulletSpeed);
+    _sfml.addBullet(enemy, x, y, bulletSpeed);
 }
 
 void Window::enemy_shooting(float dt)

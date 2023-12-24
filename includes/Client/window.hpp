@@ -9,8 +9,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <random>
-#include "step.hpp"
 
 #ifndef WINDOW_HPP_
 #define WINDOW_HPP_

@@ -5,6 +5,7 @@
 ** SFML
 */
 
+#include "step.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
@@ -12,6 +13,7 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/Clock.hpp>
+#include <random>
 
 #ifndef SFML_HPP_
 #define SFML_HPP_
@@ -35,6 +37,14 @@ class SFML {
         sf::Sprite& getSpriteBoss() { return spriteBoss; };
         sf::Texture& getTextExplosion() { return textEplosion; };
         sf::Sprite& getSpriteExplosion() { return spriteExplosion; };
+
+        void addAllyShip(Registry &ally, int allyMusicID);
+        void addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist);
+        std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager);
+        std::pair<Registry&, bool> addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager);
+        void addExplosion(Registry &reg, float x, float y);
+        void addBoss(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID);
+        void addBullet(Registry &reg, float x, float y, float bulletSpeed);
 
     private:
         sf::RenderWindow _window;

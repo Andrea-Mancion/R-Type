@@ -18,5 +18,5 @@ void Window::destructionShipBoss(float x, float y)
     _sfml.getSpriteExplosion().setScale(sf::Vector2f(2, 2));
     _sfml.getSpriteExplosion().setPosition(x, y);
 
-    addExplosion(enemy, _sfml.getSpriteExplosion(), x, y);
+    _sfml.addExplosion(enemy, x, y);
 }

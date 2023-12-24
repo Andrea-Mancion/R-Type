@@ -134,7 +134,7 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
         killEntity(reg, i);
 }
 
-std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, sf::RenderWindow &window, MusicManager &musicManager)
+std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager)
 {
     ally.add_system<Position, Velocity>([&ally](Registry &r, auto const &position, auto const &velocity) {
         logging_system(r, position, velocity);
@@ -155,14 +155,14 @@ std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, b
         }
     });
 
-    ally.add_system<Position, Velocity>([&window](Registry &r, auto const &position, auto const &velocity) {
-        draw_system(r, window);
+    ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        draw_system(r, _window);
     });
 
     return {ally, hasSongStarted};
 }
 
-std::pair<Registry&, bool> addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, sf::RenderWindow &window, MusicManager &musicManager)
+std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager)
 {
     enemy.add_system<Position, Velocity>([&enemy](Registry &r, auto const &position, auto const &velocity) {
         logging_system(r, position, velocity);
@@ -179,8 +179,8 @@ std::pair<Registry&, bool> addSystemEnemy(Registry &enemy, bool &hasSongStarted,
         }
     });
 
-    enemy.add_system<Position, Velocity>([&window](Registry &r, auto const &position, auto const &velocity) {
-        draw_system(r, window);
+    enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        draw_system(r, _window);
     });
 
     return {enemy, hasSongStarted};

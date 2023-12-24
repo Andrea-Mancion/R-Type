@@ -7,7 +7,7 @@ R-Type is a horizontally scrolling shooter arcade video game developed and relea
 ## Install
 
 First of all, make sure you have the SFML librairy install on your computer.
-If not use use this command:
+If not, use use this command:
 ```sh
 sudo dnf install SFML-devel
 ```
