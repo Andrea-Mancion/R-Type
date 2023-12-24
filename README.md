@@ -32,6 +32,10 @@ or
 ```
 If you want some help about the games
 
+# Command
+
+Use the keyboard key (Up, Left, Right, Down) to move your ship, and use Space to shoot bullets
+
 ## Game
 In this game, you play as a ship lost in the space and you meet some... Things.
 Your goal is to survive as long as you can against some waves of monsters and bosses
