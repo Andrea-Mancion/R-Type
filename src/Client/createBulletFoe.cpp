@@ -7,6 +7,25 @@
 
 #include "../../includes/Client/functions.hpp"
 
+/**
+ * @brief Creates and shoots an enemy bullet in the game.
+ *
+ * This method is responsible for generating a new enemy bullet and initializing its properties.
+ * It sets the texture, size, scale, and initial position of the bullet. The bullet is then added
+ * to the game world with a specified speed in a downward direction (indicated by the negative speed value).
+ *
+ * The method begins by loading the bullet's texture from a specified file. If the texture loading fails,
+ * it outputs an error message. Once the texture is set, the bullet's appearance is configured by setting
+ * the texture rectangle, scale, and initial position based on the provided coordinates (x, y).
+ *
+ * Finally, the bullet is added to the game with a call to `_sfml.addBullet`, which handles the integration
+ * of the bullet into the game's mechanics, such as movement and collision detection.
+ *
+ * @param i An integer index representing the bullet's unique identifier or related enemy entity.
+ * @param x The x-coordinate for the initial position of the bullet.
+ * @param y The y-coordinate for the initial position of the bullet.
+ */
+
 void Window::shootEnemyBullet(int i, float x, float y) 
 {
     float bulletSpeed = -1.0f;
@@ -20,6 +39,25 @@ void Window::shootEnemyBullet(int i, float x, float y)
 
     _sfml.addBullet(enemy, x, y, bulletSpeed);
 }
+
+/**
+ * @brief Handles the shooting mechanism for enemy entities.
+ *
+ * This method is responsible for managing the shooting actions of enemy entities in the game.
+ * It iterates through the enemies, checking and updating their shooting timers, and triggers
+ * the shooting of bullets when appropriate.
+ *
+ * The method retrieves the position and timer components of each enemy. For each enemy,
+ * it increments the timer by the elapsed time (`dt`). When the timer exceeds a specified
+ * shooting interval, the enemy shoots a bullet. The shooting position is determined by
+ * the enemy's current position. After shooting, the timer is reset, and the shooting interval
+ * is randomized for varied shooting patterns.
+ *
+ * The method uses a `std::uniform_real_distribution` to randomize the shooting interval,
+ * making the enemy shooting behavior less predictable and more dynamic.
+ *
+ * @param dt Delta time - the time elapsed since the last game update, used to increment timers.
+ */
 
 void Window::enemy_shooting(float dt)
 {

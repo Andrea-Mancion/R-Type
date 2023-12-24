@@ -5,6 +5,22 @@
 ** SFML
 */
 
+/**
+ * @file SFML.hpp
+ * @brief SFML class for managing SFML-related resources and operations.
+ *
+ * This file contains the declaration of the SFML class which encapsulates various SFML
+ * resources such as window, events, textures, and sprites. It provides accessors for these
+ * resources and methods for adding game entities like ships, enemies, bullets, and handling
+ * explosions.
+ * 
+ * @version 1.0
+ * @date 2023-12-24
+ * @author Andrea Mancion
+ * 
+ * @note This file is part of the Epitech Project, B-CPP-500-REN-5-2-rtype-andrea.mancion.
+ */
+
 #include "step.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>

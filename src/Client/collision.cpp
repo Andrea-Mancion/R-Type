@@ -7,15 +7,73 @@
 
 #include "../../includes/Client/functions.hpp"
 
+/**
+ * @brief Retrieves the bounding box of a given sprite.
+ *
+ * This function calculates and returns the axis-aligned bounding box of a sprite.
+ * The bounding box is represented as a `sf::FloatRect`, which includes the position
+ * and size of the rectangle that completely encloses the sprite.
+ *
+ * The bounding box is useful for various purposes such as collision detection,
+ * rendering optimizations, and spatial queries. This function utilizes the
+ * `getGlobalBounds` method of the SFML `sf::Sprite` class, which calculates the bounding
+ * box based on the transformed (scaled, rotated, etc.) sprite.
+ *
+ * @param sprite A constant reference to the `sf::Sprite` object whose bounding box is needed.
+ * @return `sf::FloatRect` representing the sprite's bounding box in global coordinates.
+ */
+
 static sf::FloatRect getBoundingBox(const sf::Sprite &sprite)
 {
     return sprite.getGlobalBounds();
 }
 
+/**
+ * @brief Determines if two sprites are colliding.
+ *
+ * This function checks for a collision between two sprites by determining
+ * if their bounding boxes intersect. It uses the `getBoundingBox` function
+ * to obtain the axis-aligned bounding boxes of each sprite and then checks
+ * for intersection between these rectangles.
+ *
+ * The function is useful in scenarios such as collision detection in a game,
+ * where it is necessary to know if two game entities (represented by sprites)
+ * are overlapping or touching each other.
+ *
+ * @param sprite1 A constant reference to the first `sf::Sprite` object.
+ * @param sprite2 A constant reference to the second `sf::Sprite` object.
+ * @return `true` if the bounding boxes of the sprites intersect; `false` otherwise.
+ */
+
 static bool collisions(const sf::Sprite &sprite1, const sf::Sprite &sprite2)
 {
     return getBoundingBox(sprite1).intersects(getBoundingBox(sprite2));
 }
+
+/**
+ * @brief Checks and handles collisions between ally and enemy entities.
+ *
+ * This method is responsible for detecting collisions between various ally and enemy entities
+ * in a game and handling the consequences of such collisions. It covers different scenarios
+ * such as ally vs enemy bullets, ally bullets vs enemy bullets, and direct collisions between
+ * ally and enemy entities.
+ *
+ * The method uses the `getComponent` function to retrieve the positions, drawable components,
+ * and bullet tags of allies and enemies. It then iterates through these components, using
+ * the `collisions` function to detect intersections. Upon detecting a collision, appropriate
+ * actions are taken, which may include killing the colliding entities and triggering specific
+ * game events like boss health reduction, ship destruction, music update, and starting the next
+ * round of the game.
+ *
+ * The method handles different types of collisions:
+ * - Ally (excluding bullets) vs enemy bullets.
+ * - Ally bullets vs enemy bullets.
+ * - Ally bullets vs enemies (including boss entities).
+ * - Ally (excluding bullets) vs enemies (excluding bullets).
+ *
+ * The logic also includes specific handling for boss entities, such as decrementing boss health
+ * and triggering boss-specific behaviors.
+ */
 
 void Window::checkCollision() 
 {
