@@ -7,6 +7,17 @@
 
 #include "../../includes/Client/functions.hpp"
 
+/**
+ * @brief Loads and configures the sprites used in the game.
+ * 
+ * This function is responsible for loading the background, player ship, and enemy ship textures from files.
+ * It sets up the textures for each sprite, configures their texture rectangles, positions, and scales. 
+ * If any texture fails to load, it outputs an error message.
+ * 
+ * @note The function assumes the existence of specific assets in the 'includes/assets' directory.
+ *       It is vital for the visual setup of the game, ensuring that all sprites are correctly displayed.
+ */
+
 void Window::loadSprites() 
 {
     if (!_sfml.getBackground().loadFromFile("includes/assets/Space.png"))
@@ -34,6 +45,17 @@ void Window::loadSprites()
     _sfml.getSpriteEnemy().setScale(sf::Vector2f(3, 3));
 }
 
+/**
+ * @brief Spawns enemy entities based on the current game round.
+ * 
+ * Generates a number of enemy entities proportional to the current round (three times the round number).
+ * Each enemy's position is randomly determined within specified bounds. The function updates the count
+ * of active enemies after spawning them.
+ * 
+ * @note This function is integral to the game's progression, increasing the difficulty in each round.
+ *       It utilizes C++'s random number generation facilities to position enemies.
+ */
+
 void Window::spawn_entity_foe() 
 {
     for (int i = 0; i < currentRound * 3; ++i) {
@@ -45,6 +67,18 @@ void Window::spawn_entity_foe()
     }
     activeEnnemy = currentRound * 3;
 }
+
+/**
+ * @brief Spawns the boss entity and prepares the game for the boss round.
+ * 
+ * Resets the music start flag and announces the boss round. Loads the boss sprite from a file, 
+ * sets up its texture, texture rectangle, and scale. It then spawns the boss entity with a random
+ * position within specified bounds and updates the music for the boss round. The active enemy count
+ * is set to one, indicating the presence of the boss.
+ * 
+ * @note This function is called to initiate a boss round, marking a significant event in the game's progression.
+ *       It also handles the visual and audio setup specific to the boss entity.
+ */
 
 void Window::spawn_entity_boss()
 {

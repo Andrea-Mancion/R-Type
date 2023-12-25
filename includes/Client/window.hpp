@@ -10,8 +10,34 @@
 #include <fstream>
 #include <string>
 
+/**
+ * @file WINDOW_HPP
+ * @brief Header file defining the Window class for game management.
+ *
+ * This header file declares the Window class which encapsulates the game logic,
+ * event handling, entity management, and interactions within a game. It controls
+ * game flow, such as starting the game, handling user input, managing entity
+ * spawning, collisions, and rounds.
+ */
+
 #ifndef WINDOW_HPP_
 #define WINDOW_HPP_
+
+/**
+ * @class Window
+ * @brief Manages the main game window and game state.
+ *
+ * The Window class is responsible for the creation of the game window,
+ * handling game events, and managing the game state. It provides methods
+ * to handle game logic such as shooting bullets, spawning enemies, checking
+ * for collisions, and updating game rounds.
+ * 
+ * @version 1.0
+ * @date 2023-12-25
+ * @author Andrea Mancion
+ * 
+ * @note This file is part of the Epitech Project, B-CPP-500-REN-5-2-rtype-andrea.mancion.
+ */
 
 class Window {
     public:
