@@ -15,6 +15,24 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
+/**
+ * @file step.hpp
+ * @brief Entity Component System (ECS) architecture and utilities for game development.
+ *
+ * This file provides the necessary classes and structures to implement an ECS architecture in a game.
+ * It includes the definition of components like Position, Velocity, Controllable, Drawable, BulletTag, 
+ * EnemyTag, BossTag, Timer, ExplosionTag, and Song. It also defines the MusicManager class for handling
+ * music resources, an entity class as a unique identifier for entities, a sparse_array template for component
+ * storage, and a Registry class for managing entities and their components. The file uses SFML for rendering 
+ * and multimedia handling.
+ *
+ * @version 1.0
+ * @date 2023-12-25
+ * @author Andrea Mancion
+ * 
+ * @note This file is part of the Epitech Project, B-CPP-500-REN-5-2-rtype-andrea.mancion.
+ */
+
 struct Position {
     float x, y;
 };
@@ -74,6 +92,15 @@ struct Song {
     Song(int id, bool EnemySong, bool ShouldPlay, bool IsPlaying) : isEnemy(EnemySong), musicID(id), shouldPlay(ShouldPlay), isPlaying(IsPlaying) {}
 };
 
+/**
+ * @class MusicManager
+ * @brief Manages music resources within the game.
+ *
+ * The MusicManager class is responsible for loading, storing, and providing access to music tracks.
+ * It assigns a unique ID to each loaded track, allowing for efficient management and retrieval of
+ * music resources.
+ */
+
 class MusicManager {
     private:
         int nextID = 0;
@@ -107,6 +134,12 @@ class entity {
         explicit entity(size_t x) : x(x) {}
         operator std::size_t() const { return x; }
 };
+
+/**
+ * @brief A template class that provides a space-efficient array with optional elements.
+ *
+ * @tparam Component The type of component to store in the array.
+ */
 
 template <typename Component>
 class sparse_array {
