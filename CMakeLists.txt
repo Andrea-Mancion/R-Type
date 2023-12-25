@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(r-type LANGUAGES CXX)
 
-find_package(SFML 2.5 COMPONENTS system window graphics QUIET)
+find_package(SFML 2.5 COMPONENTS system window graphics audio QUIET)
 
 if(NOT SFML_FOUND)
     include(FetchContent)
@@ -16,6 +16,7 @@ if(NOT SFML_FOUND)
             GIT_REPOSITORY https://github.com/SFML/SFML.git
             GIT_TAG        2.5.0
     )
+    set(SFML_BUILD_STATIC_LIBS TRUE)
     FetchContent_MakeAvailable(SFML)
 endif()
 
