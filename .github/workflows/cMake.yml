@@ -1,0 +1,21 @@
+name: C++ CMake Build
+
+on: [push, pull_request]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+    
+        steps:
+        - uses: actions/checkout@v2
+    
+        - name: Create Build Directory
+          run: mkdir -p build
+    
+        - name: Configure CMake
+          working-directory: ./build
+          run: cmake ..
+    
+        - name: Build
+          working-directory: ./build
+          run: make
