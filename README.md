@@ -12,13 +12,12 @@ If not, use use this command:
 sudo dnf install SFML-devel
 ```
 
-And use the Makefile to Compile the project using:
+And use the CMakeLists to Compile the project using:
 ```sh
+mkdir build
+cd build
+cmake ..
 make
-```
-or 
-```sh
-make re
 ```
 
 ## Usage
