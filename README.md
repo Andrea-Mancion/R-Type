@@ -48,3 +48,10 @@ For the architecture part, i use principally the ECS method to create my game.
 Entity Component System (ECS) is a software architectural pattern mostly used in video game development for the representation of game world objects. An ECS comprises entities composed from components of data, with systems which operate on entities' components.
 
 ECS follows the principle of composition over inheritance, meaning that every entity is defined not by a type hierarchy, but by the components that are associated with it. Systems act globally over all entities which have the required components.
+
+
+For more documentation about the client Side, go to this link:
+https://github.com/EpitechPromo2026/B-CPP-500-REN-5-2-rtype-andrea.mancion/wiki/Client-Documentation
+
+For more documentation about the Game engine, got to this link:
+https://github.com/EpitechPromo2026/B-CPP-500-REN-5-2-rtype-andrea.mancion/wiki/Game-Engine-Documentation
