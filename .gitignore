@@ -25,7 +25,6 @@
 *.a
 *.la
 *.lo
-*.pdf
 
 # Shared objects (inc. Windows DLLs)
 *.dll
