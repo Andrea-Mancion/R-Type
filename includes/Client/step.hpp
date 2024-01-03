@@ -89,7 +89,7 @@ struct Song {
     bool shouldPlay;
     bool isPlaying;
 
-    Song(int id, bool EnemySong, bool ShouldPlay, bool IsPlaying) : isEnemy(EnemySong), musicID(id), shouldPlay(ShouldPlay), isPlaying(IsPlaying) {}
+    Song(int id, bool EnemySong, bool ShouldPlay, bool IsPlaying) : musicID(id), isEnemy(EnemySong), shouldPlay(ShouldPlay), isPlaying(IsPlaying) {}
 };
 
 /**
