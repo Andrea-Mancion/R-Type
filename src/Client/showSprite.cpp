@@ -84,11 +84,19 @@ void Window::spawn_entity_boss()
 {
     hasSongStarted = false;
     std::cout << "JE SUIS AU BOSSSSSSSSSS" << std::endl;
-    if (!_sfml.getTextBoss().loadFromFile("includes/assets/sprites/r-typesheet20.gif"))
-        std::cout << "Error" << std::endl;
-    _sfml.getSpriteBoss().setTexture(_sfml.getTextBoss());
-    _sfml.getSpriteBoss().setTextureRect(sf::IntRect(15, 67, 35, 30));
-    _sfml.getSpriteBoss().setScale(sf::Vector2f(3, 3));
+    if (bossTimer[1] == 0) {
+        if (!_sfml.getTextBoss().loadFromFile("includes/assets/sprites/r-typesheet20.gif"))
+            std::cout << "Error" << std::endl;
+        _sfml.getSpriteBoss().setTexture(_sfml.getTextBoss());
+        _sfml.getSpriteBoss().setTextureRect(sf::IntRect(15, 67, 35, 30));
+        _sfml.getSpriteBoss().setScale(sf::Vector2f(3, 3));
+    } else if (bossTimer[1] == 1) {
+        if (!_sfml.getTextBoss().loadFromFile("includes/assets/sprites/r-typesheet17.gif"))
+            std::cout << "Error" << std::endl;
+        _sfml.getSpriteBoss().setTexture(_sfml.getTextBoss());
+        _sfml.getSpriteBoss().setTextureRect(sf::IntRect(15, 0, 50, 150));
+        _sfml.getSpriteBoss().setScale(sf::Vector2f(3, 3));
+    }
 
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);

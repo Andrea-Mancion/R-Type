@@ -30,13 +30,21 @@ void Window::shootEnemyBullet(int i, float x, float y)
 {
     float bulletSpeed = -1.0f;
 
-    if (!_sfml.getTextEnemyBullet().loadFromFile("includes/assets/sprites/r-typesheet14.gif"))
-        std::cout << "Error" << std::endl;
-    _sfml.getSpriteEnemyBullet().setTexture(_sfml.getTextEnemyBullet());
-    _sfml.getSpriteEnemyBullet().setTextureRect(sf::IntRect(0, 135, 10, 17));
-    _sfml.getSpriteEnemyBullet().setScale(sf::Vector2f(2, 2));
-    _sfml.getSpriteEnemyBullet().setPosition(x, y);
-
+    if (bossTimer[1] == 0) {
+        if (!_sfml.getTextEnemyBullet().loadFromFile("includes/assets/sprites/r-typesheet14.gif"))
+            std::cout << "Error" << std::endl;
+        _sfml.getSpriteEnemyBullet().setTexture(_sfml.getTextEnemyBullet());
+        _sfml.getSpriteEnemyBullet().setTextureRect(sf::IntRect(0, 135, 10, 17));
+        _sfml.getSpriteEnemyBullet().setScale(sf::Vector2f(2, 2));
+        _sfml.getSpriteEnemyBullet().setPosition(x, y);
+    } else if (bossTimer[1] == 1) {
+        if (!_sfml.getTextEnemyBullet().loadFromFile("includes/assets/sprites/r-typesheet9.gif"))
+            std::cout << "Error" << std::endl;
+        _sfml.getSpriteEnemyBullet().setTexture(_sfml.getTextEnemyBullet());
+        _sfml.getSpriteEnemyBullet().setTextureRect(sf::IntRect(0, 60, 10, 17));
+        _sfml.getSpriteEnemyBullet().setScale(sf::Vector2f(2, 2));
+        _sfml.getSpriteEnemyBullet().setPosition(x, y);
+    }
     _sfml.addBullet(enemy, x, y, bulletSpeed);
 }
 

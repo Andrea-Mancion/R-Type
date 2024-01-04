@@ -122,6 +122,8 @@ void Window::checkCollision()
                             bossStarted = false;
                             updateMusic();
                             maxEnnemyKilled++;
+                            bossTimer[0]++;
+                            canCheckLevel = true;
                         } else if (!boss[j]->isBoss) {
                             killEntity(enemy, j);
                             maxEnnemyKilled++;

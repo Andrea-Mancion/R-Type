@@ -19,9 +19,12 @@
 
 void Window::startNextRound()
 {
+    if (bossTimer[1] != bossTimer[0])
+        currentRound = 0;
+    bossTimer[1] = bossTimer[0];
     currentRound++;
     maxEnnemyKilled = 0;
-    if (currentRound % 5 != 0)
+    if (currentRound % 2 != 0)
         spawn_entity_foe();
     else {
         bossHP[0] *= 2;

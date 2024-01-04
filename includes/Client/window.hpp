@@ -56,6 +56,7 @@ class Window {
         void spawn_entity_boss();
         void destructionShipBoss(float x, float y);
         void updateMusic();
+        void checkLevel();
 
     private:
         SFML _sfml;
@@ -72,5 +73,7 @@ class Window {
         int bossHP[2] = {1, 1};
         bool hasSongStarted = false;
         bool bossStarted = false;
+        int bossTimer[2] = {0, 0};
+        bool canCheckLevel = false;
 };
 #endif /* !WINDOW_HPP_ */
