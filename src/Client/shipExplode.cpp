@@ -29,8 +29,6 @@
 
 void Window::destructionShipBoss(float x, float y)
 {
-    auto [position] = getComponent<Position>(enemy);
-
     if (!_sfml.getTextExplosion().loadFromFile("includes/assets/sprites/r-typesheet44.gif"))
         std::cout << "Error" << std::endl;
     _sfml.getSpriteExplosion().setTexture(_sfml.getTextExplosion());
