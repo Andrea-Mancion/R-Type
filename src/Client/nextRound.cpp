@@ -30,6 +30,10 @@ void Window::startNextRound()
         bossHP[0] *= 2;
         bossHP[1] = bossHP[0];
         bossStarted = true;
-        spawn_entity_boss();
+        if (bossTimer[1] == 2) {
+            bossHP[1] = 20;
+            spawn_entity_boss_ultimate();
+        } else
+            spawn_entity_boss();
     }
 }

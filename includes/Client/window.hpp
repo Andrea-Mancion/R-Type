@@ -54,6 +54,7 @@ class Window {
         void shootEnemyBullet(int i, float x, float y);
         void startNextRound();
         void spawn_entity_boss();
+        void spawn_entity_boss_ultimate();
         void destructionShipBoss(float x, float y);
         void updateMusic();
         void checkLevel();

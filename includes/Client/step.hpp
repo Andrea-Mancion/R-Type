@@ -70,6 +70,12 @@ struct BossTag {
     BossTag(bool isBoss) : isBoss(isBoss) {}
 };
 
+struct BossUltimateTag {
+    bool isBoss;
+
+    BossUltimateTag(bool isBoss) : isBoss(isBoss) {}
+};
+
 struct Timer {
     float elapsedTime = 0.0f;
     float shootInterval;

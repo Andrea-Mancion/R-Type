@@ -105,3 +105,20 @@ void Window::spawn_entity_boss()
     updateMusic();
     activeEnnemy = 1;
 }
+
+void Window::spawn_entity_boss_ultimate()
+{
+    hasSongStarted = false;
+    if (!_sfml.getTextBoss().loadFromFile("includes/assets/sprites/r-typesheet33.gif"))
+        std::cout << "Error" << std::endl;
+    _sfml.getSpriteBoss().setTexture(_sfml.getTextBoss());
+    _sfml.getSpriteBoss().setTextureRect(sf::IntRect(0, 0, 255, 140));
+    _sfml.getSpriteBoss().setScale(sf::Vector2f(2, 2));
+
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<> dist(-16, 959);
+
+    _sfml.addBossUltimate(enemy, mt, dist, bossMusicID);
+    updateMusic();
+    activeEnnemy = 1;
+}

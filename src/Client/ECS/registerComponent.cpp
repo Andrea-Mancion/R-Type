@@ -27,6 +27,7 @@
  * - Timer: For time-based events or behaviors.
  * - EnemyTag: To tag the entity as an enemy.
  * - BossTag: To tag the entity as a boss.
+ * - BossUltimateTag: To tag the entity as a boss ultime.
  * - ExplosionTag: To tag the entity for explosion effects.
  * - Song: For associating music or sound effects.
  * - Drawable: To make the entity renderable in the game.
@@ -43,6 +44,7 @@ void registerComponentAlly(Registry &ally)
     ally.register_component<Timer>();
     ally.register_component<EnemyTag>();
     ally.register_component<BossTag>();
+    ally.register_component<BossUltimateTag>();
     ally.register_component<ExplosionTag>();
     ally.register_component<Song>();
     ally.register_component<Drawable>();
@@ -67,6 +69,7 @@ void registerComponentAlly(Registry &ally)
  * - Timer: For time-based events or behaviors.
  * - EnemyTag: To specifically tag the entity as an enemy.
  * - BossTag: To tag the entity as a boss.
+ * - BossUltimateTag: To tag the entity as a boss ultime.
  * - ExplosionTag: To tag the entity for explosion effects.
  * - Song: For associating music or sound effects.
  * - Drawable: To make the entity renderable in the game.
@@ -82,6 +85,7 @@ void registerComponentEnemy(Registry &enemy)
     enemy.register_component<Timer>();
     enemy.register_component<EnemyTag>();
     enemy.register_component<BossTag>();
+    enemy.register_component<BossUltimateTag>();
     enemy.register_component<ExplosionTag>();
     enemy.register_component<Song>();
     enemy.register_component<Drawable>();

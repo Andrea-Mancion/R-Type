@@ -159,7 +159,7 @@ void song_system(Registry &reg, MusicManager &musicManager) {
  */
 
 void draw_system(Registry &reg, sf::RenderWindow &window) {
-    auto [position, drawable, bullet, enemy, boss, explosion] = getComponent<Position, Drawable, BulletTag, EnemyTag, BossTag, ExplosionTag>(reg);
+    auto [position, drawable, bullet, enemy, boss, explosion, bossUltime] = getComponent<Position, Drawable, BulletTag, EnemyTag, BossTag, ExplosionTag, BossUltimateTag>(reg);
     std::vector<entity> toDelete;
     
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
@@ -186,6 +186,8 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
                 else
                     rectBoss.left += 35;
                 drawable[i]->sprites.setTextureRect(rectBoss);
+            } else if (enemy[i]->isEnemy && bossUltime[i]->isBoss) {
+                std::cout << "TODO" << std::endl;
             } else if (enemy[i]->isEnemy && !boss[i]->isBoss) {
                 auto rectEnemy = drawable[i]->sprites.getTextureRect();
                 if (rectEnemy.left >= 200)

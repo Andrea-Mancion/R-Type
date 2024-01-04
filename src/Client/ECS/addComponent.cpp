@@ -32,6 +32,7 @@ void SFML::addAllyShip(Registry &ally, int allyMusicID)
     ally.add_component(entityAlly, Timer{0.0f});
     ally.add_component(entityAlly, EnemyTag{false});
     ally.add_component(entityAlly, BossTag{false});
+    ally.add_component(entityAlly, BossUltimateTag{false});
     ally.add_component(entityAlly, ExplosionTag{false});
     ally.add_component(entityAlly, Song{allyMusicID, false, true, false});
     ally.add_component(entityAlly, Drawable{spriteShip});
@@ -62,6 +63,7 @@ void SFML::addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribut
     enemy.add_component(entityEnemy, Timer{shootDis(mt)});
     enemy.add_component(entityEnemy, EnemyTag{true});
     enemy.add_component(entityEnemy, BossTag{false});
+    enemy.add_component(entityEnemy, BossUltimateTag{false});
     enemy.add_component(entityEnemy, ExplosionTag{false});
     enemy.add_component(entityEnemy, Drawable{spriteEnemy});
 }
@@ -92,6 +94,24 @@ void SFML::addBoss(Registry &enemy, std::mt19937 mt, std::uniform_int_distributi
     enemy.add_component(ennemyBoss, Timer{shootDis(mt)});
     enemy.add_component(ennemyBoss, EnemyTag{true});
     enemy.add_component(ennemyBoss, BossTag{true});
+    enemy.add_component(ennemyBoss, BossUltimateTag{false});
+    enemy.add_component(ennemyBoss, ExplosionTag{false});
+    enemy.add_component(ennemyBoss, Song{bossMusicID, true, true, false});
+    enemy.add_component(ennemyBoss, Drawable{spriteBoss});
+}
+
+void SFML::addBossUltimate(Registry &enemy,  std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID)
+{
+    std::uniform_real_distribution<float> shootDis(0.0f, 5.0f);
+
+    auto ennemyBoss = enemy.spawn_entity();
+    enemy.add_component(ennemyBoss, Position{1900, static_cast<float>(dist(mt))});
+    enemy.add_component(ennemyBoss, Velocity{-0.4, 0});
+    enemy.add_component(ennemyBoss, BulletTag{false});
+    enemy.add_component(ennemyBoss, Timer{shootDis(mt)});
+    enemy.add_component(ennemyBoss, EnemyTag{true});
+    enemy.add_component(ennemyBoss, BossTag{false});
+    enemy.add_component(ennemyBoss, BossUltimateTag{true});
     enemy.add_component(ennemyBoss, ExplosionTag{false});
     enemy.add_component(ennemyBoss, Song{bossMusicID, true, true, false});
     enemy.add_component(ennemyBoss, Drawable{spriteBoss});
@@ -148,6 +168,7 @@ void SFML::addExplosion(Registry &reg,  float x, float y)
     reg.add_component(explosion, Timer{0.0f});
     reg.add_component(explosion, EnemyTag{false});
     reg.add_component(explosion, BossTag{false});
+    reg.add_component(explosion, BossUltimateTag{false});
     reg.add_component(explosion, ExplosionTag{true});
     reg.add_component(explosion, Drawable{spriteExplosion});
 }
