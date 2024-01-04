@@ -24,6 +24,7 @@
 
 void logging_system(Registry &reg, sparse_array<Position> const &position, sparse_array<Velocity> const &velocity)
 {
+    (void)reg;
     for (size_t i = 0; i < position.size() && i < velocity.size(); ++i) {
         if (position[i] && velocity[i]) {
             auto &pos = position[i].value();
@@ -227,14 +228,20 @@ std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStar
     });
 
     ally.add_system<Position, Velocity>([&ally](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
         position_system(r);
     });
 
     ally.add_system<Position, Velocity>([&ally](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
         control_system(r);
     });
 
     ally.add_system<Position, Velocity>([&hasSongStarted, &bossStarted, &musicManager](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
         if (!hasSongStarted && !bossStarted) {
             song_system(r, musicManager);
             hasSongStarted = true;
@@ -242,6 +249,8 @@ std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStar
     });
 
     ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
         draw_system(r, _window);
     });
 
@@ -272,10 +281,14 @@ std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongSt
     });
 
     enemy.add_system<Position, Velocity>([&enemy](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
         position_system(r);
     });
 
     enemy.add_system<Position, Velocity>([&hasSongStarted, &bossStarted, &musicManager](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
         if (!hasSongStarted && bossStarted) {
             song_system(r, musicManager);
             hasSongStarted = true;
@@ -283,6 +296,8 @@ std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongSt
     });
 
     enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
         draw_system(r, _window);
     });
 
