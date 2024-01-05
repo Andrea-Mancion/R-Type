@@ -118,7 +118,7 @@ void Window::spawn_entity_boss_ultimate()
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);
 
-    _sfml.addBossUltimate(enemy, mt, dist, bossMusicID);
+    _sfml.addBossUltimate(enemy, mt, dist, bossMusicID, true);
     updateMusic();
     activeEnnemy = 1;
 }

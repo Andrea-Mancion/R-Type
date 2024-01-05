@@ -58,6 +58,7 @@ class Window {
         void destructionShipBoss(float x, float y);
         void updateMusic();
         void checkLevel();
+        void changeStrat(int i);
 
     private:
         SFML _sfml;

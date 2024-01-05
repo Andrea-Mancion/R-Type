@@ -72,8 +72,9 @@ struct BossTag {
 
 struct BossUltimateTag {
     bool isBoss;
+    bool isVisible;
 
-    BossUltimateTag(bool isBoss) : isBoss(isBoss) {}
+    BossUltimateTag(bool isBoss, bool isVisible) : isBoss(isBoss), isVisible(isVisible) {}
 };
 
 struct Timer {

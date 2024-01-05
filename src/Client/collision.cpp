@@ -80,6 +80,14 @@ void Window::checkCollision()
     auto [allyPosition, allyDrawable, allyBullet] = getComponent<Position, Drawable, BulletTag>(ally);
     auto [ennemyPosition, ennemyDrawable, enemyBullet, boss, bossUltime] = getComponent<Position, Drawable, BulletTag, BossTag, BossUltimateTag>(enemy);
 
+    for (std::size_t i = 0; i < ennemyPosition.size(); i++) {
+        if (bossUltime[i]->isBoss == true && !boss[i]->isBoss && bossHP[1] <= 10) {
+            std::cout << "change strat" << std::endl;
+            changeStrat(i);
+            break;
+        }
+    }
+
     for (std::size_t i = 0; i < allyPosition.size(); i++) {
         if (allyPosition[i] && allyDrawable[i] && (!allyBullet[i] || !allyBullet[i]->isBullet)) { // Exclude ally bullets
             for (std::size_t j = 0; j < ennemyPosition.size(); j++) {
