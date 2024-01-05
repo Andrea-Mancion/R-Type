@@ -32,6 +32,20 @@ void Window::shootBullet()
     _sfml.addBullet(ally, position[0]->x, position[0]->y, bulletSpeed);
 }
 
+void Window::shootBulletForBoss()
+{
+    auto [position] = getComponent<Position>(ally);
+    float bulletSpeed = 1.0f;
+
+    if (!_sfml.getTextBullet().loadFromFile("includes/assets/sprites/r-typesheet42.gif"))
+        std::cout << "Error" << std::endl;
+    _sfml.getSpriteBullet().setTexture(_sfml.getTextBullet());
+    _sfml.getSpriteBullet().setTextureRect(sf::IntRect(0, 0, 18, 17));
+    _sfml.getSpriteBullet().setScale(sf::Vector2f(2, 2));
+
+    _sfml.addBulletBoss(ally, position[0]->x, position[0]->y, bulletSpeed);
+}
+
 /**
  * @brief Handles all the events occurring in the game window.
  * 
@@ -49,7 +63,10 @@ void Window::eventHandler()
             _sfml.getWindow().close();
         if (_sfml.getEvent().type == sf::Event::KeyPressed && _sfml.getEvent().key.code == sf::Keyboard::Space) {
             std::cout << "Space pressed" << std::endl;
-            shootBullet();
+            if (isStratChanged == false)
+                shootBullet();
+            else if (isStratChanged == true)
+                shootBulletForBoss();
         }
     }
 }

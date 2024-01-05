@@ -118,7 +118,7 @@ void Window::startProject()
         ally.run_systems();
         enemy.run_systems();
         enemy_shooting(time);
-        checkCollision();
+        checkCollision(time);
         checkLevel();
         _sfml.getWindow().display();
     }
@@ -146,11 +146,12 @@ int main(int ac, char** av)
     try {
         if (ac == 2 && strcmp(av[1], "-h") == 0)
             printHelp();
-        else {
+        else if (ac == 1) {
             Window window;
 
             window.startProject();
-        }
+        } else
+            return 84;
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
         return 84;

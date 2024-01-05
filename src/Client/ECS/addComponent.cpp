@@ -139,6 +139,28 @@ void SFML::addBullet(Registry &reg, float x, float y, float bulletSpeed)
     reg.add_component(bulletEntity, Position{x, y});
     reg.add_component(bulletEntity, Velocity{bulletSpeed, 0});
     reg.add_component(bulletEntity, BulletTag{true});
+    reg.add_component(bulletEntity, EnemyTag{false});
+    reg.add_component(bulletEntity, BossTag{false});
+    reg.add_component(bulletEntity, BossUltimateTag{false, false});
+    reg.add_component(bulletEntity, ExplosionTag{false});
+    if (enemy[0]->isEnemy)
+        reg.add_component(bulletEntity, Drawable{spriteEnemyBullet});
+    else
+        reg.add_component(bulletEntity, Drawable{spriteBullet});
+}
+
+void SFML::addBulletBoss(Registry &reg, float x, float y, float bulletSpeed)
+{
+    auto [enemy] = getComponent<EnemyTag>(reg);
+    auto bulletEntity = reg.spawn_entity();
+
+    reg.add_component(bulletEntity, Position{x, y});
+    reg.add_component(bulletEntity, Velocity{0, bulletSpeed});
+    reg.add_component(bulletEntity, BulletTag{true});
+    reg.add_component(bulletEntity, EnemyTag{false});
+    reg.add_component(bulletEntity, BossTag{false});
+    reg.add_component(bulletEntity, BossUltimateTag{false, false});
+    reg.add_component(bulletEntity, ExplosionTag{false});
     if (enemy[0]->isEnemy)
         reg.add_component(bulletEntity, Drawable{spriteEnemyBullet});
     else
