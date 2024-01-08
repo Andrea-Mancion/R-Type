@@ -7,7 +7,7 @@
 
 #include "../../includes/Client/functions.hpp"
 
-void Window::changeStrat(int i, float dt)
+void Window::changeStrat(int i)
 {
     auto [bossUltime] = getComponent<BossUltimateTag>(enemy);
 

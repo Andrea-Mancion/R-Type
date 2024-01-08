@@ -120,7 +120,7 @@ void Window::startProject()
         ally.run_systems();
         enemy.run_systems();
         enemy_shooting(time);
-        checkCollision(time);
+        checkCollision();
         checkLevel();
         _sfml.getWindow().display();
     }

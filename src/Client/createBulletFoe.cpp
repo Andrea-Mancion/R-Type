@@ -51,6 +51,7 @@ void Window::shootEnemyBullet(int i, float x, float y)
 
 void Window::shootBossUltimeBullet(int i, float x, float y)
 {
+    (void)i;
     float bulletSpeed = -1.0f;
 
     if (!_sfml.getTextEnemyBullet().loadFromFile("includes/assets/sprites/r-typesheet9.gif"))

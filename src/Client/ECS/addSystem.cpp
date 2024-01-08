@@ -52,10 +52,10 @@ void control_system(Registry &reg) {
 
     for (size_t i = 0; i < controllable.size() && i < velocity.size(); ++i) {
         if (controllable[i] && velocity[i]) {
-            controllable[i]->up = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
-            controllable[i]->down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
-            controllable[i]->left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
-            controllable[i]->right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+            controllable[i]->up = sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
+            controllable[i]->down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+            controllable[i]->left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
+            controllable[i]->right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D);
 
             if (controllable[i]->up)
                 velocity[i]->dy = -1;

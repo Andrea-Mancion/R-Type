@@ -49,7 +49,7 @@ class Window {
         void shootBulletForBoss();
         void loadSprites();
         void spawn_entity_foe();
-        void checkCollision(float dt);
+        void checkCollision();
         bool isAnyAllyShipLeft();
         void enemy_shooting(float dt);
         void shootEnemyBullet(int i, float x, float y);
@@ -60,7 +60,7 @@ class Window {
         void destructionShipBoss(float x, float y);
         void updateMusic();
         void checkLevel();
-        void changeStrat(int i, float dt);
+        void changeStrat(int i);
 
     private:
         SFML _sfml;

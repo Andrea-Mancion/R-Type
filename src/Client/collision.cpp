@@ -75,7 +75,7 @@ static bool collisions(const sf::Sprite &sprite1, const sf::Sprite &sprite2)
  * and triggering boss-specific behaviors.
  */
 
-void Window::checkCollision(float dt) 
+void Window::checkCollision() 
 {
     auto [allyPosition, allyDrawable, allyBullet] = getComponent<Position, Drawable, BulletTag>(ally);
     auto [ennemyPosition, ennemyDrawable, enemyBullet, boss, bossUltime] = getComponent<Position, Drawable, BulletTag, BossTag, BossUltimateTag>(enemy);
@@ -83,7 +83,7 @@ void Window::checkCollision(float dt)
     for (std::size_t i = 0; i < ennemyPosition.size(); i++) {
         if (bossUltime[i]->isBoss == true && !boss[i]->isBoss && bossHP[1] <= 10) {
             std::cout << "change strat" << std::endl;
-            changeStrat(i, dt);
+            changeStrat(i);
             break;
         }
     }
