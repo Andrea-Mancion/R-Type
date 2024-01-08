@@ -90,7 +90,9 @@ void Window::startProject()
 
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(-16, 959);
+    std::uniform_int_distribution<> trollerHP(1, 40);
     
+    troll = trollerHP(mt);
     _sfml.addEnemy(enemy, mt, dist);
     
     while (_sfml.getWindow().isOpen()) {

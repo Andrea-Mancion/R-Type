@@ -61,7 +61,6 @@ class Window {
         void updateMusic();
         void checkLevel();
         void changeStrat(int i, float dt);
-        //void updateVisibility(int i, float dt);
 
     private:
         SFML _sfml;
@@ -81,5 +80,7 @@ class Window {
         int bossTimer[2] = {0, 0};
         bool canCheckLevel = false;
         bool isStratChanged = false;
+        bool isXPressed = false;
+        int troll = 0;
 };
 #endif /* !WINDOW_HPP_ */

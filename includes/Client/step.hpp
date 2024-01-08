@@ -84,6 +84,14 @@ struct Timer {
     Timer(float interval) : shootInterval(interval) {}
 };
 
+struct TimerVisible {
+    float elapsedTime = 0.0f;
+    float visibleInterval;
+    float invisibleInterval;
+
+    TimerVisible(float interval, float inInterval) : visibleInterval(interval), invisibleInterval(inInterval) {}
+};
+
 struct ExplosionTag {
     bool isExplosion;
 

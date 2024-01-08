@@ -7,22 +7,12 @@
 
 #include "../../includes/Client/functions.hpp"
 
-// void Window::updateVisibility(int i, float dt)
-// {
-//     auto [bossUltime] = getComponent<BossUltimateTag>(enemy);
-
-//     bossUltime[i]->visibleTimer += dt;
-
-    
-// }
-
 void Window::changeStrat(int i, float dt)
 {
     auto [bossUltime] = getComponent<BossUltimateTag>(enemy);
 
     isStratChanged = true;
-    bossUltime[i]->isVisible = false;
+    if (isXPressed == false)
+        bossUltime[i]->isVisible = false;
     std::cout << "OK INVISIBLE" << std::endl;
-
-    //updateVisibility(i, dt);
 }

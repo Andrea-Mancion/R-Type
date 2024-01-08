@@ -42,6 +42,7 @@ void registerComponentAlly(Registry &ally)
     ally.register_component<Controllable>();
     ally.register_component<BulletTag>();
     ally.register_component<Timer>();
+    ally.register_component<TimerVisible>();
     ally.register_component<EnemyTag>();
     ally.register_component<BossTag>();
     ally.register_component<BossUltimateTag>();
@@ -83,6 +84,7 @@ void registerComponentEnemy(Registry &enemy)
     enemy.register_component<Velocity>();
     enemy.register_component<BulletTag>();
     enemy.register_component<Timer>();
+    enemy.register_component<TimerVisible>();
     enemy.register_component<EnemyTag>();
     enemy.register_component<BossTag>();
     enemy.register_component<BossUltimateTag>();

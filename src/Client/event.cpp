@@ -67,6 +67,15 @@ void Window::eventHandler()
                 shootBullet();
             else if (isStratChanged == true)
                 shootBulletForBoss();
+        } else if (_sfml.getEvent().type == sf::Event::KeyPressed && _sfml.getEvent().key.code == sf::Keyboard::X) {
+            auto [bossUltime, enemyPosition] = getComponent<BossUltimateTag, Position>(enemy);
+            isXPressed = true;
+            for (std::size_t i = 0; i < enemyPosition.size(); i++) {
+                if (isStratChanged == true && bossHP[1] <= 10) {
+                    std::cout << "OK VISIBLE" << std::endl;
+                    bossUltime[i]->isVisible = true;
+                }
+            }
         }
     }
 }
