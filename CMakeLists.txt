@@ -43,6 +43,8 @@ set(SRC_CLIENT
         ${CLIENT_SRC_PATH}/printHelp.cpp
         ${CLIENT_SRC_PATH}/shipExplode.cpp
         ${CLIENT_SRC_PATH}/showSprite.cpp
+        ${CLIENT_SRC_PATH}/level.cpp
+        ${CLIENT_SRC_PATH}/newStrat.cpp
 )
 
 set(HPP_CLIENT

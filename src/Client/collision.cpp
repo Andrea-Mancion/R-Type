@@ -75,10 +75,18 @@ static bool collisions(const sf::Sprite &sprite1, const sf::Sprite &sprite2)
  * and triggering boss-specific behaviors.
  */
 
-void Window::checkCollision() 
+void Window::checkCollision(float dt) 
 {
     auto [allyPosition, allyDrawable, allyBullet] = getComponent<Position, Drawable, BulletTag>(ally);
-    auto [ennemyPosition, ennemyDrawable, enemyBullet, boss] = getComponent<Position, Drawable, BulletTag, BossTag>(enemy);
+    auto [ennemyPosition, ennemyDrawable, enemyBullet, boss, bossUltime] = getComponent<Position, Drawable, BulletTag, BossTag, BossUltimateTag>(enemy);
+
+    for (std::size_t i = 0; i < ennemyPosition.size(); i++) {
+        if (bossUltime[i]->isBoss == true && !boss[i]->isBoss && bossHP[1] <= 10) {
+            std::cout << "change strat" << std::endl;
+            changeStrat(i, dt);
+            break;
+        }
+    }
 
     for (std::size_t i = 0; i < allyPosition.size(); i++) {
         if (allyPosition[i] && allyDrawable[i] && (!allyBullet[i] || !allyBullet[i]->isBullet)) { // Exclude ally bullets
@@ -112,17 +120,26 @@ void Window::checkCollision()
                 if (ennemyPosition[j] && ennemyDrawable[j] && (!enemyBullet[j] || !enemyBullet[j]->isBullet)) {
                     if (collisions(allyDrawable[i]->sprites, ennemyDrawable[j]->sprites)) {
                         killEntity(ally, i);
-                        if (boss[j]->isBoss) {
+                        if (boss[j]->isBoss && !bossUltime[j]->isBoss) {
+                            bossHP[1]--;
+                        } else if (!boss[j]->isBoss && bossUltime[j]->isBoss) {
                             bossHP[1]--;
                         }
-                        if (boss[j]->isBoss && bossHP[1] <= 0) {
+                        if (boss[j]->isBoss && bossHP[1] <= 0 && !bossUltime[j]->isBoss) {
                             destructionShipBoss(ennemyPosition[j]->x, ennemyPosition[j]->y);
                             killEntity(enemy, j);
                             hasSongStarted = false;
                             bossStarted = false;
                             updateMusic();
                             maxEnnemyKilled++;
-                        } else if (!boss[j]->isBoss) {
+                            bossTimer[0]++;
+                            canCheckLevel = true;
+                        } else if (!boss[j]->isBoss && bossUltime[j]->isBoss && bossHP[1] <=0) {
+                            destructionShipBoss(ennemyPosition[j]->x, ennemyPosition[j]->y);
+                            killEntity(enemy, j);
+                            std::cout << "GG you've won the game" << std::endl;
+                            _sfml.getWindow().close();
+                        } else if (!boss[j]->isBoss && !bossUltime[j]->isBoss) {
                             killEntity(enemy, j);
                             maxEnnemyKilled++;
                         }

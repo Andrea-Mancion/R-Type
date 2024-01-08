@@ -19,14 +19,24 @@
 
 void Window::startNextRound()
 {
+    if (bossTimer[1] != bossTimer[0])
+        currentRound = 0;
+    bossTimer[1] = bossTimer[0];
     currentRound++;
     maxEnnemyKilled = 0;
-    if (currentRound % 5 != 0)
+    if (currentRound % 2 != 0)
         spawn_entity_foe();
     else {
         bossHP[0] *= 2;
         bossHP[1] = bossHP[0];
         bossStarted = true;
-        spawn_entity_boss();
+        if (bossTimer[1] == 2) {
+            if (troll == 10)
+                bossHP[1] = 200;
+            else
+                bossHP[1] = 20;
+            spawn_entity_boss_ultimate();
+        } else
+            spawn_entity_boss();
     }
 }

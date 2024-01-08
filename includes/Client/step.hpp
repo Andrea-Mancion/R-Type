@@ -70,11 +70,26 @@ struct BossTag {
     BossTag(bool isBoss) : isBoss(isBoss) {}
 };
 
+struct BossUltimateTag {
+    bool isBoss;
+    bool isVisible;
+
+    BossUltimateTag(bool isBoss, bool isVisible) : isBoss(isBoss), isVisible(isVisible) {}
+};
+
 struct Timer {
     float elapsedTime = 0.0f;
     float shootInterval;
 
     Timer(float interval) : shootInterval(interval) {}
+};
+
+struct TimerVisible {
+    float elapsedTime = 0.0f;
+    float visibleInterval;
+    float invisibleInterval;
+
+    TimerVisible(float interval, float inInterval) : visibleInterval(interval), invisibleInterval(inInterval) {}
 };
 
 struct ExplosionTag {

@@ -160,7 +160,7 @@ void song_system(Registry &reg, MusicManager &musicManager) {
  */
 
 void draw_system(Registry &reg, sf::RenderWindow &window) {
-    auto [position, drawable, bullet, enemy, boss, explosion] = getComponent<Position, Drawable, BulletTag, EnemyTag, BossTag, ExplosionTag>(reg);
+    auto [position, drawable, bullet, enemy, boss, explosion, bossUltime] = getComponent<Position, Drawable, BulletTag, EnemyTag, BossTag, ExplosionTag, BossUltimateTag>(reg);
     std::vector<entity> toDelete;
     
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
@@ -180,14 +180,26 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
                     rectExplosion.left += 40;
                     drawable[i]->sprites.setTextureRect(rectExplosion);
                 }
-            } else if (enemy[i]->isEnemy && boss[i]->isBoss) {
+            } else if (enemy[i]->isEnemy && boss[i]->isBoss && !bossUltime[i]->isBoss) {
                 auto rectBoss = drawable[i]->sprites.getTextureRect();
                 if (rectBoss.left >= 105)
                     rectBoss.left = 15;
                 else
                     rectBoss.left += 35;
                 drawable[i]->sprites.setTextureRect(rectBoss);
-            } else if (enemy[i]->isEnemy && !boss[i]->isBoss) {
+            } else if (enemy[i]->isEnemy && bossUltime[i]->isBoss && !boss[i]->isBoss) {
+                auto rectBoss = drawable[i]->sprites.getTextureRect();
+                if (rectBoss.left >= 515) {
+                    rectBoss.left = 0;
+                    rectBoss.top += 145;
+                } else
+                    rectBoss.left += 260;
+                if (rectBoss.top >= 570) {
+                    rectBoss.top = 0;
+                    rectBoss.left = 0;
+                }
+                drawable[i]->sprites.setTextureRect(rectBoss);
+            } else if (enemy[i]->isEnemy && !boss[i]->isBoss && !bossUltime[i]->isBoss) {
                 auto rectEnemy = drawable[i]->sprites.getTextureRect();
                 if (rectEnemy.left >= 200)
                     rectEnemy.left = 0;
@@ -196,7 +208,10 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
                 drawable[i]->sprites.setTextureRect(rectEnemy);
             }
             drawable[i]->sprites.setPosition(position[i]->x, position[i]->y);
-            window.draw(drawable[i]->sprites);
+            if (bossUltime[i]->isBoss == true && bossUltime[i]->isVisible == true) {
+                window.draw(drawable[i]->sprites);
+            } else if (!bossUltime[i]->isBoss)
+                window.draw(drawable[i]->sprites);
         }
     }
 

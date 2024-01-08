@@ -46,16 +46,21 @@ class Window {
         void startProject();
         void eventHandler();
         void shootBullet();
+        void shootBulletForBoss();
         void loadSprites();
         void spawn_entity_foe();
-        void checkCollision();
+        void checkCollision(float dt);
         bool isAnyAllyShipLeft();
         void enemy_shooting(float dt);
         void shootEnemyBullet(int i, float x, float y);
+        void shootBossUltimeBullet(int i, float x, float y);
         void startNextRound();
         void spawn_entity_boss();
+        void spawn_entity_boss_ultimate();
         void destructionShipBoss(float x, float y);
         void updateMusic();
+        void checkLevel();
+        void changeStrat(int i, float dt);
 
     private:
         SFML _sfml;
@@ -72,5 +77,10 @@ class Window {
         int bossHP[2] = {1, 1};
         bool hasSongStarted = false;
         bool bossStarted = false;
+        int bossTimer[2] = {0, 0};
+        bool canCheckLevel = false;
+        bool isStratChanged = false;
+        bool isXPressed = false;
+        int troll = 0;
 };
 #endif /* !WINDOW_HPP_ */

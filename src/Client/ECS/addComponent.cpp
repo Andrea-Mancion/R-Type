@@ -30,8 +30,10 @@ void SFML::addAllyShip(Registry &ally, int allyMusicID)
     ally.add_component(entityAlly, Controllable{});
     ally.add_component(entityAlly, BulletTag{false});
     ally.add_component(entityAlly, Timer{0.0f});
+    ally.add_component(entityAlly, TimerVisible{0.0f, 0.0f});
     ally.add_component(entityAlly, EnemyTag{false});
     ally.add_component(entityAlly, BossTag{false});
+    ally.add_component(entityAlly, BossUltimateTag{false, false});
     ally.add_component(entityAlly, ExplosionTag{false});
     ally.add_component(entityAlly, Song{allyMusicID, false, true, false});
     ally.add_component(entityAlly, Drawable{spriteShip});
@@ -60,8 +62,10 @@ void SFML::addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribut
     enemy.add_component(entityEnemy, Velocity{-0.4, 0});
     enemy.add_component(entityEnemy, BulletTag{false});
     enemy.add_component(entityEnemy, Timer{shootDis(mt)});
+    enemy.add_component(entityEnemy, TimerVisible{0.0f, 0.0f});
     enemy.add_component(entityEnemy, EnemyTag{true});
     enemy.add_component(entityEnemy, BossTag{false});
+    enemy.add_component(entityEnemy, BossUltimateTag{false, false});
     enemy.add_component(entityEnemy, ExplosionTag{false});
     enemy.add_component(entityEnemy, Drawable{spriteEnemy});
 }
@@ -90,8 +94,30 @@ void SFML::addBoss(Registry &enemy, std::mt19937 mt, std::uniform_int_distributi
     enemy.add_component(ennemyBoss, Velocity{-0.4, 0});
     enemy.add_component(ennemyBoss, BulletTag{false});
     enemy.add_component(ennemyBoss, Timer{shootDis(mt)});
+    enemy.add_component(ennemyBoss, TimerVisible{0.0f, 0.0f});
     enemy.add_component(ennemyBoss, EnemyTag{true});
     enemy.add_component(ennemyBoss, BossTag{true});
+    enemy.add_component(ennemyBoss, BossUltimateTag{false, false});
+    enemy.add_component(ennemyBoss, ExplosionTag{false});
+    enemy.add_component(ennemyBoss, Song{bossMusicID, true, true, false});
+    enemy.add_component(ennemyBoss, Drawable{spriteBoss});
+}
+
+void SFML::addBossUltimate(Registry &enemy,  std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID, bool isVisible)
+{
+    std::uniform_real_distribution<float> shootDis(0.0f, 3.0f);
+    std::uniform_real_distribution<float> visible(0.0f, 3.0f);
+    std::uniform_real_distribution<float> invisible(0.0f, 5.0f);
+
+    auto ennemyBoss = enemy.spawn_entity();
+    enemy.add_component(ennemyBoss, Position{1900, static_cast<float>(dist(mt))});
+    enemy.add_component(ennemyBoss, Velocity{-0.4, 0});
+    enemy.add_component(ennemyBoss, BulletTag{false});
+    enemy.add_component(ennemyBoss, Timer{shootDis(mt)});
+    enemy.add_component(ennemyBoss, TimerVisible{visible(mt), invisible(mt)});
+    enemy.add_component(ennemyBoss, EnemyTag{true});
+    enemy.add_component(ennemyBoss, BossTag{false});
+    enemy.add_component(ennemyBoss, BossUltimateTag{true, isVisible});
     enemy.add_component(ennemyBoss, ExplosionTag{false});
     enemy.add_component(ennemyBoss, Song{bossMusicID, true, true, false});
     enemy.add_component(ennemyBoss, Drawable{spriteBoss});
@@ -119,6 +145,28 @@ void SFML::addBullet(Registry &reg, float x, float y, float bulletSpeed)
     reg.add_component(bulletEntity, Position{x, y});
     reg.add_component(bulletEntity, Velocity{bulletSpeed, 0});
     reg.add_component(bulletEntity, BulletTag{true});
+    reg.add_component(bulletEntity, EnemyTag{false});
+    reg.add_component(bulletEntity, BossTag{false});
+    reg.add_component(bulletEntity, BossUltimateTag{false, false});
+    reg.add_component(bulletEntity, ExplosionTag{false});
+    if (enemy[0]->isEnemy)
+        reg.add_component(bulletEntity, Drawable{spriteEnemyBullet});
+    else
+        reg.add_component(bulletEntity, Drawable{spriteBullet});
+}
+
+void SFML::addBulletBoss(Registry &reg, float x, float y, float bulletSpeed)
+{
+    auto [enemy] = getComponent<EnemyTag>(reg);
+    auto bulletEntity = reg.spawn_entity();
+
+    reg.add_component(bulletEntity, Position{x, y});
+    reg.add_component(bulletEntity, Velocity{0, bulletSpeed});
+    reg.add_component(bulletEntity, BulletTag{true});
+    reg.add_component(bulletEntity, EnemyTag{false});
+    reg.add_component(bulletEntity, BossTag{false});
+    reg.add_component(bulletEntity, BossUltimateTag{false, false});
+    reg.add_component(bulletEntity, ExplosionTag{false});
     if (enemy[0]->isEnemy)
         reg.add_component(bulletEntity, Drawable{spriteEnemyBullet});
     else
@@ -146,8 +194,10 @@ void SFML::addExplosion(Registry &reg,  float x, float y)
     reg.add_component(explosion, Velocity{0, 0});
     reg.add_component(explosion, BulletTag{false});
     reg.add_component(explosion, Timer{0.0f});
+    reg.add_component(explosion, TimerVisible{0.0f, 0.0f});
     reg.add_component(explosion, EnemyTag{false});
     reg.add_component(explosion, BossTag{false});
+    reg.add_component(explosion, BossUltimateTag{false, false});
     reg.add_component(explosion, ExplosionTag{true});
     reg.add_component(explosion, Drawable{spriteExplosion});
 }

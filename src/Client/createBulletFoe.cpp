@@ -31,14 +31,36 @@ void Window::shootEnemyBullet(int i, float x, float y)
     (void)i;
     float bulletSpeed = -1.0f;
 
-    if (!_sfml.getTextEnemyBullet().loadFromFile("includes/assets/sprites/r-typesheet14.gif"))
-        std::cout << "Error" << std::endl;
+    if (bossTimer[1] == 0) {
+        if (!_sfml.getTextEnemyBullet().loadFromFile("includes/assets/sprites/r-typesheet14.gif"))
+            std::cout << "Error" << std::endl;
+        _sfml.getSpriteEnemyBullet().setTexture(_sfml.getTextEnemyBullet());
+        _sfml.getSpriteEnemyBullet().setTextureRect(sf::IntRect(0, 135, 10, 17));
+        _sfml.getSpriteEnemyBullet().setScale(sf::Vector2f(2, 2));
+        _sfml.getSpriteEnemyBullet().setPosition(x, y);
+    } else if (bossTimer[1] == 1) {
+        if (!_sfml.getTextEnemyBullet().loadFromFile("includes/assets/sprites/r-typesheet9.gif"))
+            std::cout << "Error" << std::endl;
+        _sfml.getSpriteEnemyBullet().setTexture(_sfml.getTextEnemyBullet());
+        _sfml.getSpriteEnemyBullet().setTextureRect(sf::IntRect(0, 60, 10, 17));
+        _sfml.getSpriteEnemyBullet().setScale(sf::Vector2f(2, 2));
+        _sfml.getSpriteEnemyBullet().setPosition(x, y);
+    }
+    _sfml.addBullet(enemy, x, y, bulletSpeed);
+}
+
+void Window::shootBossUltimeBullet(int i, float x, float y)
+{
+    float bulletSpeed = -1.0f;
+
+    if (!_sfml.getTextEnemyBullet().loadFromFile("includes/assets/sprites/r-typesheet9.gif"))
+            std::cout << "Error" << std::endl;
     _sfml.getSpriteEnemyBullet().setTexture(_sfml.getTextEnemyBullet());
-    _sfml.getSpriteEnemyBullet().setTextureRect(sf::IntRect(0, 135, 10, 17));
+    _sfml.getSpriteEnemyBullet().setTextureRect(sf::IntRect(0, 60, 10, 17));
     _sfml.getSpriteEnemyBullet().setScale(sf::Vector2f(2, 2));
     _sfml.getSpriteEnemyBullet().setPosition(x, y);
 
-    _sfml.addBullet(enemy, x, y, bulletSpeed);
+    _sfml.addBulletBoss(enemy, x, y, bulletSpeed);
 }
 
 /**
@@ -62,14 +84,20 @@ void Window::shootEnemyBullet(int i, float x, float y)
 
 void Window::enemy_shooting(float dt)
 {
-    auto [position, timers] = getComponent<Position, Timer>(enemy);
+    auto [position, timers, bossUltime] = getComponent<Position, Timer, BossUltimateTag>(enemy);
 
     for (size_t i = 0; i < position.size() && i < timers.size(); i++) {
         if (position[i] && timers[i]) {
             auto &timer = timers[0];
             timer->elapsedTime += dt;
 
-            if (timer->elapsedTime >= timer->shootInterval) {
+            std::cout << "STRAT CHA?NGED: " << isStratChanged << std::endl;
+            if (timer->elapsedTime >= timer->shootInterval && bossUltime[i]->isBoss == true && isStratChanged == true) {
+                shootBossUltimeBullet(i, position[i]->x, position[i]->y);
+                timer->elapsedTime = 0.0f;
+                std::uniform_real_distribution<float> shootDis(0.0f, 3.0f);
+                timer->shootInterval = shootDis(rd);
+            } else if (timer->elapsedTime >= timer->shootInterval && isStratChanged == false) {
                 shootEnemyBullet(i, position[i]->x, position[i]->y);
                 timer->elapsedTime = 0.0f;
                 std::uniform_real_distribution<float> shootDis(0.0f, 5.0f);
