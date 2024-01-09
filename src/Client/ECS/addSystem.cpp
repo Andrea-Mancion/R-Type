@@ -159,7 +159,7 @@ void song_system(Registry &reg, MusicManager &musicManager) {
  *       entities after animation completion.
  */
 
-void draw_system(Registry &reg, sf::RenderWindow &window) {
+void draw_system(Registry &reg, sf::RenderWindow &window, int &bossTimer) {
     auto [position, drawable, bullet, enemy, boss, explosion, bossUltime] = getComponent<Position, Drawable, BulletTag, EnemyTag, BossTag, ExplosionTag, BossUltimateTag>(reg);
     std::vector<entity> toDelete;
     
@@ -201,10 +201,22 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
                 drawable[i]->sprites.setTextureRect(rectBoss);
             } else if (enemy[i]->isEnemy && !boss[i]->isBoss && !bossUltime[i]->isBoss) {
                 auto rectEnemy = drawable[i]->sprites.getTextureRect();
-                if (rectEnemy.left >= 200)
-                    rectEnemy.left = 0;
-                else
-                    rectEnemy.left += 50;
+                if (bossTimer == 0) {
+                    if (rectEnemy.left >= 200)
+                        rectEnemy.left = 0;
+                    else
+                        rectEnemy.left += 50;
+                } else if (bossTimer == 1) {
+                    if (rectEnemy.left >= 112)
+                        rectEnemy.left = 0;
+                    else
+                        rectEnemy.left += 56;
+                } else if (bossTimer == 2) {
+                    if (rectEnemy.left >= 262)
+                        rectEnemy.left = 0;
+                    else
+                        rectEnemy.left += 33;
+                }
                 drawable[i]->sprites.setTextureRect(rectEnemy);
             }
             drawable[i]->sprites.setPosition(position[i]->x, position[i]->y);
@@ -236,7 +248,7 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
  * @note This function is crucial for initializing the gameplay mechanics related to allies.
  */
 
-std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager)
+std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager, int &bossTimer)
 {
     ally.add_system<Position, Velocity>([&ally](Registry &r, auto const &position, auto const &velocity) {
         logging_system(r, position, velocity);
@@ -263,10 +275,10 @@ std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStar
         }
     });
 
-    ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+    ally.add_system<Position, Velocity>([this, &bossTimer](Registry &r, auto const &position, auto const &velocity) {
         (void)position;
         (void)velocity;
-        draw_system(r, _window);
+        draw_system(r, _window, bossTimer);
     });
 
     return {ally, hasSongStarted};
@@ -289,7 +301,7 @@ std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStar
  * @note This function is crucial for initializing the gameplay mechanics related to enemies.
  */
 
-std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager)
+std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager, int &bossTimer)
 {
     enemy.add_system<Position, Velocity>([&enemy](Registry &r, auto const &position, auto const &velocity) {
         logging_system(r, position, velocity);
@@ -310,10 +322,10 @@ std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongSt
         }
     });
 
-    enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+    enemy.add_system<Position, Velocity>([this, &bossTimer](Registry &r, auto const &position, auto const &velocity) {
         (void)position;
         (void)velocity;
-        draw_system(r, _window);
+        draw_system(r, _window, bossTimer);
     });
 
     return {enemy, hasSongStarted};

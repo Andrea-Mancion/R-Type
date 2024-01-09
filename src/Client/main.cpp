@@ -83,8 +83,8 @@ void Window::startProject()
     registerComponentAlly(ally);
     registerComponentEnemy(enemy);
 
-    _sfml.addSystemAlly(ally, hasSongStarted, bossStarted, musicManager);
-    _sfml.addSystemEnemy(enemy, hasSongStarted, bossStarted, musicManager);
+    _sfml.addSystemAlly(ally, hasSongStarted, bossStarted, musicManager, bossTimer[1]);
+    _sfml.addSystemEnemy(enemy, hasSongStarted, bossStarted, musicManager, bossTimer[1]);
 
     _sfml.addAllyShip(ally, allyMusicID);
 

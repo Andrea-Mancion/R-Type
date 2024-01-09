@@ -56,8 +56,8 @@ class SFML {
 
         void addAllyShip(Registry &ally, int allyMusicID);
         void addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist);
-        std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager);
-        std::pair<Registry&, bool> addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager);
+        std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager, int &bossTimer);
+        std::pair<Registry&, bool> addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager, int &bossTimer);
         void addExplosion(Registry &reg, float x, float y);
         void addBoss(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID);
         void addBossUltimate(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID, bool isVisible);
