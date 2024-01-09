@@ -94,7 +94,7 @@ void Window::spawn_entity_boss()
         if (!_sfml.getTextBoss().loadFromFile("includes/assets/sprites/r-typesheet17.gif"))
             std::cout << "Error" << std::endl;
         _sfml.getSpriteBoss().setTexture(_sfml.getTextBoss());
-        _sfml.getSpriteBoss().setTextureRect(sf::IntRect(15, 0, 50, 150));
+        _sfml.getSpriteBoss().setTextureRect(sf::IntRect(0, 0, 65, 130));
         _sfml.getSpriteBoss().setScale(sf::Vector2f(3, 3));
     }
 

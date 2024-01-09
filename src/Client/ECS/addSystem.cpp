@@ -182,10 +182,18 @@ void draw_system(Registry &reg, sf::RenderWindow &window, int &bossTimer) {
                 }
             } else if (enemy[i]->isEnemy && boss[i]->isBoss && !bossUltime[i]->isBoss) {
                 auto rectBoss = drawable[i]->sprites.getTextureRect();
-                if (rectBoss.left >= 105)
-                    rectBoss.left = 15;
-                else
-                    rectBoss.left += 35;
+                if (bossTimer == 0) {
+                    if (rectBoss.left >= 105)
+                        rectBoss.left = 15;
+                    else
+                        rectBoss.left += 35;
+                } else if (bossTimer == 1) {
+                    if (rectBoss.left >= 350)
+                        rectBoss.left = 0;
+                    else
+                        rectBoss.left += 70;
+                    rectBoss.left += 70;
+                }
                 drawable[i]->sprites.setTextureRect(rectBoss);
             } else if (enemy[i]->isEnemy && bossUltime[i]->isBoss && !boss[i]->isBoss) {
                 auto rectBoss = drawable[i]->sprites.getTextureRect();
