@@ -16,7 +16,7 @@ void Window::checkLevel()
         _sfml.getSprite(0).setTextureRect(sf::IntRect(0, 0, 1920, 1080));
         _sfml.getSprite(0).setPosition(sf::Vector2f(0, 0));
         _sfml.getSprite(1).setTexture(_sfml.getBackground());
-        _sfml.getSprite(1).setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+        _sfml.getSprite(1).setTextureRect(sf::IntRect(_sfml.getBackground().getSize().x, 0, -_sfml.getBackground().getSize().x, _sfml.getBackground().getSize().y));
         _sfml.getSprite(1).setPosition(sf::Vector2f(1920, 0));
         _sfml.getSprite(2).setTexture(_sfml.getBackground());
         _sfml.getSprite(2).setTextureRect(sf::IntRect(0, 0, 1920, 1080));
@@ -35,7 +35,7 @@ void Window::checkLevel()
         _sfml.getSprite(0).setTextureRect(sf::IntRect(0, 0, 1920, 1080));
         _sfml.getSprite(0).setPosition(sf::Vector2f(0, 0));
         _sfml.getSprite(1).setTexture(_sfml.getBackground());
-        _sfml.getSprite(1).setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+        _sfml.getSprite(1).setTextureRect(sf::IntRect(_sfml.getBackground().getSize().x, 0, -_sfml.getBackground().getSize().x, _sfml.getBackground().getSize().y));
         _sfml.getSprite(1).setPosition(sf::Vector2f(1920, 0));
         _sfml.getSprite(2).setTexture(_sfml.getBackground());
         _sfml.getSprite(2).setTextureRect(sf::IntRect(0, 0, 1920, 1080));
