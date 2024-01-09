@@ -33,7 +33,7 @@ If you want some help about the games
 
 # Command
 
-Use the keyboard key (Up, Left, Right, Down) to move your ship, and use Space to shoot bullets
+Use the keyboard key (Up, Left, Right, Down) or (Z, Q, S, D) to move your ship, and use Space to shoot bullets
 
 ## Game
 In this game, you play as a ship lost in the space and you meet some... Things.
