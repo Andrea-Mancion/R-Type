@@ -21,7 +21,7 @@
  * @note This file is part of the Epitech Project, B-CPP-500-REN-5-2-rtype-andrea.mancion.
  */
 
-#include "ECS/step.hpp"
+#include "../ECS/step.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>

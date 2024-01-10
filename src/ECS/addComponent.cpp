@@ -5,7 +5,7 @@
 ** addComponent
 */
 
-#include "../../../includes/Client/functions.hpp"
+#include "../../includes/Client/functions.hpp"
 #include <random>
 
 /**

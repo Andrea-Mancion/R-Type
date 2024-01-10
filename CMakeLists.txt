@@ -28,8 +28,8 @@ set(CLIENT_INCLUDE_PATH "includes/Client")
 set(SERVER_SRC_PATH "src/Server")
 set(SERVER_INCLUDE_PATH "includes/Server")
 
-set(ECS_SRC_PATH "src/Client/ECS")
-set(ECS_INCLUDE_PATH "includes/Client/ECS")
+set(ECS_SRC_PATH "src//ECS")
+set(ECS_INCLUDE_PATH "includes//ECS")
 
 set(SRC_CLIENT
         ${CLIENT_SRC_PATH}/main.cpp

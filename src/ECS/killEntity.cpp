@@ -5,7 +5,7 @@
 ** killEntity
 */
 
-#include "../../../includes/Client/ECS/step.hpp"
+#include "../../includes/ECS/step.hpp"
 
 /**
  * @brief Kills an entity in the given registry.
