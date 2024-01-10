@@ -5,7 +5,7 @@
 ** registerComponent
 */
 
-#include "../../../includes/Client/step.hpp"
+#include "../../../includes/Client/ECS/step.hpp"
 
 /**
  * @brief Registers various component types for an ally entity in a registry.
