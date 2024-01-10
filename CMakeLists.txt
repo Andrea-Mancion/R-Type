@@ -28,12 +28,11 @@ set(CLIENT_INCLUDE_PATH "includes/Client")
 set(SERVER_SRC_PATH "src/Server")
 set(SERVER_INCLUDE_PATH "includes/Server")
 
+set(ECS_SRC_PATH "src/Client/ECS")
+set(ECS_INCLUDE_PATH "includes/Client/ECS")
+
 set(SRC_CLIENT
         ${CLIENT_SRC_PATH}/main.cpp
-        ${CLIENT_SRC_PATH}/ECS/addComponent.cpp
-        ${CLIENT_SRC_PATH}/ECS/addSystem.cpp
-        ${CLIENT_SRC_PATH}/ECS/killEntity.cpp
-        ${CLIENT_SRC_PATH}/ECS/registerComponent.cpp
         ${CLIENT_SRC_PATH}/collision.cpp
         ${CLIENT_SRC_PATH}/event.cpp
         ${CLIENT_SRC_PATH}/createBulletFoe.cpp
@@ -49,7 +48,6 @@ set(SRC_CLIENT
 
 set(HPP_CLIENT
         ${CLIENT_INCLUDE_PATH}/window.hpp
-        ${CLIENT_INCLUDE_PATH}/step.hpp
         ${CLIENT_INCLUDE_PATH}/functions.hpp
         ${CLIENT_INCLUDE_PATH}/SFML.hpp
 )
@@ -62,10 +60,23 @@ set(SRC_SERVER
 #        ${SERVER_INCLUDE_PATH}/window.hpp
 #)
 
+set(SRC_ECS
+        ${ECS_SRC_PATH}/addComponent.cpp
+        ${ECS_SRC_PATH}/addSystem.cpp
+        ${ECS_SRC_PATH}/killEntity.cpp
+        ${ECS_SRC_PATH}/registerComponent.cpp
+)
+
+set(HPP_ECS
+        ${ECS_INCLUDE_PATH}/step.hpp
+)
+
 add_executable(r-type_client ${SRC_CLIENT} ${HPP_CLIENT})
 add_executable(r-type_server ${SRC_SERVER})
+add_library(ecsProject STATIC ${SRC_ECS} ${HPP_ECS})
 
 target_link_libraries(r-type_client
+        ecsProject
         sfml-graphics
         sfml-window
         sfml-system
