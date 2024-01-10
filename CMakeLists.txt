@@ -44,6 +44,7 @@ set(SRC_CLIENT
         ${CLIENT_SRC_PATH}/showSprite.cpp
         ${CLIENT_SRC_PATH}/level.cpp
         ${CLIENT_SRC_PATH}/newStrat.cpp
+        ${CLIENT_SRC_PATH}/spriteAnimation.cpp
 )
 
 set(HPP_CLIENT

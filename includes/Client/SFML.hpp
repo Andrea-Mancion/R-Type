@@ -63,6 +63,7 @@ class SFML {
         void addBossUltimate(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID, bool isVisible);
         void addBullet(Registry &reg, float x, float y, float bulletSpeed);
         void addBulletBoss(Registry &reg, float x, float y, float bulletSpeed);
+        void changeRect(int &bossTimer, Registry &reg);
 
     private:
         sf::RenderWindow _window;

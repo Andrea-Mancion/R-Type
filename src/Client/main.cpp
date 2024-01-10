@@ -122,6 +122,8 @@ void Window::startProject()
         enemy_shooting(time);
         checkCollision();
         checkLevel();
+        _sfml.changeRect(bossTimer[1], ally);
+        _sfml.changeRect(bossTimer[1], enemy);
         _sfml.getWindow().display();
     }
 }
