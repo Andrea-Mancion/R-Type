@@ -58,14 +58,14 @@ void Window::loadSprites()
 
 void Window::spawn_entity_foe() 
 {
-    for (int i = 0; i < currentRound * 3; ++i) {
+    for (int i = 0; i < currentRound * numberDefault; ++i) {
         std::random_device random;
         std::mt19937 gen(random());
         std::uniform_int_distribution<> dis(-16, 959);
 
         _sfml.addEnemy(enemy, gen, dis);
     }
-    activeEnnemy = currentRound * 3;
+    activeEnnemy = currentRound * numberDefault;
 }
 
 /**

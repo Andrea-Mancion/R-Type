@@ -59,6 +59,8 @@ class SFML {
         sf::Sprite& getSpriteMinus() { return spriteMinus; };
         sf::Texture& getTextPlus() { return textPlus; };
         sf::Sprite& getSpritePlus() { return spritePlus; };
+        sf::Texture& getTextConfirm() { return textConfirm; };
+        sf::Sprite& getSpriteConfirm() { return spriteConfirm; };
 
         void addAllyShip(Registry &ally, int allyMusicID);
         void addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist);
@@ -73,8 +75,7 @@ class SFML {
         void addBulletBoss(Registry &reg, float x, float y, float bulletSpeed);
         void changeRect(int &bossTimer, Registry &reg);
         void addText(Registry &reg, float x, float y, int nbText);
-        void addButtonMinus(Registry &reg, float x, float y);
-        void addButtonPlus(Registry &reg, float x, float y);
+        void addButton(Registry &reg, float x, float y, sf::Sprite &spriteButton);
 
     private:
         sf::RenderWindow _window;
@@ -100,6 +101,8 @@ class SFML {
         sf::Sprite spriteMinus;
         sf::Texture textPlus;
         sf::Sprite spritePlus;
+        sf::Texture textConfirm;
+        sf::Sprite spriteConfirm;
 };
 
 #endif /* !SFML_HPP_ */

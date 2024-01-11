@@ -9,7 +9,7 @@
 
 void Window::loadButtons()
 {
-    if (!_sfml.getTextMinus().loadFromFile("includes/assets/minus.png") || !_sfml.getTextPlus().loadFromFile("includes/assets/plus.png"))
+    if (!_sfml.getTextMinus().loadFromFile("includes/assets/minus.png") || !_sfml.getTextPlus().loadFromFile("includes/assets/plus.png") || !_sfml.getTextConfirm().loadFromFile("includes/assets/buttons.png"))
         std::cout << "Error" << std::endl;
     _sfml.getSpriteMinus().setTexture(_sfml.getTextMinus());
     _sfml.getSpriteMinus().setTextureRect(sf::IntRect(0, 0, 420, 420));
@@ -21,14 +21,18 @@ void Window::loadButtons()
     _sfml.getSpritePlus().setScale(sf::Vector2f(0.4, 0.4));
     _sfml.getSpritePlus().setPosition(sf::Vector2f(800, 100));
 
-    _sfml.addButtonMinus(buttons, _sfml.getSpriteMinus().getPosition().x, _sfml.getSpriteMinus().getPosition().y);
-    _sfml.addButtonPlus(buttons, _sfml.getSpritePlus().getPosition().x, _sfml.getSpritePlus().getPosition().y);
+    _sfml.getSpriteConfirm().setTexture(_sfml.getTextConfirm());
+    _sfml.getSpriteConfirm().setTextureRect(sf::IntRect(140, 17, 92, 25));
+    _sfml.getSpriteConfirm().setScale(sf::Vector2f(3, 3));
+    _sfml.getSpriteConfirm().setPosition(sf::Vector2f(800, 900));
+
+    _sfml.addButton(buttons, _sfml.getSpriteMinus().getPosition().x, _sfml.getSpriteMinus().getPosition().y, _sfml.getSpriteMinus());
+    _sfml.addButton(buttons, _sfml.getSpritePlus().getPosition().x, _sfml.getSpritePlus().getPosition().y, _sfml.getSpritePlus());
+    _sfml.addButton(buttons, _sfml.getSpriteConfirm().getPosition().x, _sfml.getSpriteConfirm().getPosition().y, _sfml.getSpriteConfirm());
 }
 
 void Window::panelEditor()
 {
-    int number = 3;
-
     if (!_sfml.getBackground().loadFromFile("includes/assets/Space.png"))
         std::cout << "Error" << std::endl;
     _sfml.getSprite(0).setTexture(_sfml.getBackground());
@@ -51,7 +55,7 @@ void Window::panelEditor()
     }
     _sfml.getText(0).setString("Wave number: ");
     _sfml.getText(0).setPosition(sf::Vector2f(100, 100));
-    _sfml.getText(1).setString(std::to_string(number));
+    _sfml.getText(1).setString(std::to_string(numberDefault));
     _sfml.getText(1).setPosition(sf::Vector2f(700, 100));
 
     loadButtons();

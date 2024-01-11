@@ -63,6 +63,7 @@ class Window {
         void changeStrat(int i);
         void panelEditor();
         void loadButtons();
+        bool isMouseClickedOnSprite(sf::RenderWindow &window, sf::Sprite &sprite);
 
     private:
         SFML _sfml;
@@ -87,5 +88,6 @@ class Window {
         bool isXPressed = false;
         int troll = 0;
         bool isEditor = false;
+        int numberDefault = 3;
 };
 #endif /* !WINDOW_HPP_ */

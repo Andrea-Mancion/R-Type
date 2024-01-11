@@ -179,6 +179,7 @@ void drawText_system(Registry &reg, sf::RenderWindow &window)
 
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
         if (position[i] && drawable[i]) {
+            std::cout << "DRAWING TEXT" << drawable[i]->text.getString().toAnsiString() << std::endl;
             drawable[i]->text.setPosition(position[i]->x, position[i]->y);
             window.draw(drawable[i]->text);
         }

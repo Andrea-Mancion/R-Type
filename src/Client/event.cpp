@@ -81,5 +81,16 @@ void Window::eventHandler()
             isEditor = true;
             panelEditor();
         }
+
+        if (isEditor == true && _sfml.getEvent().type == sf::Event::MouseButtonPressed && _sfml.getEvent().mouseButton.button == sf::Mouse::Left) {
+            if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteMinus())) {
+                numberDefault--;
+                _sfml.getText(1).setString(std::to_string(numberDefault));
+            } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpritePlus())) {
+                numberDefault++;
+                _sfml.getText(1).setString(std::to_string(numberDefault));
+            } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteConfirm()))
+                isEditor = false;
+        }
     }
 }
