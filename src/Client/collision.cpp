@@ -81,7 +81,7 @@ void Window::checkCollision()
     auto [ennemyPosition, ennemyDrawable, enemyBullet, boss, bossUltime] = getComponent<Position, Drawable, BulletTag, BossTag, BossUltimateTag>(enemy);
 
     for (std::size_t i = 0; i < ennemyPosition.size(); i++) {
-        if (bossUltime[i]->isBoss == true && !boss[i]->isBoss && bossHP[1] <= 10) {
+        if (bossUltime[i]->isBoss == true && boss[i]->isBoss == false && bossHP[1] <= 10) {
             std::cout << "change strat" << std::endl;
             changeStrat(i);
             break;
@@ -168,4 +168,15 @@ void Window::checkCollision()
             }
         }
     }
+}
+
+bool Window::isMouseClickedOnSprite(sf::RenderWindow &window, sf::Sprite &sprite)
+{
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    sf::Vector2f mouseWorldPos = window.mapPixelToCoords(mousePos);
+    sf::FloatRect mouseRect(mouseWorldPos.x, mouseWorldPos.y, 1, 1);
+
+    if (sprite.getGlobalBounds().intersects(mouseRect))
+        return true;
+    return false;
 }

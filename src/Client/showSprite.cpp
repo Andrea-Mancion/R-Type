@@ -58,14 +58,14 @@ void Window::loadSprites()
 
 void Window::spawn_entity_foe() 
 {
-    for (int i = 0; i < currentRound * 3; ++i) {
+    for (int i = 0; i < currentRound * numberPerWave; ++i) {
         std::random_device random;
         std::mt19937 gen(random());
         std::uniform_int_distribution<> dis(-16, 959);
 
         _sfml.addEnemy(enemy, gen, dis);
     }
-    activeEnnemy = currentRound * 3;
+    activeEnnemy = currentRound * numberPerWave;
 }
 
 /**
@@ -94,7 +94,7 @@ void Window::spawn_entity_boss()
         if (!_sfml.getTextBoss().loadFromFile("includes/assets/sprites/r-typesheet17.gif"))
             std::cout << "Error" << std::endl;
         _sfml.getSpriteBoss().setTexture(_sfml.getTextBoss());
-        _sfml.getSpriteBoss().setTextureRect(sf::IntRect(15, 0, 50, 150));
+        _sfml.getSpriteBoss().setTextureRect(sf::IntRect(0, 0, 65, 130));
         _sfml.getSpriteBoss().setScale(sf::Vector2f(3, 3));
     }
 

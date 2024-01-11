@@ -21,7 +21,7 @@
  * @note This file is part of the Epitech Project, B-CPP-500-REN-5-2-rtype-andrea.mancion.
  */
 
-#include "step.hpp"
+#include "../ECS/step.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
@@ -53,16 +53,29 @@ class SFML {
         sf::Sprite& getSpriteBoss() { return spriteBoss; };
         sf::Texture& getTextExplosion() { return textEplosion; };
         sf::Sprite& getSpriteExplosion() { return spriteExplosion; };
+        sf::Font& getFont() { return font; };
+        sf::Text& getText(int text) { return textEditor[text]; };
+        sf::Texture& getTextMinus() { return textMinus; };
+        sf::Sprite& getSpriteMinus(int i) { return spriteMinus[i]; };
+        sf::Texture& getTextPlus() { return textPlus; };
+        sf::Sprite& getSpritePlus(int i) { return spritePlus[i]; };
+        sf::Texture& getTextConfirm() { return textConfirm; };
+        sf::Sprite& getSpriteConfirm() { return spriteConfirm; };
 
         void addAllyShip(Registry &ally, int allyMusicID);
         void addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist);
         std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager);
         std::pair<Registry&, bool> addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager);
+        Registry& addSystemText(Registry &textEditor);
+        Registry& addSystemButton(Registry &buttons);
         void addExplosion(Registry &reg, float x, float y);
         void addBoss(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID);
         void addBossUltimate(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID, bool isVisible);
         void addBullet(Registry &reg, float x, float y, float bulletSpeed);
         void addBulletBoss(Registry &reg, float x, float y, float bulletSpeed);
+        void changeRect(int &bossTimer, Registry &reg);
+        void addText(Registry &reg, float x, float y, int nbText);
+        void addButton(Registry &reg, float x, float y, sf::Sprite &spriteButton);
 
     private:
         sf::RenderWindow _window;
@@ -82,6 +95,14 @@ class SFML {
         sf::Texture textEplosion;
         sf::Sprite spriteExplosion;
         sf::Clock clock;
+        sf::Font font;
+        sf::Text textEditor[4];
+        sf::Texture textMinus;
+        sf::Sprite spriteMinus[2];
+        sf::Texture textPlus;
+        sf::Sprite spritePlus[2];
+        sf::Texture textConfirm;
+        sf::Sprite spriteConfirm;
 };
 
 #endif /* !SFML_HPP_ */

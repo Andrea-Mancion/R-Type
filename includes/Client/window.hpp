@@ -61,11 +61,16 @@ class Window {
         void updateMusic();
         void checkLevel();
         void changeStrat(int i);
+        void panelEditor();
+        void loadButtons();
+        bool isMouseClickedOnSprite(sf::RenderWindow &window, sf::Sprite &sprite);
 
     private:
         SFML _sfml;
         Registry ally;
         Registry enemy;
+        Registry textEditor;
+        Registry buttons;
         MusicManager musicManager;
         std::random_device rd;
         int activeAlly = 0;
@@ -82,5 +87,8 @@ class Window {
         bool isStratChanged = false;
         bool isXPressed = false;
         int troll = 0;
+        bool isEditor = false;
+        int numberPerWave = 3;
+        int numberPerRound = 5;
 };
 #endif /* !WINDOW_HPP_ */

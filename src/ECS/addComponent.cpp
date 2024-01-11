@@ -5,7 +5,7 @@
 ** addComponent
 */
 
-#include "../../../includes/Client/functions.hpp"
+#include "../../includes/Client/functions.hpp"
 #include <random>
 
 /**
@@ -37,6 +37,21 @@ void SFML::addAllyShip(Registry &ally, int allyMusicID)
     ally.add_component(entityAlly, ExplosionTag{false});
     ally.add_component(entityAlly, Song{allyMusicID, false, true, false});
     ally.add_component(entityAlly, Drawable{spriteShip});
+}
+
+void SFML::addButton(Registry &reg, float x, float y, sf::Sprite &spriteButton)
+{
+    auto button = reg.spawn_entity();
+    reg.add_component(button, Position{x, y});
+    reg.add_component(button, Velocity{0, 0});
+    reg.add_component(button, BulletTag{false});
+    reg.add_component(button, Timer{0.0f});
+    reg.add_component(button, TimerVisible{0.0f, 0.0f});
+    reg.add_component(button, EnemyTag{false});
+    reg.add_component(button, BossTag{false});
+    reg.add_component(button, BossUltimateTag{false, false});
+    reg.add_component(button, ExplosionTag{false});
+    reg.add_component(button, Drawable{spriteButton});
 }
 
 /**
@@ -200,4 +215,19 @@ void SFML::addExplosion(Registry &reg,  float x, float y)
     reg.add_component(explosion, BossUltimateTag{false, false});
     reg.add_component(explosion, ExplosionTag{true});
     reg.add_component(explosion, Drawable{spriteExplosion});
+}
+
+void SFML::addText(Registry &reg, float x, float y, int nbText) 
+{
+    auto text = reg.spawn_entity();
+    reg.add_component(text, Position{x, y});
+    reg.add_component(text, Velocity{0, 0});
+    reg.add_component(text, BulletTag{false});
+    reg.add_component(text, Timer{0.0f});
+    reg.add_component(text, TimerVisible{0.0f, 0.0f});
+    reg.add_component(text, EnemyTag{false});
+    reg.add_component(text, BossTag{false});
+    reg.add_component(text, BossUltimateTag{false, false});
+    reg.add_component(text, ExplosionTag{false});
+    reg.add_component(text, DrawableText{textEditor[nbText]});
 }

@@ -52,6 +52,10 @@ struct Drawable {
     sf::Sprite sprites;
 };
 
+struct DrawableText {
+    sf::Text text;
+};
+
 struct BulletTag {
     bool isBullet;
 
@@ -413,3 +417,8 @@ class Registry {
         std::vector<std::function<void(Registry&, entity const&)>> _cleanup_functions;
         std::vector<std::function<void(Registry &reg)>> _systems;
 };
+
+template<typename... Components>
+inline auto getComponent(Registry &reg) -> std::tuple<sparse_array<Components>&...> {
+    return std::make_tuple(std::ref(reg.get_components<Components>())...);
+}

@@ -5,7 +5,7 @@
 ** registerComponent
 */
 
-#include "../../../includes/Client/step.hpp"
+#include "../../includes/ECS/step.hpp"
 
 /**
  * @brief Registers various component types for an ally entity in a registry.
@@ -91,4 +91,32 @@ void registerComponentEnemy(Registry &enemy)
     enemy.register_component<ExplosionTag>();
     enemy.register_component<Song>();
     enemy.register_component<Drawable>();
+}
+
+void registerComponentText(Registry &textEditor)
+{
+    textEditor.register_component<Position>();
+    textEditor.register_component<Velocity>();
+    textEditor.register_component<BulletTag>();
+    textEditor.register_component<Timer>();
+    textEditor.register_component<TimerVisible>();
+    textEditor.register_component<EnemyTag>();
+    textEditor.register_component<BossTag>();
+    textEditor.register_component<BossUltimateTag>();
+    textEditor.register_component<ExplosionTag>();
+    textEditor.register_component<DrawableText>();
+}
+
+void registerComponentButton(Registry &buttons)
+{
+    buttons.register_component<Position>();
+    buttons.register_component<Velocity>();
+    buttons.register_component<BulletTag>();
+    buttons.register_component<Timer>();
+    buttons.register_component<TimerVisible>();
+    buttons.register_component<EnemyTag>();
+    buttons.register_component<BossTag>();
+    buttons.register_component<BossUltimateTag>();
+    buttons.register_component<ExplosionTag>();
+    buttons.register_component<Drawable>();
 }
