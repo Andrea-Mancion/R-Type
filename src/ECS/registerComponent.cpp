@@ -92,3 +92,17 @@ void registerComponentEnemy(Registry &enemy)
     enemy.register_component<Song>();
     enemy.register_component<Drawable>();
 }
+
+void registerComponentText(Registry &textEditor)
+{
+    textEditor.register_component<Position>();
+    textEditor.register_component<Velocity>();
+    textEditor.register_component<BulletTag>();
+    textEditor.register_component<Timer>();
+    textEditor.register_component<TimerVisible>();
+    textEditor.register_component<EnemyTag>();
+    textEditor.register_component<BossTag>();
+    textEditor.register_component<BossUltimateTag>();
+    textEditor.register_component<ExplosionTag>();
+    textEditor.register_component<DrawableText>();
+}

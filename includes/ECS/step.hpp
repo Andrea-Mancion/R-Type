@@ -52,6 +52,10 @@ struct Drawable {
     sf::Sprite sprites;
 };
 
+struct DrawableText {
+    sf::Text text;
+};
+
 struct BulletTag {
     bool isBullet;
 

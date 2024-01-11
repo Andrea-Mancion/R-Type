@@ -76,6 +76,10 @@ void Window::eventHandler()
                     bossUltime[i]->isVisible = true;
                 }
             }
+        } else if (_sfml.getEvent().type == sf::Event::KeyPressed && _sfml.getEvent().key.code == sf::Keyboard::O) {
+            std::cout << "Implemente the Waves editor" << std::endl;
+            isEditor = true;
+            panelEditor();
         }
     }
 }

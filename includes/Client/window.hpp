@@ -61,11 +61,13 @@ class Window {
         void updateMusic();
         void checkLevel();
         void changeStrat(int i);
+        void panelEditor();
 
     private:
         SFML _sfml;
         Registry ally;
         Registry enemy;
+        Registry textEditor;
         MusicManager musicManager;
         std::random_device rd;
         int activeAlly = 0;
@@ -82,5 +84,6 @@ class Window {
         bool isStratChanged = false;
         bool isXPressed = false;
         int troll = 0;
+        bool isEditor = false;
 };
 #endif /* !WINDOW_HPP_ */

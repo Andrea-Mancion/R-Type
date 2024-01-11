@@ -53,17 +53,21 @@ class SFML {
         sf::Sprite& getSpriteBoss() { return spriteBoss; };
         sf::Texture& getTextExplosion() { return textEplosion; };
         sf::Sprite& getSpriteExplosion() { return spriteExplosion; };
+        sf::Font& getFont() { return font; };
+        sf::Text& getText() { return textEditor; };
 
         void addAllyShip(Registry &ally, int allyMusicID);
         void addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist);
         std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager, int &bossTimer);
         std::pair<Registry&, bool> addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager, int &bossTimer);
+        Registry& addSystemText(Registry &textEditor);
         void addExplosion(Registry &reg, float x, float y);
         void addBoss(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID);
         void addBossUltimate(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID, bool isVisible);
         void addBullet(Registry &reg, float x, float y, float bulletSpeed);
         void addBulletBoss(Registry &reg, float x, float y, float bulletSpeed);
         void changeRect(int &bossTimer, Registry &reg);
+        void addText(Registry &reg, float x, float y);
 
     private:
         sf::RenderWindow _window;
@@ -83,6 +87,8 @@ class SFML {
         sf::Texture textEplosion;
         sf::Sprite spriteExplosion;
         sf::Clock clock;
+        sf::Font font;
+        sf::Text textEditor;
 };
 
 #endif /* !SFML_HPP_ */

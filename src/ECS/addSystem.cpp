@@ -173,6 +173,18 @@ void draw_system(Registry &reg, sf::RenderWindow &window, int &bossTimer) {
     }
 }
 
+void drawText_system(Registry &reg, sf::RenderWindow &window)
+{
+    auto [position, drawable] = getComponent<Position, DrawableText>(reg);
+
+    for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
+        if (position[i] && drawable[i]) {
+            drawable[i]->text.setPosition(position[i]->x, position[i]->y);
+            window.draw(drawable[i]->text);
+        }
+    }
+}
+
 /**
  * @brief Adds systems to the ally registry for various game functionalities.
  * 
@@ -271,4 +283,24 @@ std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongSt
     });
 
     return {enemy, hasSongStarted};
+}
+
+Registry &SFML::addSystemText(Registry &textEditor) 
+{
+    textEditor.add_system<Position, Velocity>([&textEditor](Registry &r, auto const &position, auto const &velocity) {
+        logging_system(r, position, velocity);
+    });
+
+    textEditor.add_system<Position, Velocity>([&textEditor](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
+        position_system(r);
+    });
+
+    textEditor.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
+        drawText_system(r, _window);
+    });
+    return textEditor;
 }

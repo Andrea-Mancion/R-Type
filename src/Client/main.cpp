@@ -82,9 +82,11 @@ void Window::startProject()
     loadSprites();
     registerComponentAlly(ally);
     registerComponentEnemy(enemy);
+    registerComponentText(textEditor);
 
     _sfml.addSystemAlly(ally, hasSongStarted, bossStarted, musicManager, bossTimer[1]);
     _sfml.addSystemEnemy(enemy, hasSongStarted, bossStarted, musicManager, bossTimer[1]);
+    _sfml.addSystemText(textEditor);
 
     _sfml.addAllyShip(ally, allyMusicID);
 
@@ -116,14 +118,17 @@ void Window::startProject()
         _sfml.getWindow().draw(_sfml.getSprite(0));
         _sfml.getWindow().draw(_sfml.getSprite(1));
         _sfml.getWindow().draw(_sfml.getSprite(2));
-        updateMusic();
-        ally.run_systems();
-        enemy.run_systems();
-        enemy_shooting(time);
-        checkCollision();
-        checkLevel();
-        _sfml.changeRect(bossTimer[1], ally);
-        _sfml.changeRect(bossTimer[1], enemy);
+        if (isEditor == false) {
+            updateMusic();
+            ally.run_systems();
+            enemy.run_systems();
+            enemy_shooting(time);
+            checkCollision();
+            checkLevel();
+            _sfml.changeRect(bossTimer[1], ally);
+            _sfml.changeRect(bossTimer[1], enemy);
+        } else
+            textEditor.run_systems();
         _sfml.getWindow().display();
     }
 }

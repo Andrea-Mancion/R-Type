@@ -201,3 +201,18 @@ void SFML::addExplosion(Registry &reg,  float x, float y)
     reg.add_component(explosion, ExplosionTag{true});
     reg.add_component(explosion, Drawable{spriteExplosion});
 }
+
+void SFML::addText(Registry &reg, float x, float y) 
+{
+    auto text = reg.spawn_entity();
+    reg.add_component(text, Position{x, y});
+    reg.add_component(text, Velocity{0, 0});
+    reg.add_component(text, BulletTag{false});
+    reg.add_component(text, Timer{0.0f});
+    reg.add_component(text, TimerVisible{0.0f, 0.0f});
+    reg.add_component(text, EnemyTag{false});
+    reg.add_component(text, BossTag{false});
+    reg.add_component(text, BossUltimateTag{false, false});
+    reg.add_component(text, ExplosionTag{false});
+    reg.add_component(text, DrawableText{textEditor});
+}
