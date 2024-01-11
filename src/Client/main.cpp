@@ -83,10 +83,12 @@ void Window::startProject()
     registerComponentAlly(ally);
     registerComponentEnemy(enemy);
     registerComponentText(textEditor);
+    registerComponentButton(buttons);
 
-    _sfml.addSystemAlly(ally, hasSongStarted, bossStarted, musicManager, bossTimer[1]);
-    _sfml.addSystemEnemy(enemy, hasSongStarted, bossStarted, musicManager, bossTimer[1]);
+    _sfml.addSystemAlly(ally, hasSongStarted, bossStarted, musicManager);
+    _sfml.addSystemEnemy(enemy, hasSongStarted, bossStarted, musicManager);
     _sfml.addSystemText(textEditor);
+    _sfml.addSystemButton(buttons);
 
     _sfml.addAllyShip(ally, allyMusicID);
 
@@ -127,8 +129,10 @@ void Window::startProject()
             checkLevel();
             _sfml.changeRect(bossTimer[1], ally);
             _sfml.changeRect(bossTimer[1], enemy);
-        } else
+        } else {
+            buttons.run_systems();
             textEditor.run_systems();
+        }
         _sfml.getWindow().display();
     }
 }

@@ -7,8 +7,28 @@
 
 #include "../../../includes/Client/functions.hpp"
 
+void Window::loadButtons()
+{
+    if (!_sfml.getTextMinus().loadFromFile("includes/assets/minus.png") || !_sfml.getTextPlus().loadFromFile("includes/assets/plus.png"))
+        std::cout << "Error" << std::endl;
+    _sfml.getSpriteMinus().setTexture(_sfml.getTextMinus());
+    _sfml.getSpriteMinus().setTextureRect(sf::IntRect(0, 0, 420, 420));
+    _sfml.getSpriteMinus().setScale(sf::Vector2f(0.2, 0.2));
+    _sfml.getSpriteMinus().setPosition(sf::Vector2f(500, 100));
+
+    _sfml.getSpritePlus().setTexture(_sfml.getTextPlus());
+    _sfml.getSpritePlus().setTextureRect(sf::IntRect(0, 0, 190, 190));
+    _sfml.getSpritePlus().setScale(sf::Vector2f(0.4, 0.4));
+    _sfml.getSpritePlus().setPosition(sf::Vector2f(800, 100));
+
+    _sfml.addButtonMinus(buttons, _sfml.getSpriteMinus().getPosition().x, _sfml.getSpriteMinus().getPosition().y);
+    _sfml.addButtonPlus(buttons, _sfml.getSpritePlus().getPosition().x, _sfml.getSpritePlus().getPosition().y);
+}
+
 void Window::panelEditor()
 {
+    int number = 3;
+
     if (!_sfml.getBackground().loadFromFile("includes/assets/Space.png"))
         std::cout << "Error" << std::endl;
     _sfml.getSprite(0).setTexture(_sfml.getBackground());
@@ -23,11 +43,19 @@ void Window::panelEditor()
 
     if (!_sfml.getFont().loadFromFile("includes/assets/ARIAL.TTF"))
         std::cout << "Error" << std::endl;
-    _sfml.getText().setFont(_sfml.getFont());
-    _sfml.getText().setString("Wave number");
-    _sfml.getText().setCharacterSize(50);
-    _sfml.getText().setFillColor(sf::Color::White);
-    _sfml.getText().setStyle(sf::Text::Bold);
-    _sfml.getText().setPosition(sf::Vector2f(100, 100));
-    _sfml.addText(textEditor, _sfml.getText().getPosition().x, _sfml.getText().getPosition().y);
+    for (std::size_t i = 0; i < 4; i++) {
+        _sfml.getText(i).setFont(_sfml.getFont());
+        _sfml.getText(i).setCharacterSize(50);
+        _sfml.getText(i).setFillColor(sf::Color::White);
+        _sfml.getText(i).setStyle(sf::Text::Bold);
+    }
+    _sfml.getText(0).setString("Wave number: ");
+    _sfml.getText(0).setPosition(sf::Vector2f(100, 100));
+    _sfml.getText(1).setString(std::to_string(number));
+    _sfml.getText(1).setPosition(sf::Vector2f(700, 100));
+
+    loadButtons();
+    
+    _sfml.addText(textEditor, _sfml.getText(0).getPosition().x, _sfml.getText(0).getPosition().y, 0);
+    _sfml.addText(textEditor, _sfml.getText(1).getPosition().x, _sfml.getText(1).getPosition().y, 1);
 }

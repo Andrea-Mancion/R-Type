@@ -106,3 +106,17 @@ void registerComponentText(Registry &textEditor)
     textEditor.register_component<ExplosionTag>();
     textEditor.register_component<DrawableText>();
 }
+
+void registerComponentButton(Registry &buttons)
+{
+    buttons.register_component<Position>();
+    buttons.register_component<Velocity>();
+    buttons.register_component<BulletTag>();
+    buttons.register_component<Timer>();
+    buttons.register_component<TimerVisible>();
+    buttons.register_component<EnemyTag>();
+    buttons.register_component<BossTag>();
+    buttons.register_component<BossUltimateTag>();
+    buttons.register_component<ExplosionTag>();
+    buttons.register_component<Drawable>();
+}

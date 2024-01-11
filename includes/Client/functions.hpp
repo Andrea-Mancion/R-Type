@@ -33,6 +33,7 @@ void resetCout(std::streambuf *backup);
 void registerComponentAlly(Registry &ally);
 void registerComponentEnemy(Registry &enemy);
 void registerComponentText(Registry &textEditor);
+void registerComponentButton(Registry &buttons);
 void killEntity(Registry &reg, std::size_t index);
 
 #endif /* !FUNCTIONS_HPP_ */

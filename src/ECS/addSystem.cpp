@@ -159,7 +159,7 @@ void song_system(Registry &reg, MusicManager &musicManager) {
  *       entities after animation completion.
  */
 
-void draw_system(Registry &reg, sf::RenderWindow &window, int &bossTimer) {
+void draw_system(Registry &reg, sf::RenderWindow &window) {
     auto [position, drawable, bossUltime] = getComponent<Position, Drawable, BossUltimateTag>(reg);
     
     for (size_t i = 0; i < position.size() && i < drawable.size(); ++i) {
@@ -202,7 +202,7 @@ void drawText_system(Registry &reg, sf::RenderWindow &window)
  * @note This function is crucial for initializing the gameplay mechanics related to allies.
  */
 
-std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager, int &bossTimer)
+std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager)
 {
     ally.add_system<Position, Velocity>([&ally](Registry &r, auto const &position, auto const &velocity) {
         logging_system(r, position, velocity);
@@ -229,10 +229,10 @@ std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStar
         }
     });
 
-    ally.add_system<Position, Velocity>([this, &bossTimer](Registry &r, auto const &position, auto const &velocity) {
+    ally.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
         (void)position;
         (void)velocity;
-        draw_system(r, _window, bossTimer);
+        draw_system(r, _window);
     });
 
     return {ally, hasSongStarted};
@@ -255,7 +255,7 @@ std::pair<Registry&, bool> SFML::addSystemAlly(Registry &ally, bool &hasSongStar
  * @note This function is crucial for initializing the gameplay mechanics related to enemies.
  */
 
-std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager, int &bossTimer)
+std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager)
 {
     enemy.add_system<Position, Velocity>([&enemy](Registry &r, auto const &position, auto const &velocity) {
         logging_system(r, position, velocity);
@@ -276,10 +276,10 @@ std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongSt
         }
     });
 
-    enemy.add_system<Position, Velocity>([this, &bossTimer](Registry &r, auto const &position, auto const &velocity) {
+    enemy.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
         (void)position;
         (void)velocity;
-        draw_system(r, _window, bossTimer);
+        draw_system(r, _window);
     });
 
     return {enemy, hasSongStarted};
@@ -303,4 +303,24 @@ Registry &SFML::addSystemText(Registry &textEditor)
         drawText_system(r, _window);
     });
     return textEditor;
+}
+
+Registry &SFML::addSystemButton(Registry &buttons) 
+{
+    buttons.add_system<Position, Velocity>([&buttons](Registry &r, auto const &position, auto const &velocity) {
+        logging_system(r, position, velocity);
+    });
+
+    buttons.add_system<Position, Velocity>([&buttons](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
+        position_system(r);
+    });
+
+    buttons.add_system<Position, Velocity>([this](Registry &r, auto const &position, auto const &velocity) {
+        (void)position;
+        (void)velocity;
+        draw_system(r, _window);
+    });
+    return buttons;
 }

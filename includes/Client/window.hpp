@@ -62,12 +62,14 @@ class Window {
         void checkLevel();
         void changeStrat(int i);
         void panelEditor();
+        void loadButtons();
 
     private:
         SFML _sfml;
         Registry ally;
         Registry enemy;
         Registry textEditor;
+        Registry buttons;
         MusicManager musicManager;
         std::random_device rd;
         int activeAlly = 0;

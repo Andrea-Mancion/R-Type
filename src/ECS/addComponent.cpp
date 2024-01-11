@@ -39,6 +39,36 @@ void SFML::addAllyShip(Registry &ally, int allyMusicID)
     ally.add_component(entityAlly, Drawable{spriteShip});
 }
 
+void SFML::addButtonMinus(Registry &reg, float x, float y)
+{
+    auto button = reg.spawn_entity();
+    reg.add_component(button, Position{x, y});
+    reg.add_component(button, Velocity{0, 0});
+    reg.add_component(button, BulletTag{false});
+    reg.add_component(button, Timer{0.0f});
+    reg.add_component(button, TimerVisible{0.0f, 0.0f});
+    reg.add_component(button, EnemyTag{false});
+    reg.add_component(button, BossTag{false});
+    reg.add_component(button, BossUltimateTag{false, false});
+    reg.add_component(button, ExplosionTag{false});
+    reg.add_component(button, Drawable{spriteMinus});
+}
+
+void SFML::addButtonPlus(Registry &reg, float x, float y)
+{
+    auto button = reg.spawn_entity();
+    reg.add_component(button, Position{x, y});
+    reg.add_component(button, Velocity{0, 0});
+    reg.add_component(button, BulletTag{false});
+    reg.add_component(button, Timer{0.0f});
+    reg.add_component(button, TimerVisible{0.0f, 0.0f});
+    reg.add_component(button, EnemyTag{false});
+    reg.add_component(button, BossTag{false});
+    reg.add_component(button, BossUltimateTag{false, false});
+    reg.add_component(button, ExplosionTag{false});
+    reg.add_component(button, Drawable{spritePlus});
+}
+
 /**
  * @brief Adds an enemy entity to the game with various components.
  * 
@@ -202,7 +232,7 @@ void SFML::addExplosion(Registry &reg,  float x, float y)
     reg.add_component(explosion, Drawable{spriteExplosion});
 }
 
-void SFML::addText(Registry &reg, float x, float y) 
+void SFML::addText(Registry &reg, float x, float y, int nbText) 
 {
     auto text = reg.spawn_entity();
     reg.add_component(text, Position{x, y});
@@ -214,5 +244,5 @@ void SFML::addText(Registry &reg, float x, float y)
     reg.add_component(text, BossTag{false});
     reg.add_component(text, BossUltimateTag{false, false});
     reg.add_component(text, ExplosionTag{false});
-    reg.add_component(text, DrawableText{textEditor});
+    reg.add_component(text, DrawableText{textEditor[nbText]});
 }
