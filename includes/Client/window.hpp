@@ -88,6 +88,7 @@ class Window {
         bool isXPressed = false;
         int troll = 0;
         bool isEditor = false;
-        int numberDefault = 3;
+        int numberPerWave = 3;
+        int numberPerRound = 5;
 };
 #endif /* !WINDOW_HPP_ */

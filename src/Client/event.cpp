@@ -83,12 +83,18 @@ void Window::eventHandler()
         }
 
         if (isEditor == true && _sfml.getEvent().type == sf::Event::MouseButtonPressed && _sfml.getEvent().mouseButton.button == sf::Mouse::Left) {
-            if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteMinus())) {
-                numberDefault--;
-                _sfml.getText(1).setString(std::to_string(numberDefault));
-            } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpritePlus())) {
-                numberDefault++;
-                _sfml.getText(1).setString(std::to_string(numberDefault));
+            if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteMinus(0))) {
+                numberPerWave--;
+                _sfml.getText(1).setString(std::to_string(numberPerWave));
+            } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpritePlus(0))) {
+                numberPerWave++;
+                _sfml.getText(1).setString(std::to_string(numberPerWave));
+            } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteMinus(1))) {
+                numberPerRound--;
+                _sfml.getText(3).setString(std::to_string(numberPerRound));
+            } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpritePlus(1))) {
+                numberPerRound++;
+                _sfml.getText(3).setString(std::to_string(numberPerRound));
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteConfirm()))
                 isEditor = false;
         }

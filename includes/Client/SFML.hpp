@@ -56,9 +56,9 @@ class SFML {
         sf::Font& getFont() { return font; };
         sf::Text& getText(int text) { return textEditor[text]; };
         sf::Texture& getTextMinus() { return textMinus; };
-        sf::Sprite& getSpriteMinus() { return spriteMinus; };
+        sf::Sprite& getSpriteMinus(int i) { return spriteMinus[i]; };
         sf::Texture& getTextPlus() { return textPlus; };
-        sf::Sprite& getSpritePlus() { return spritePlus; };
+        sf::Sprite& getSpritePlus(int i) { return spritePlus[i]; };
         sf::Texture& getTextConfirm() { return textConfirm; };
         sf::Sprite& getSpriteConfirm() { return spriteConfirm; };
 
@@ -98,9 +98,9 @@ class SFML {
         sf::Font font;
         sf::Text textEditor[4];
         sf::Texture textMinus;
-        sf::Sprite spriteMinus;
+        sf::Sprite spriteMinus[2];
         sf::Texture textPlus;
-        sf::Sprite spritePlus;
+        sf::Sprite spritePlus[2];
         sf::Texture textConfirm;
         sf::Sprite spriteConfirm;
 };

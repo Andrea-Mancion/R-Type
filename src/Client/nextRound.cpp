@@ -24,7 +24,7 @@ void Window::startNextRound()
     bossTimer[1] = bossTimer[0];
     currentRound++;
     maxEnnemyKilled = 0;
-    if (currentRound % 2 != 0)
+    if (currentRound % numberPerRound != 0)
         spawn_entity_foe();
     else {
         bossHP[0] *= 2;
