@@ -75,7 +75,7 @@ set(HPP_ECS
 
 add_executable(r-type_client ${SRC_CLIENT} ${HPP_CLIENT})
 add_executable(r-type_server ${SRC_SERVER})
-add_library(ecsProject STATIC ${SRC_ECS} ${HPP_ECS})
+add_library(ecsProject SHARED ${SRC_ECS} ${HPP_ECS})
 
 target_link_libraries(r-type_client
         ecsProject
@@ -87,6 +87,7 @@ target_link_libraries(r-type_client
 
 target_include_directories(r-type_client PUBLIC
         ${CLIENT_INCLUDE_PATH}
+        $(ECS_INCLUDE_PATH)
 )
 
 target_link_libraries(r-type_server
