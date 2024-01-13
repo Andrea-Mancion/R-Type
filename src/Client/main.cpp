@@ -133,6 +133,7 @@ void Window::startProject()
             buttons.run_systems();
             textEditor.run_systems();
         }
+        ifStratChanged();
         _sfml.getWindow().display();
     }
 }

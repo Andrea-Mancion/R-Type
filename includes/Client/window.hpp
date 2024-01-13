@@ -65,6 +65,7 @@ class Window {
         void panelEditor();
         void loadButtons();
         bool isMouseClickedOnSprite(sf::RenderWindow &window, sf::Sprite &sprite);
+        void ifStratChanged();
 
     private:
         SFML _sfml;
@@ -80,7 +81,7 @@ class Window {
         int maxEnnemyKilled = 0;
         int allyMusicID;
         int bossMusicID;
-        int bossHP[2] = {1, 1};
+        int bossHP[2] = {1, 0};
         bool hasSongStarted = false;
         bool bossStarted = false;
         int bossTimer[2] = {0, 0};
