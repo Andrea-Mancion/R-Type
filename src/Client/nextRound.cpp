@@ -31,11 +31,20 @@ void Window::startNextRound()
         bossHP[1] = bossHP[0];
         bossStarted = true;
         if (bossTimer[1] == 2) {
-            if (troll == 10)
-                bossHP[1] = 200;
-            else
-                bossHP[1] = 20;
-            spawn_entity_boss_ultimate();
+            if (normalDifficulty == true) {
+                if (troll == 10)
+                    bossHP[1] = 200;
+                else
+                    bossHP[1] = 20;
+                spawn_entity_boss_ultimate();
+            } else if (hardDifficulty == true) {
+                if (troll == 10)
+                    bossHP[1] = 400;
+                else
+                    bossHP[1] = 100;
+                spawn_entity_boss_ultimate();
+                spawn_entity_foe(10);
+            }
         } else
             spawn_entity_boss();
     }

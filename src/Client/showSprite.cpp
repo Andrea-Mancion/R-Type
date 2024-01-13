@@ -68,6 +68,18 @@ void Window::spawn_entity_foe()
     activeEnnemy = currentRound * numberPerWave;
 }
 
+void Window::spawn_entity_foe(int number) 
+{
+    for (int i = 0; i < currentRound * number; ++i) {
+        std::random_device random;
+        std::mt19937 gen(random());
+        std::uniform_int_distribution<> dis(-16, 959);
+
+        _sfml.addEnemy(enemy, gen, dis);
+    }
+    activeEnnemy = currentRound * numberPerWave;
+}
+
 /**
  * @brief Spawns the boss entity and prepares the game for the boss round.
  * 

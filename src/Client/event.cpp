@@ -77,7 +77,6 @@ void Window::eventHandler()
                 }
             }
         } else if (_sfml.getEvent().type == sf::Event::KeyPressed && _sfml.getEvent().key.code == sf::Keyboard::O) {
-            std::cout << "Implemente the Waves editor" << std::endl;
             isEditor = true;
             panelEditor();
         }
@@ -95,6 +94,22 @@ void Window::eventHandler()
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpritePlus(1))) {
                 numberPerRound++;
                 _sfml.getText(3).setString(std::to_string(numberPerRound));
+            } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteDifficulty(0))) {
+                if (normalDifficulty == true)
+                    std::cout << "Normal difficulty already selected" << std::endl;
+                else {
+                    normalDifficulty = true;
+                    hardDifficulty = false;
+                    std::cout << "Normal difficulty selected" << std::endl;
+                }
+            } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteDifficulty(1))) {
+                if (hardDifficulty == true)
+                    std::cout << "Hard difficulty already selected" << std::endl;
+                else {
+                    hardDifficulty = true;
+                    normalDifficulty = false;
+                    std::cout << "Hard difficulty selected" << std::endl;
+                }
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteConfirm()))
                 isEditor = false;
         }

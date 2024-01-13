@@ -49,6 +49,7 @@ class Window {
         void shootBulletForBoss();
         void loadSprites();
         void spawn_entity_foe();
+        void spawn_entity_foe(int number);
         void checkCollision();
         bool isAnyAllyShipLeft();
         void enemy_shooting(float dt);
@@ -90,5 +91,7 @@ class Window {
         bool isEditor = false;
         int numberPerWave = 3;
         int numberPerRound = 5;
+        bool normalDifficulty = true;
+        bool hardDifficulty = false;
 };
 #endif /* !WINDOW_HPP_ */
