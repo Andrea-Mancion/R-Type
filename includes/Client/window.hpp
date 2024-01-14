@@ -49,6 +49,7 @@ class Window {
         void shootBulletForBoss();
         void loadSprites();
         void spawn_entity_foe();
+        void spawn_entity_foe(int number);
         void checkCollision();
         bool isAnyAllyShipLeft();
         void enemy_shooting(float dt);
@@ -64,6 +65,7 @@ class Window {
         void panelEditor();
         void loadButtons();
         bool isMouseClickedOnSprite(sf::RenderWindow &window, sf::Sprite &sprite);
+        void ifStratChanged();
 
     private:
         SFML _sfml;
@@ -79,7 +81,7 @@ class Window {
         int maxEnnemyKilled = 0;
         int allyMusicID;
         int bossMusicID;
-        int bossHP[2] = {1, 1};
+        int bossHP[2] = {1, 0};
         bool hasSongStarted = false;
         bool bossStarted = false;
         int bossTimer[2] = {0, 0};
@@ -90,5 +92,7 @@ class Window {
         bool isEditor = false;
         int numberPerWave = 3;
         int numberPerRound = 5;
+        bool normalDifficulty = true;
+        bool hardDifficulty = false;
 };
 #endif /* !WINDOW_HPP_ */

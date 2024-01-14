@@ -32,6 +32,16 @@ void Window::shootBullet()
     _sfml.addBullet(ally, position[0]->x, position[0]->y, bulletSpeed);
 }
 
+/**
+ * @brief Initiates the shooting of bullets by the boss entity.
+ *
+ * This function sets up the properties of bullets fired by the boss entity,
+ * including the bullet texture, size, and speed. It then adds the bullet to the
+ * game's entities, specifically for the boss entity. The shooting behavior is
+ * triggered by the boss entity, and the bullets are directed based on the boss's
+ * position and speed.
+ */
+
 void Window::shootBulletForBoss()
 {
     auto [position] = getComponent<Position>(ally);
@@ -47,13 +57,12 @@ void Window::shootBulletForBoss()
 }
 
 /**
- * @brief Handles all the events occurring in the game window.
- * 
- * Processes events from the SFML window, such as window closure and key presses. 
- * If the 'Close' event is triggered, it closes the window. It also listens for the 
- * 'Space' key press to trigger the shooting of a bullet.
- * 
- * @note This function is a central part of the game's input handling, responding to user interactions.
+ * @brief Handles user input events and triggers corresponding actions.
+ *
+ * This function continuously polls for events in the game window and responds
+ * to specific key and mouse button presses. It handles events such as closing
+ * the window, shooting bullets, toggling visibility, entering editor mode, and
+ * modifying game settings in the editor mode.
  */
 
 void Window::eventHandler()
@@ -77,7 +86,6 @@ void Window::eventHandler()
                 }
             }
         } else if (_sfml.getEvent().type == sf::Event::KeyPressed && _sfml.getEvent().key.code == sf::Keyboard::O) {
-            std::cout << "Implemente the Waves editor" << std::endl;
             isEditor = true;
             panelEditor();
         }
@@ -95,6 +103,22 @@ void Window::eventHandler()
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpritePlus(1))) {
                 numberPerRound++;
                 _sfml.getText(3).setString(std::to_string(numberPerRound));
+            } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteDifficulty(0))) {
+                if (normalDifficulty == true)
+                    std::cout << "Normal difficulty already selected" << std::endl;
+                else {
+                    normalDifficulty = true;
+                    hardDifficulty = false;
+                    std::cout << "Normal difficulty selected" << std::endl;
+                }
+            } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteDifficulty(1))) {
+                if (hardDifficulty == true)
+                    std::cout << "Hard difficulty already selected" << std::endl;
+                else {
+                    hardDifficulty = true;
+                    normalDifficulty = false;
+                    std::cout << "Hard difficulty selected" << std::endl;
+                }
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteConfirm()))
                 isEditor = false;
         }

@@ -80,14 +80,6 @@ void Window::checkCollision()
     auto [allyPosition, allyDrawable, allyBullet] = getComponent<Position, Drawable, BulletTag>(ally);
     auto [ennemyPosition, ennemyDrawable, enemyBullet, boss, bossUltime] = getComponent<Position, Drawable, BulletTag, BossTag, BossUltimateTag>(enemy);
 
-    for (std::size_t i = 0; i < ennemyPosition.size(); i++) {
-        if (bossUltime[i]->isBoss == true && boss[i]->isBoss == false && bossHP[1] <= 10) {
-            std::cout << "change strat" << std::endl;
-            changeStrat(i);
-            break;
-        }
-    }
-
     for (std::size_t i = 0; i < allyPosition.size(); i++) {
         if (allyPosition[i] && allyDrawable[i] && (!allyBullet[i] || !allyBullet[i]->isBullet)) { // Exclude ally bullets
             for (std::size_t j = 0; j < ennemyPosition.size(); j++) {
@@ -169,6 +161,19 @@ void Window::checkCollision()
         }
     }
 }
+
+/**
+ * @brief Checks if the mouse is clicked on a specified sprite.
+ *
+ * This function determines if the mouse cursor position, when clicked, intersects
+ * with the bounding box of the provided sprite. It is commonly used to detect mouse
+ * clicks on specific graphical elements, such as buttons or icons.
+ *
+ * @param window The game window where the mouse click is checked.
+ * @param sprite The sprite for which the mouse click is being checked.
+ *
+ * @return True if the mouse is clicked on the sprite, false otherwise.
+ */
 
 bool Window::isMouseClickedOnSprite(sf::RenderWindow &window, sf::Sprite &sprite)
 {

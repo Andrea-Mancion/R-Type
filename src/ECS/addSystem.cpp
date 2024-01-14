@@ -145,18 +145,13 @@ void song_system(Registry &reg, MusicManager &musicManager) {
 }
 
 /**
- * @brief Renders drawable entities to the game window and manages sprite animations.
- * 
- * Iterates through entities that have both position and drawable components. Updates the texture
- * rectangle for animated sprites and sets their position before drawing them on the window. 
- * It also handles the removal of entities that have completed their animation (like explosions).
- * 
- * @param reg The registry containing drawable entities.
- * @param window The SFML render window where entities are drawn.
- * 
- * @note This function is a crucial part of the game's rendering system. It not only handles
- *       the drawing of sprites but also the progression of sprite animations and removal of
- *       entities after animation completion.
+ * @brief Draws entities with their drawable components on the game window.
+ *
+ * This function iterates through the entities in the game registry with position and drawable components,
+ * drawing the associated sprites on the provided SFML window. It considers the visibility of boss ultimate entities.
+ *
+ * @param reg The game registry containing entities and components.
+ * @param window The SFML window on which to draw the entities.
  */
 
 void draw_system(Registry &reg, sf::RenderWindow &window) {
@@ -172,6 +167,18 @@ void draw_system(Registry &reg, sf::RenderWindow &window) {
         }
     }
 }
+
+/**
+ * @brief Draws text entities onto the game window.
+ *
+ * This function iterates through text entities in the provided game registry and draws
+ * them onto the specified SFML window. It retrieves Position and DrawableText components
+ * for each text entity and sets the position of the associated SFML text object before drawing.
+ * The function is typically called during the game's rendering loop to display text information.
+ *
+ * @param reg The game registry containing the text entities.
+ * @param window The SFML window onto which the text entities are drawn.
+ */
 
 void drawText_system(Registry &reg, sf::RenderWindow &window)
 {
@@ -286,6 +293,19 @@ std::pair<Registry&, bool> SFML::addSystemEnemy(Registry &enemy, bool &hasSongSt
     return {enemy, hasSongStarted};
 }
 
+/**
+ * @brief Adds systems related to text entities to the game registry.
+ *
+ * This function adds three systems to the provided game registry `textEditor`.
+ * - The first system logs information using the `logging_system` based on Position and Velocity components.
+ * - The second system calls the `position_system` based on Position and Velocity components.
+ * - The third system draws text entities onto the SFML window using the `drawText_system` based on Position and Velocity components.
+ *
+ * @param textEditor The game registry to which the systems are added.
+ *
+ * @return The updated game registry after adding the systems.
+ */
+
 Registry &SFML::addSystemText(Registry &textEditor) 
 {
     textEditor.add_system<Position, Velocity>([&textEditor](Registry &r, auto const &position, auto const &velocity) {
@@ -305,6 +325,19 @@ Registry &SFML::addSystemText(Registry &textEditor)
     });
     return textEditor;
 }
+
+/**
+ * @brief Adds systems related to button entities to the game registry.
+ *
+ * This function adds three systems to the provided game registry `buttons`.
+ * - The first system logs information using the `logging_system` based on Position and Velocity components.
+ * - The second system calls the `position_system` based on Position and Velocity components.
+ * - The third system draws button entities onto the SFML window using the `draw_system` based on Position and Velocity components.
+ *
+ * @param buttons The game registry to which the systems are added.
+ *
+ * @return The updated game registry after adding the systems.
+ */
 
 Registry &SFML::addSystemButton(Registry &buttons) 
 {

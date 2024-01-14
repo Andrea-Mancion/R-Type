@@ -45,7 +45,7 @@ set(SRC_CLIENT
         ${CLIENT_SRC_PATH}/level.cpp
         ${CLIENT_SRC_PATH}/newStrat.cpp
         ${CLIENT_SRC_PATH}/spriteAnimation.cpp
-        ${CLIENT_SRC_PATH}/Editor/waveEditor.cpp
+        ${CLIENT_SRC_PATH}/Editor/levelEditor.cpp
 )
 
 set(HPP_CLIENT

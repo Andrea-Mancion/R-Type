@@ -61,6 +61,8 @@ class SFML {
         sf::Sprite& getSpritePlus(int i) { return spritePlus[i]; };
         sf::Texture& getTextConfirm() { return textConfirm; };
         sf::Sprite& getSpriteConfirm() { return spriteConfirm; };
+        sf::Texture& getTextDifficulty(int i) { return textDifficulty[i]; };
+        sf::Sprite& getSpriteDifficulty(int i) { return spriteDifficulty[i]; };
 
         void addAllyShip(Registry &ally, int allyMusicID);
         void addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist);
@@ -103,6 +105,8 @@ class SFML {
         sf::Sprite spritePlus[2];
         sf::Texture textConfirm;
         sf::Sprite spriteConfirm;
+        sf::Texture textDifficulty[2];
+        sf::Sprite spriteDifficulty[2];
 };
 
 #endif /* !SFML_HPP_ */

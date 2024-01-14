@@ -49,6 +49,18 @@ void Window::shootEnemyBullet(int i, float x, float y)
     _sfml.addBullet(enemy, x, y, bulletSpeed);
 }
 
+/**
+ * @brief Shoots a bullet for the Boss Ultime entity.
+ *
+ * This function is responsible for shooting a bullet for the Boss Ultime entity at the specified
+ * position (x, y). The bullet is fired in the upward direction with a predefined speed. It loads the
+ * appropriate texture for the Boss Ultime bullet, sets its properties, and adds it to the game registry.
+ *
+ * @param i Unused parameter (index), included for compatibility.
+ * @param x The x-coordinate of the position where the bullet is fired.
+ * @param y The y-coordinate of the position where the bullet is fired.
+ */
+
 void Window::shootBossUltimeBullet(int i, float x, float y)
 {
     (void)i;
