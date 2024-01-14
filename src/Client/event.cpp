@@ -92,14 +92,20 @@ void Window::eventHandler()
 
         if (isEditor == true && _sfml.getEvent().type == sf::Event::MouseButtonPressed && _sfml.getEvent().mouseButton.button == sf::Mouse::Left) {
             if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteMinus(0))) {
-                numberPerWave--;
-                _sfml.getText(1).setString(std::to_string(numberPerWave));
+                if (numberPerWave > 0) {
+                    numberPerWave--;
+                    _sfml.getText(1).setString(std::to_string(numberPerWave));
+                } else
+                    std::cout << "Can't go below 0" << std::endl;
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpritePlus(0))) {
                 numberPerWave++;
                 _sfml.getText(1).setString(std::to_string(numberPerWave));
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteMinus(1))) {
-                numberPerRound--;
-                _sfml.getText(3).setString(std::to_string(numberPerRound));
+                if (numberPerRound > 0) {
+                    numberPerRound--;
+                    _sfml.getText(3).setString(std::to_string(numberPerRound));
+                } else
+                    std::cout << "Can't go below 0" << std::endl;
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpritePlus(1))) {
                 numberPerRound++;
                 _sfml.getText(3).setString(std::to_string(numberPerRound));
@@ -117,6 +123,8 @@ void Window::eventHandler()
                 else {
                     hardDifficulty = true;
                     normalDifficulty = false;
+                    numberPerWave = 5;
+                    numberPerRound = 7;
                     std::cout << "Hard difficulty selected" << std::endl;
                 }
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteConfirm()))

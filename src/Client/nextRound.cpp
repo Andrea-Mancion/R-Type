@@ -46,6 +46,11 @@ void Window::startNextRound()
                 spawn_entity_foe(10);
             }
         } else
-            spawn_entity_boss();
+            if (normalDifficulty == true)
+                spawn_entity_boss();
+            else if (hardDifficulty == true) {
+                spawn_entity_boss();
+                spawn_entity_foe(5);
+            }
     }
 }

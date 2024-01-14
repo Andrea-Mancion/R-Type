@@ -87,7 +87,7 @@ void Window::spawn_entity_foe(int number)
 
         _sfml.addEnemy(enemy, gen, dis);
     }
-    activeEnnemy = currentRound * numberPerWave;
+    activeEnnemy = currentRound * number + 1;
 }
 
 /**

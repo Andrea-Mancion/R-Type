@@ -45,7 +45,7 @@ void Window::loadButtons()
     _sfml.getSpriteDifficulty(0).setTexture(_sfml.getTextDifficulty(0));
     _sfml.getSpriteDifficulty(0).setTextureRect(sf::IntRect(0, 0, 500, 300));
     _sfml.getSpriteDifficulty(0).setScale(sf::Vector2f(1, 1));
-    _sfml.getSpriteDifficulty(0).setPosition(sf::Vector2f(1350, 350));
+    _sfml.getSpriteDifficulty(0).setPosition(sf::Vector2f(1400, 350));
 
     _sfml.getSpriteDifficulty(1).setTexture(_sfml.getTextDifficulty(1));
     _sfml.getSpriteDifficulty(1).setTextureRect(sf::IntRect(0, 0, 300, 170));
