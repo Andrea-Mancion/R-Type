@@ -142,6 +142,7 @@ class entity {
     private:
         size_t x;
     public:
+        entity() : x(0) {}
         explicit entity(size_t x) : x(x) {}
         operator std::size_t() const { return x; }
 };
