@@ -93,22 +93,38 @@ void Window::eventHandler()
         if (isEditor == true && _sfml.getEvent().type == sf::Event::MouseButtonPressed && _sfml.getEvent().mouseButton.button == sf::Mouse::Left) {
             if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteMinus(0))) {
                 if (numberPerWave > 0) {
+                    auto it = _sfml.getEntityMap().find(1);
+                    if (it != _sfml.getEntityMap().end())
+                        killEntity(textEditor, it->second);
                     numberPerWave--;
                     _sfml.getText(1).setString(std::to_string(numberPerWave));
+                    _sfml.addText(textEditor, _sfml.getText(1).getPosition().x, _sfml.getText(1).getPosition().y, 1);
                 } else
                     std::cout << "Can't go below 0" << std::endl;
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpritePlus(0))) {
+                auto it = _sfml.getEntityMap().find(1);
+                if (it != _sfml.getEntityMap().end())
+                     killEntity(textEditor, it->second);
                 numberPerWave++;
                 _sfml.getText(1).setString(std::to_string(numberPerWave));
+                _sfml.addText(textEditor, _sfml.getText(1).getPosition().x, _sfml.getText(1).getPosition().y, 1);
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteMinus(1))) {
                 if (numberPerRound > 0) {
+                    auto it = _sfml.getEntityMap().find(3);
+                    if (it != _sfml.getEntityMap().end())
+                        killEntity(textEditor, it->second);
                     numberPerRound--;
                     _sfml.getText(3).setString(std::to_string(numberPerRound));
+                    _sfml.addText(textEditor, _sfml.getText(3).getPosition().x, _sfml.getText(3).getPosition().y, 3);
                 } else
                     std::cout << "Can't go below 0" << std::endl;
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpritePlus(1))) {
+                auto it = _sfml.getEntityMap().find(3);
+                if (it != _sfml.getEntityMap().end())
+                    killEntity(textEditor, it->second);
                 numberPerRound++;
                 _sfml.getText(3).setString(std::to_string(numberPerRound));
+                _sfml.addText(textEditor, _sfml.getText(3).getPosition().x, _sfml.getText(3).getPosition().y, 3);
             } else if (isMouseClickedOnSprite(_sfml.getWindow(), _sfml.getSpriteDifficulty(0))) {
                 if (normalDifficulty == true)
                     std::cout << "Normal difficulty already selected" << std::endl;

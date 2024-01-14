@@ -281,4 +281,6 @@ void SFML::addText(Registry &reg, float x, float y, int nbText)
     reg.add_component(text, BossUltimateTag{false, false});
     reg.add_component(text, ExplosionTag{false});
     reg.add_component(text, DrawableText{textEditor[nbText]});
+
+    _entityMap[nbText] = text;
 }

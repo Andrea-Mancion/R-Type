@@ -64,6 +64,8 @@ class SFML {
         sf::Texture& getTextDifficulty(int i) { return textDifficulty[i]; };
         sf::Sprite& getSpriteDifficulty(int i) { return spriteDifficulty[i]; };
 
+        std::unordered_map<int, entity>& getEntityMap() { return _entityMap; };
+
         void addAllyShip(Registry &ally, int allyMusicID);
         void addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribution<int> dist);
         std::pair<Registry&, bool> addSystemAlly(Registry &ally, bool &hasSongStarted, bool &bossStarted, MusicManager &musicManager);
@@ -107,6 +109,8 @@ class SFML {
         sf::Sprite spriteConfirm;
         sf::Texture textDifficulty[2];
         sf::Sprite spriteDifficulty[2];
+
+        std::unordered_map<int, entity> _entityMap;
 };
 
 #endif /* !SFML_HPP_ */
