@@ -42,7 +42,6 @@ void registerComponentAlly(Registry &ally)
     ally.register_component<Controllable>();
     ally.register_component<BulletTag>();
     ally.register_component<Timer>();
-    ally.register_component<TimerVisible>();
     ally.register_component<EnemyTag>();
     ally.register_component<BossTag>();
     ally.register_component<BossUltimateTag>();
@@ -84,7 +83,6 @@ void registerComponentEnemy(Registry &enemy)
     enemy.register_component<Velocity>();
     enemy.register_component<BulletTag>();
     enemy.register_component<Timer>();
-    enemy.register_component<TimerVisible>();
     enemy.register_component<EnemyTag>();
     enemy.register_component<BossTag>();
     enemy.register_component<BossUltimateTag>();
@@ -98,7 +96,7 @@ void registerComponentEnemy(Registry &enemy)
  *
  * This function registers various components in the provided game registry `textEditor`
  * that are associated with text entities. The registered components include Position, Velocity,
- * BulletTag, Timer, TimerVisible, EnemyTag, BossTag, BossUltimateTag, ExplosionTag, and DrawableText.
+ * BulletTag, Timer, EnemyTag, BossTag, BossUltimateTag, ExplosionTag, and DrawableText.
  * These components define the properties and behavior of text entities within the game.
  *
  * @param textEditor The game registry in which components are registered.
@@ -110,7 +108,6 @@ void registerComponentText(Registry &textEditor)
     textEditor.register_component<Velocity>();
     textEditor.register_component<BulletTag>();
     textEditor.register_component<Timer>();
-    textEditor.register_component<TimerVisible>();
     textEditor.register_component<EnemyTag>();
     textEditor.register_component<BossTag>();
     textEditor.register_component<BossUltimateTag>();
@@ -123,7 +120,7 @@ void registerComponentText(Registry &textEditor)
  *
  * This function registers various components in the provided game registry `buttons`
  * that are associated with button entities. The registered components include Position, Velocity,
- * BulletTag, Timer, TimerVisible, EnemyTag, BossTag, BossUltimateTag, ExplosionTag, and Drawable.
+ * BulletTag, Timer, EnemyTag, BossTag, BossUltimateTag, ExplosionTag, and Drawable.
  * These components define the properties and behavior of button entities within the game.
  *
  * @param buttons The game registry in which components are registered.
@@ -135,7 +132,6 @@ void registerComponentButton(Registry &buttons)
     buttons.register_component<Velocity>();
     buttons.register_component<BulletTag>();
     buttons.register_component<Timer>();
-    buttons.register_component<TimerVisible>();
     buttons.register_component<EnemyTag>();
     buttons.register_component<BossTag>();
     buttons.register_component<BossUltimateTag>();

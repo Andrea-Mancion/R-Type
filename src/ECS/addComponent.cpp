@@ -30,7 +30,6 @@ void SFML::addAllyShip(Registry &ally, int allyMusicID)
     ally.add_component(entityAlly, Controllable{});
     ally.add_component(entityAlly, BulletTag{false});
     ally.add_component(entityAlly, Timer{0.0f});
-    ally.add_component(entityAlly, TimerVisible{0.0f, 0.0f});
     ally.add_component(entityAlly, EnemyTag{false});
     ally.add_component(entityAlly, BossTag{false});
     ally.add_component(entityAlly, BossUltimateTag{false, false});
@@ -43,7 +42,7 @@ void SFML::addAllyShip(Registry &ally, int allyMusicID)
  * @brief Adds a button entity to the game registry with specified properties.
  *
  * This function creates a button entity in the provided game registry and assigns
- * various components to it, such as Position, Velocity, BulletTag, Timer, TimerVisible,
+ * various components to it, such as Position, Velocity, BulletTag, Timer,
  * EnemyTag, BossTag, BossUltimateTag, ExplosionTag, and Drawable. The entity is typically
  * used to represent graphical buttons in the game, with associated properties and behavior.
  *
@@ -60,7 +59,6 @@ void SFML::addButton(Registry &reg, float x, float y, sf::Sprite &spriteButton)
     reg.add_component(button, Velocity{0, 0});
     reg.add_component(button, BulletTag{false});
     reg.add_component(button, Timer{0.0f});
-    reg.add_component(button, TimerVisible{0.0f, 0.0f});
     reg.add_component(button, EnemyTag{false});
     reg.add_component(button, BossTag{false});
     reg.add_component(button, BossUltimateTag{false, false});
@@ -91,7 +89,6 @@ void SFML::addEnemy(Registry &enemy, std::mt19937 mt, std::uniform_int_distribut
     enemy.add_component(entityEnemy, Velocity{-0.4, 0});
     enemy.add_component(entityEnemy, BulletTag{false});
     enemy.add_component(entityEnemy, Timer{shootDis(mt)});
-    enemy.add_component(entityEnemy, TimerVisible{0.0f, 0.0f});
     enemy.add_component(entityEnemy, EnemyTag{true});
     enemy.add_component(entityEnemy, BossTag{false});
     enemy.add_component(entityEnemy, BossUltimateTag{false, false});
@@ -123,7 +120,6 @@ void SFML::addBoss(Registry &enemy, std::mt19937 mt, std::uniform_int_distributi
     enemy.add_component(ennemyBoss, Velocity{-0.4, 0});
     enemy.add_component(ennemyBoss, BulletTag{false});
     enemy.add_component(ennemyBoss, Timer{shootDis(mt)});
-    enemy.add_component(ennemyBoss, TimerVisible{0.0f, 0.0f});
     enemy.add_component(ennemyBoss, EnemyTag{true});
     enemy.add_component(ennemyBoss, BossTag{true});
     enemy.add_component(ennemyBoss, BossUltimateTag{false, false});
@@ -136,7 +132,7 @@ void SFML::addBoss(Registry &enemy, std::mt19937 mt, std::uniform_int_distributi
  * @brief Adds a boss ultimate entity to the enemy registry with specified properties.
  *
  * This function creates a boss ultimate entity in the provided enemy registry and assigns
- * various components to it, such as Position, Velocity, BulletTag, Timer, TimerVisible,
+ * various components to it, such as Position, Velocity, BulletTag, Timer,
  * EnemyTag, BossTag, BossUltimateTag, ExplosionTag, Song, and Drawable. The boss ultimate
  * entity represents a powerful enemy with unique characteristics and behavior, including
  * shooting bullets, visibility timers, and associated music.
@@ -159,7 +155,6 @@ void SFML::addBossUltimate(Registry &enemy,  std::mt19937 mt, std::uniform_int_d
     enemy.add_component(ennemyBoss, Velocity{-0.4, 0});
     enemy.add_component(ennemyBoss, BulletTag{false});
     enemy.add_component(ennemyBoss, Timer{shootDis(mt)});
-    enemy.add_component(ennemyBoss, TimerVisible{visible(mt), invisible(mt)});
     enemy.add_component(ennemyBoss, EnemyTag{true});
     enemy.add_component(ennemyBoss, BossTag{false});
     enemy.add_component(ennemyBoss, BossUltimateTag{true, isVisible});
@@ -253,7 +248,6 @@ void SFML::addExplosion(Registry &reg,  float x, float y)
     reg.add_component(explosion, Velocity{0, 0});
     reg.add_component(explosion, BulletTag{false});
     reg.add_component(explosion, Timer{0.0f});
-    reg.add_component(explosion, TimerVisible{0.0f, 0.0f});
     reg.add_component(explosion, EnemyTag{false});
     reg.add_component(explosion, BossTag{false});
     reg.add_component(explosion, BossUltimateTag{false, false});
@@ -265,7 +259,7 @@ void SFML::addExplosion(Registry &reg,  float x, float y)
  * @brief Adds a text entity to the game registry with specified properties.
  *
  * This function creates a text entity in the provided game registry and assigns
- * various components to it, such as Position, Velocity, BulletTag, Timer, TimerVisible,
+ * various components to it, such as Position, Velocity, BulletTag, Timer,
  * EnemyTag, BossTag, BossUltimateTag, ExplosionTag, and DrawableText. The text entity is
  * typically used to display textual information on the game screen, with associated properties.
  *
@@ -282,7 +276,6 @@ void SFML::addText(Registry &reg, float x, float y, int nbText)
     reg.add_component(text, Velocity{0, 0});
     reg.add_component(text, BulletTag{false});
     reg.add_component(text, Timer{0.0f});
-    reg.add_component(text, TimerVisible{0.0f, 0.0f});
     reg.add_component(text, EnemyTag{false});
     reg.add_component(text, BossTag{false});
     reg.add_component(text, BossUltimateTag{false, false});
