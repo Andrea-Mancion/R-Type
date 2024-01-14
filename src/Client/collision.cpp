@@ -162,6 +162,19 @@ void Window::checkCollision()
     }
 }
 
+/**
+ * @brief Checks if the mouse is clicked on a specified sprite.
+ *
+ * This function determines if the mouse cursor position, when clicked, intersects
+ * with the bounding box of the provided sprite. It is commonly used to detect mouse
+ * clicks on specific graphical elements, such as buttons or icons.
+ *
+ * @param window The game window where the mouse click is checked.
+ * @param sprite The sprite for which the mouse click is being checked.
+ *
+ * @return True if the mouse is clicked on the sprite, false otherwise.
+ */
+
 bool Window::isMouseClickedOnSprite(sf::RenderWindow &window, sf::Sprite &sprite)
 {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);

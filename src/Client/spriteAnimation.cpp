@@ -7,6 +7,22 @@
 
 #include "../../includes/Client/functions.hpp"
 
+/**
+ * @brief Changes the texture rectangle for animated sprites.
+ *
+ * This function iterates through the drawable entities in the game registry and updates
+ * the texture rectangle for animated sprites based on their type and the current boss timer.
+ *
+ * For bullets, it cycles through different frames of the bullet sprite.
+ * For explosions, it advances the animation frame, and entities with completed explosions are marked for deletion.
+ * For enemies and bosses, it adjusts the texture rectangle based on the boss timer and entity type.
+ *   - For regular enemies, it changes the frame based on the boss timer.
+ *   - For the boss, it changes frames differently depending on whether it's the ultimate boss.
+ *
+ * @param bossTimer The current boss timer value.
+ * @param reg The game registry containing entities and components.
+ */
+
 void SFML::changeRect(int &bossTimer, Registry &reg)
 {
     auto [drawable, bullet, enemy, boss, explosion, bossUltime] = getComponent<Drawable, BulletTag, EnemyTag, BossTag, ExplosionTag, BossUltimateTag>(reg);

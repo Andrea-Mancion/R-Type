@@ -39,6 +39,20 @@ void SFML::addAllyShip(Registry &ally, int allyMusicID)
     ally.add_component(entityAlly, Drawable{spriteShip});
 }
 
+/**
+ * @brief Adds a button entity to the game registry with specified properties.
+ *
+ * This function creates a button entity in the provided game registry and assigns
+ * various components to it, such as Position, Velocity, BulletTag, Timer, TimerVisible,
+ * EnemyTag, BossTag, BossUltimateTag, ExplosionTag, and Drawable. The entity is typically
+ * used to represent graphical buttons in the game, with associated properties and behavior.
+ *
+ * @param reg The game registry to which the button entity is added.
+ * @param x The X-coordinate of the button's initial position.
+ * @param y The Y-coordinate of the button's initial position.
+ * @param spriteButton The sprite associated with the button for rendering.
+ */
+
 void SFML::addButton(Registry &reg, float x, float y, sf::Sprite &spriteButton)
 {
     auto button = reg.spawn_entity();
@@ -118,6 +132,22 @@ void SFML::addBoss(Registry &enemy, std::mt19937 mt, std::uniform_int_distributi
     enemy.add_component(ennemyBoss, Drawable{spriteBoss});
 }
 
+/**
+ * @brief Adds a boss ultimate entity to the enemy registry with specified properties.
+ *
+ * This function creates a boss ultimate entity in the provided enemy registry and assigns
+ * various components to it, such as Position, Velocity, BulletTag, Timer, TimerVisible,
+ * EnemyTag, BossTag, BossUltimateTag, ExplosionTag, Song, and Drawable. The boss ultimate
+ * entity represents a powerful enemy with unique characteristics and behavior, including
+ * shooting bullets, visibility timers, and associated music.
+ *
+ * @param enemy The enemy registry to which the boss ultimate entity is added.
+ * @param mt The Mersenne Twister random number generator for randomization.
+ * @param dist The uniform integer distribution for randomization.
+ * @param bossMusicID The ID of the music associated with the boss ultimate entity.
+ * @param isVisible A boolean indicating the initial visibility state of the boss ultimate entity.
+ */
+
 void SFML::addBossUltimate(Registry &enemy,  std::mt19937 mt, std::uniform_int_distribution<int> dist, int bossMusicID, bool isVisible)
 {
     std::uniform_real_distribution<float> shootDis(0.0f, 3.0f);
@@ -170,6 +200,20 @@ void SFML::addBullet(Registry &reg, float x, float y, float bulletSpeed)
         reg.add_component(bulletEntity, Drawable{spriteBullet});
 }
 
+/**
+ * @brief Adds a bullet entity for a boss to the game registry with specified properties.
+ *
+ * This function creates a bullet entity in the provided game registry for a boss entity and
+ * assigns various components to it, such as Position, Velocity, BulletTag, EnemyTag, BossTag,
+ * BossUltimateTag, ExplosionTag, and Drawable. The bullet is typically used to represent the
+ * projectiles fired by the boss entity, with associated properties and behavior.
+ *
+ * @param reg The game registry to which the bullet entity is added.
+ * @param x The X-coordinate of the bullet's initial position.
+ * @param y The Y-coordinate of the bullet's initial position.
+ * @param bulletSpeed The speed at which the bullet moves.
+ */
+
 void SFML::addBulletBoss(Registry &reg, float x, float y, float bulletSpeed)
 {
     auto [enemy] = getComponent<EnemyTag>(reg);
@@ -216,6 +260,20 @@ void SFML::addExplosion(Registry &reg,  float x, float y)
     reg.add_component(explosion, ExplosionTag{true});
     reg.add_component(explosion, Drawable{spriteExplosion});
 }
+
+/**
+ * @brief Adds a text entity to the game registry with specified properties.
+ *
+ * This function creates a text entity in the provided game registry and assigns
+ * various components to it, such as Position, Velocity, BulletTag, Timer, TimerVisible,
+ * EnemyTag, BossTag, BossUltimateTag, ExplosionTag, and DrawableText. The text entity is
+ * typically used to display textual information on the game screen, with associated properties.
+ *
+ * @param reg The game registry to which the text entity is added.
+ * @param x The X-coordinate of the text's initial position.
+ * @param y The Y-coordinate of the text's initial position.
+ * @param nbText The index of the text in the `textEditor` array.
+ */
 
 void SFML::addText(Registry &reg, float x, float y, int nbText) 
 {

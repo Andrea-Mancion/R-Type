@@ -93,6 +93,17 @@ void registerComponentEnemy(Registry &enemy)
     enemy.register_component<Drawable>();
 }
 
+/**
+ * @brief Registers components related to text entities in the game registry.
+ *
+ * This function registers various components in the provided game registry `textEditor`
+ * that are associated with text entities. The registered components include Position, Velocity,
+ * BulletTag, Timer, TimerVisible, EnemyTag, BossTag, BossUltimateTag, ExplosionTag, and DrawableText.
+ * These components define the properties and behavior of text entities within the game.
+ *
+ * @param textEditor The game registry in which components are registered.
+ */
+
 void registerComponentText(Registry &textEditor)
 {
     textEditor.register_component<Position>();
@@ -106,6 +117,17 @@ void registerComponentText(Registry &textEditor)
     textEditor.register_component<ExplosionTag>();
     textEditor.register_component<DrawableText>();
 }
+
+/**
+ * @brief Registers components related to button entities in the game registry.
+ *
+ * This function registers various components in the provided game registry `buttons`
+ * that are associated with button entities. The registered components include Position, Velocity,
+ * BulletTag, Timer, TimerVisible, EnemyTag, BossTag, BossUltimateTag, ExplosionTag, and Drawable.
+ * These components define the properties and behavior of button entities within the game.
+ *
+ * @param buttons The game registry in which components are registered.
+ */
 
 void registerComponentButton(Registry &buttons)
 {

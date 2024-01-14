@@ -7,6 +7,22 @@
 
 #include "../../includes/Client/functions.hpp"
 
+/**
+ * @brief Checks and updates the game level based on the boss timer.
+ *
+ * This function checks the value of the boss timer (`bossTimer[1]`) and updates the game level
+ * accordingly. It changes the background and enemy sprite depending on the boss timer value.
+ * The function ensures that the level check is performed only once during the specified boss timer values.
+ *
+ * If the boss timer is equal to 1, the function sets the background to "SpacePlanet.png" and updates
+ * the enemy sprite to "r-typesheet9.gif".
+ *
+ * If the boss timer is equal to 2, the function sets the background to "BlackHole.png" and updates
+ * the enemy sprite to "r-typesheet23.gif".
+ *
+ * The function sets `canCheckLevel` to false after performing the level check to prevent repeated checks.
+ */
+
 void Window::checkLevel()
 {
     if (bossTimer[1] == 1 && canCheckLevel) {

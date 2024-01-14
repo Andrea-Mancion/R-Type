@@ -68,6 +68,16 @@ void Window::spawn_entity_foe()
     activeEnnemy = currentRound * numberPerWave;
 }
 
+/**
+ * @brief Spawns a specified number of foe entities based on the current round.
+ *
+ * This function generates and adds a specified number of foe entities to the game registry
+ * based on the product of the current round and the provided 'number'. It uses random positions
+ * within a specified range to determine the initial positions of the foe entities.
+ *
+ * @param number The factor that determines the number of foe entities to spawn.
+ */
+
 void Window::spawn_entity_foe(int number) 
 {
     for (int i = 0; i < currentRound * number; ++i) {
@@ -117,6 +127,17 @@ void Window::spawn_entity_boss()
     updateMusic();
     activeEnnemy = 1;
 }
+
+/**
+ * @brief Spawns the ultimate boss entity in the game.
+ *
+ * This function is responsible for spawning the ultimate boss entity, initializing its
+ * appearance and properties. It also ensures that the boss music starts playing and updates
+ * the status of active enemies.
+ *
+ * The ultimate boss entity is represented by the sprite "r-typesheet33.gif" and has specific
+ * dimensions and scaling.
+ */
 
 void Window::spawn_entity_boss_ultimate()
 {

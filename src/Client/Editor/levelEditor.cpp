@@ -7,6 +7,14 @@
 
 #include "../../../includes/Client/functions.hpp"
 
+/**
+ * @brief Loads and initializes graphical buttons for the game interface.
+ *
+ * This function loads button textures from files and sets up sprite properties
+ * for various buttons used in the game interface, such as minus, plus, confirm,
+ * and difficulty buttons. It also adds these buttons to the provided container.
+ */
+
 void Window::loadButtons()
 {
     if (!_sfml.getTextMinus().loadFromFile("includes/assets/minus.png") || !_sfml.getTextPlus().loadFromFile("includes/assets/plus.png") || !_sfml.getTextConfirm().loadFromFile("includes/assets/buttons.png") || !_sfml.getTextDifficulty(0).loadFromFile("includes/assets/normal.png") || !_sfml.getTextDifficulty(1).loadFromFile("includes/assets/Hard.png"))
@@ -52,6 +60,15 @@ void Window::loadButtons()
     _sfml.addButton(buttons, _sfml.getSpriteDifficulty(0).getPosition().x, _sfml.getSpriteDifficulty(0).getPosition().y, _sfml.getSpriteDifficulty(0));
     _sfml.addButton(buttons, _sfml.getSpriteDifficulty(1).getPosition().x, _sfml.getSpriteDifficulty(1).getPosition().y, _sfml.getSpriteDifficulty(1));
 }
+
+/**
+ * @brief Sets up the editor panel for game configuration.
+ *
+ * This function initializes the graphical elements for the editor panel,
+ * including background images, text elements, and buttons. It also populates
+ * text elements with information about wave and round numbers. The editor panel
+ * provides a visual interface for configuring game settings.
+ */
 
 void Window::panelEditor()
 {
